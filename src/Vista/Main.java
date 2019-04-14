@@ -59,6 +59,7 @@ public class Main extends javax.swing.JFrame {
 
         jMenuBar1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
 
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Shutdown_48px.png"))); // NOI18N
         jMenu1.setText("Sistema");
 
         jMenuItem1.setText("Abandonar");
@@ -66,8 +67,10 @@ public class Main extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Quadcopter_48px.png"))); // NOI18N
         jMenu2.setText("Compras");
 
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons8_Drone_16.png"))); // NOI18N
         jMenuItem2.setText("Nuevo pedido");
         jMenu2.add(jMenuItem2);
 
@@ -104,6 +107,7 @@ public class Main extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Checkout_48px.png"))); // NOI18N
         jMenu3.setText("Ventas");
 
         jMenuItem4.setText("Nueva venta");
@@ -124,12 +128,15 @@ public class Main extends javax.swing.JFrame {
 
         jMenu6.setText("Clientes");
 
+        jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons8_Add_User_Male_32.png"))); // NOI18N
         jMenuItem12.setText("Nuevo");
         jMenu6.add(jMenuItem12);
 
+        jMenuItem13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons8_Find_User_Female_32.png"))); // NOI18N
         jMenuItem13.setText("Buscar");
         jMenu6.add(jMenuItem13);
 
+        jMenuItem14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Edit Profile_48px.png"))); // NOI18N
         jMenuItem14.setText("Editar");
         jMenu6.add(jMenuItem14);
 
@@ -147,7 +154,7 @@ public class Main extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 378, Short.MAX_VALUE)
+            .addGap(0, 346, Short.MAX_VALUE)
         );
 
         pack();

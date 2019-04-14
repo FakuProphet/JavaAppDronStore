@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Vista;
+package Vistas;
 
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -72,6 +72,11 @@ public class Main extends javax.swing.JFrame {
 
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons8_Drone_16.png"))); // NOI18N
         jMenuItem2.setText("Nuevo pedido");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem2);
 
         jMenuItem3.setText("Estado Pedido");
@@ -167,6 +172,17 @@ public class Main extends javax.swing.JFrame {
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        PedidoProveedor nuevo = new PedidoProveedor();
+       
+            nuevo.setResizable(false);
+            nuevo.setLocationRelativeTo(null);
+            nuevo.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+           
+            nuevo.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments

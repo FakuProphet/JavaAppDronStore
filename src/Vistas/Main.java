@@ -177,7 +177,7 @@ public class Main extends javax.swing.JFrame {
         PedidoProveedor nuevo = new PedidoProveedor();
        
             nuevo.setResizable(false);
-            nuevo.setLocationRelativeTo(null);
+          //  nuevo.setLocationRelativeTo(null);
             nuevo.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             nuevo.setVisible(true);
         

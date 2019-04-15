@@ -5,15 +5,21 @@
  */
 package Vistas;
 
+import Controlador.Gestor;
+import Modelo.Localidad;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+
 /**
  *
  * @author Prophet
  */
 public class PedidoProveedor extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form PedidoProveedor
-     */
+   
+    
+   
     public PedidoProveedor() {
         initComponents();
         this.setTitle("Realizar pedido");
@@ -52,7 +58,18 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
     private void formComponentRemoved(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_formComponentRemoved
         
     }//GEN-LAST:event_formComponentRemoved
-
+    
+    private void cargarCombo(ArrayList lista, JComboBox combo)
+    {
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        
+        for (Object o : lista) 
+        {
+            modelo.addElement(o);
+        }
+        
+        combo.setModel(modelo);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

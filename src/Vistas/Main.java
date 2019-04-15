@@ -55,9 +55,7 @@ public class Main extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
-        jMenuItem12 = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
-        jMenuItem14 = new javax.swing.JMenuItem();
+        menuMantClientes = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -159,17 +157,14 @@ public class Main extends javax.swing.JFrame {
 
         jMenu6.setText("Clientes");
 
-        jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons8_Add_User_Male_32.png"))); // NOI18N
-        jMenuItem12.setText("Nuevo");
-        jMenu6.add(jMenuItem12);
-
-        jMenuItem13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons8_Find_User_Female_32.png"))); // NOI18N
-        jMenuItem13.setText("Buscar");
-        jMenu6.add(jMenuItem13);
-
-        jMenuItem14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Edit Profile_48px.png"))); // NOI18N
-        jMenuItem14.setText("Editar");
-        jMenu6.add(jMenuItem14);
+        menuMantClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Edit Profile_48px.png"))); // NOI18N
+        menuMantClientes.setText("Mantenimiento");
+        menuMantClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuMantClientesActionPerformed(evt);
+            }
+        });
+        jMenu6.add(menuMantClientes);
 
         jMenu3.add(jMenu6);
 
@@ -213,6 +208,13 @@ public class Main extends javax.swing.JFrame {
             p.setVisible(true);
            
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void menuMantClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMantClientesActionPerformed
+            
+            MantenimientoClientes n = new MantenimientoClientes();
+            jPanel1.add(n);
+            n.setVisible(true);
+    }//GEN-LAST:event_menuMantClientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -279,9 +281,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -291,5 +290,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenuItem menuMantClientes;
     // End of variables declaration//GEN-END:variables
 }

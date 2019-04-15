@@ -3,6 +3,8 @@ package Controlador;
 import Modelo.Cliente;
 import Modelo.Conexion;
 import Modelo.Localidad;
+import Modelo.Pais;
+import Modelo.Provincia;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -41,6 +43,71 @@ public class Gestor {
 
         } catch (Exception e) {
             System.out.println("Error al obtener datos de las localidades: " + e.toString());
+        }
+
+        return listado;
+
+    }
+
+    public ArrayList<Pais> getListadoPaises()  {
+
+        ArrayList<Pais> listado = new ArrayList<>();
+
+        try {
+            con = Conexion.conectar();
+            ResultSet rs;
+            Statement consulta;
+            String sql = "select * from paises";
+            consulta = con.createStatement();
+            rs = consulta.executeQuery(sql);
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String pais = rs.getString("pais");
+                Pais nuevo = new Pais(id, pais);
+                listado.add(nuevo);
+            }
+
+            con.close();
+            consulta.close();
+            rs.close();
+
+        } catch (Exception e) {
+            System.out.println("Error al obtener datos de los paises: " + e.toString());
+        }
+
+        return listado;
+
+    }
+
+    
+    
+    
+    public ArrayList<Provincia> getListadoProvincias()  {
+
+        ArrayList<Provincia> listado = new ArrayList<>();
+
+        try {
+            con = Conexion.conectar();
+            ResultSet rs;
+            Statement consulta;
+            String sql = "select * from provincias";
+            consulta = con.createStatement();
+            rs = consulta.executeQuery(sql);
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String provincia = rs.getString("provincia");
+                Provincia nuevo = new Provincia(id, provincia);
+                listado.add(nuevo);
+            }
+
+            con.close();
+            consulta.close();
+            rs.close();
+
+        } catch (Exception e) {
+            System.out.println("Error al obtener datos de las provincias: " + e.toString());
         }
 
         return listado;

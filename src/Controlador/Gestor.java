@@ -114,6 +114,48 @@ public class Gestor {
 
     }
 
+    public String setNuevoCliente(Cliente c) throws SQLException
+    {
+        Connection conectar = null;
+        String mensaje = "No se ha registrado";
+        try{
+                
+                conectar = Conexion.conectar();
+                conectar.setAutoCommit(false);
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call nuevoCliente(?,?,?,?,?,?,?,?,?,?,?)}");
+                // cargar parametros
+                prcProcedimientoAlmacenado.setInt(1,c.getClienteDni());
+                prcProcedimientoAlmacenado.setString(2,c.getNombre());
+                prcProcedimientoAlmacenado.setString(3,c.getApellido());
+                prcProcedimientoAlmacenado.setInt(4,c.getId_lugar_trabajo());
+                prcProcedimientoAlmacenado.setString(5,c.getDireccion());
+                prcProcedimientoAlmacenado.setString(6,c.getTelefono());
+                prcProcedimientoAlmacenado.setString(7,c.getCuit());
+                prcProcedimientoAlmacenado.setString(8,c.getEmail());
+                prcProcedimientoAlmacenado.setInt(9,c.getId_localidad());
+                prcProcedimientoAlmacenado.setInt(10,c.getId_provincia());
+                prcProcedimientoAlmacenado.setInt(11,c.getId_pais());
+                // se ejecuta el procedimiento
+                prcProcedimientoAlmacenado.execute();
+                
+                conectar.commit();
+                mensaje ="Insertado con exito";
+             
+                
+        } catch (Exception e) {
+        
+                conectar.rollback();
+        
+                e.printStackTrace();
+        } finally {
+                // cerrar la Conexion
+                conectar.close();
+        }
+        
+        return mensaje;
+    }
+    
+    
   
 
     public Cliente obtenerCliente(int dni) throws SQLException {

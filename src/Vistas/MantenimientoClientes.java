@@ -72,10 +72,10 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
         txtTelefono = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
         btnGrabar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        btnActualizarCliente = new javax.swing.JButton();
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons8_Find_User_Female_32.png"))); // NOI18N
         btnBuscar.setText("Buscar");
@@ -255,14 +255,6 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
             }
         });
 
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Edit Profile_48px.png"))); // NOI18N
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
-
         btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons8_Add_User_Male_32.png"))); // NOI18N
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -288,21 +280,30 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
             }
         });
 
+        btnActualizarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons8_Add_User_Male_32.png"))); // NOI18N
+        btnActualizarCliente.setText("Actualizar");
+        btnActualizarCliente.setEnabled(false);
+        btnActualizarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarClienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
                     .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnGrabar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnActualizarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
@@ -310,19 +311,19 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(68, 68, 68)
                 .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(btnActualizarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(94, 94, 94)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(52, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
         );
@@ -371,11 +372,23 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
     private void editarCliente(boolean x)
     {
         //x! esto significa que negamos lo q venga por parametro
-        btnEditar.setEnabled(x);
+       
         btnCancelar.setEnabled(x);
+        btnActualizarCliente.setEnabled(x);
         btnNuevo.setEnabled(!x);
         btnBuscar.setEnabled(!x);
         btnSalir.setEnabled(!x);
+        txtNombre.setEnabled(x);
+        txtApellido.setEnabled(x);
+        txtDireccion.setEnabled(x);
+        txtDni.setEnabled(x);
+        txtCuit.setEnabled(x);
+        cboLocalidades.setEnabled(x);
+        cboPaises.setEnabled(x);
+        txtTelefono.setEnabled(x);
+        cboProvincias.setEnabled(x);
+        txtEmail.setEnabled(x);
+        cboEmpresas.setEnabled(x);
     }
     
     
@@ -394,7 +407,7 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
         cboEmpresas.setEnabled(x);
         btnGrabar.setEnabled(x);
         btnBuscar.setEnabled(!x);
-        btnEditar.setEnabled(!x);
+       
         btnCancelar.setEnabled(x);
         btnNuevo.setEnabled(!x);
         btnSalir.setEnabled(!x);
@@ -407,10 +420,6 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
 
        inicio(false);   
     }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-       
-    }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         nuevoCliente(true);
@@ -469,6 +478,45 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_txtDniKeyTyped
 
+    private void btnActualizarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarClienteActionPerformed
+        
+        //se realiza la acción de actualizar
+        
+        try
+        {
+            Cliente nuevo = new Cliente();
+            Localidad l = (Localidad) cboLocalidades.getSelectedItem();
+            Pais p = (Pais) cboPaises.getSelectedItem();
+            Provincia prov = (Provincia) cboProvincias.getSelectedItem();
+            Empresa e = (Empresa) cboEmpresas.getSelectedItem();
+            nuevo.setClienteDni(Integer.valueOf(txtDni.getText()));
+            nuevo.setNombre(txtNombre.getText());
+            nuevo.setApellido(txtApellido.getText());
+            nuevo.setCuit(txtCuit.getText());
+            nuevo.setEmail(txtEmail.getText());
+            nuevo.setTelefono(txtTelefono.getText());
+            nuevo.setDireccion(txtDireccion.getText());
+            nuevo.setId_pais(p.getId());
+            nuevo.setId_provincia(prov.getId());
+            nuevo.setId_lugar_trabajo(e.getId_empresa());
+            nuevo.setId_localidad(l.getId());
+            
+            if (JOptionPane.showConfirmDialog(rootPane, "Actualizar datos del cliente, ¿desea continuar?",
+            "Actualizar registro", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+            {
+                //no confundir llamar a método "actualizarCliente"
+                String mensaje = gestor.actualizarCliente(nuevo);
+                JOptionPane.showMessageDialog(this, mensaje,"Aviso",JOptionPane.INFORMATION_MESSAGE);
+                inicio(false);
+            }
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(this, "Error: "+e.toString(),"Aviso",JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btnActualizarClienteActionPerformed
+
     private void limpiarCampos()
     {
         txtNombre.setText("");
@@ -491,7 +539,6 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
     
     private void inicio(boolean x)
     {
-        
         limpiarCampos();
         txtNombre.setEnabled(x);
         txtApellido.setEnabled(x);
@@ -506,10 +553,10 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
         cboProvincias.setEnabled(x);
         btnGrabar.setEnabled(x);
         btnBuscar.setEnabled(!x);
-        btnEditar.setEnabled(x);
         btnNuevo.setEnabled(!x);
         btnCancelar.setEnabled(x);
-        btnSalir.setEnabled(!x);
+        btnSalir.setEnabled(true);
+        btnActualizarCliente.setEnabled(x);
     }
     
     
@@ -528,9 +575,9 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizarCliente;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnGrabar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;

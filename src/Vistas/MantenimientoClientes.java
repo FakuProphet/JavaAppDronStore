@@ -94,10 +94,25 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
         jLabel3.setText("Apellido");
 
         txtApellido.setEnabled(false);
+        txtApellido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtApellidoActionPerformed(evt);
+            }
+        });
 
         txtCuit.setEnabled(false);
+        txtCuit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCuitActionPerformed(evt);
+            }
+        });
 
         txtDireccion.setEnabled(false);
+        txtDireccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDireccionActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Cuit/Cuil");
 
@@ -120,6 +135,11 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
 
         txtDni.setEnabled(false);
         txtDni.setMaximumSize(new java.awt.Dimension(8, 8));
+        txtDni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDniActionPerformed(evt);
+            }
+        });
         txtDni.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtDniKeyTyped(evt);
@@ -127,6 +147,11 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
         });
 
         txtNombre.setEnabled(false);
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
 
         cboEmpresas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboEmpresas.setEnabled(false);
@@ -134,10 +159,20 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
         jLabel10.setText("Lugar de trabajo");
 
         txtEmail.setEnabled(false);
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailActionPerformed(evt);
+            }
+        });
 
         jLabel11.setText("Email");
 
         txtTelefono.setEnabled(false);
+        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelefonoActionPerformed(evt);
+            }
+        });
 
         jLabel12.setText("Tel/Cel");
 
@@ -516,6 +551,43 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_btnActualizarClienteActionPerformed
+
+    private void txtDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDniActionPerformed
+        
+        //al oprimir la tecla enter dentro de txtDni
+        //el foco lo toma la tecla txtNombre
+        txtNombre.grabFocus();
+    }//GEN-LAST:event_txtDniActionPerformed
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        
+        txtApellido.grabFocus();
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
+
+        txtCuit.grabFocus();
+    }//GEN-LAST:event_txtApellidoActionPerformed
+
+    private void txtCuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCuitActionPerformed
+        
+        txtDireccion.grabFocus();
+    }//GEN-LAST:event_txtCuitActionPerformed
+
+    private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
+        
+        txtEmail.grabFocus();
+    }//GEN-LAST:event_txtDireccionActionPerformed
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        
+        txtTelefono.grabFocus();
+    }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
+        
+        cboEmpresas.grabFocus();
+    }//GEN-LAST:event_txtTelefonoActionPerformed
 
     private void limpiarCampos()
     {

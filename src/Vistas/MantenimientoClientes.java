@@ -75,8 +75,7 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
         btnEditar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
         btnGrabar = new javax.swing.JButton();
-
-        setClosable(true);
+        btnSalir = new javax.swing.JButton();
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons8_Find_User_Female_32.png"))); // NOI18N
         btnBuscar.setText("Buscar");
@@ -275,6 +274,14 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
             }
         });
 
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Shutdown_48px.png"))); // NOI18N
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -288,7 +295,8 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
                     .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnGrabar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnGrabar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
@@ -304,6 +312,8 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -359,6 +369,7 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
         btnCancelar.setEnabled(x);
         btnNuevo.setEnabled(!x);
         btnBuscar.setEnabled(!x);
+        btnSalir.setEnabled(!x);
     }
     
     
@@ -380,6 +391,7 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
         btnEditar.setEnabled(!x);
         btnCancelar.setEnabled(x);
         btnNuevo.setEnabled(!x);
+        btnSalir.setEnabled(!x);
         cboLocalidades.setSelectedIndex(58);//capital
         limpiarCampos();
         txtDni.requestFocus();
@@ -419,14 +431,24 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
             nuevo.setId_provincia(prov.getId());
             nuevo.setId_lugar_trabajo(e.getId_empresa());
             nuevo.setId_localidad(l.getId());
-            gestor.setNuevoCliente(nuevo);
+            String mensaje = gestor.setNuevoCliente(nuevo);
+            JOptionPane.showMessageDialog(this, mensaje,"Aviso",JOptionPane.INFORMATION_MESSAGE);
+            inicio(false);
         }
         catch(Exception e)
         {
-            
+             JOptionPane.showMessageDialog(this, e.toString(),"Error",JOptionPane.INFORMATION_MESSAGE);
         }
         
     }//GEN-LAST:event_btnGrabarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        if (JOptionPane.showConfirmDialog(rootPane, "Abandonar la ADM, ¿desea continuar?",
+        "Abandonar Mantenimiento", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+        {
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     private void limpiarCampos()
     {
@@ -467,6 +489,7 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
         btnEditar.setEnabled(x);
         btnNuevo.setEnabled(!x);
         btnCancelar.setEnabled(x);
+        btnSalir.setEnabled(!x);
     }
     
     
@@ -490,6 +513,7 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnGrabar;
     private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cboEmpresas;
     private javax.swing.JComboBox<String> cboLocalidades;
     private javax.swing.JComboBox<String> cboPaises;

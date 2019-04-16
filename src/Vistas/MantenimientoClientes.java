@@ -119,6 +119,12 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
         jLabel6.setText("Dirección");
 
         txtDni.setEnabled(false);
+        txtDni.setMaximumSize(new java.awt.Dimension(8, 8));
+        txtDni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDniKeyTyped(evt);
+            }
+        });
 
         txtNombre.setEnabled(false);
 
@@ -143,7 +149,7 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -163,7 +169,7 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtDni, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -450,6 +456,19 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    private void txtDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniKeyTyped
+        
+        /*cuando se tipea un tecla se verifica el evento
+        si es una tecla no numerica se emite sonido
+        de los contrario se consume el evento*/
+        char c=evt.getKeyChar();
+	if(Character.isLetter(c)) {
+		getToolkit().beep();
+		evt.consume();
+        }
+        
+    }//GEN-LAST:event_txtDniKeyTyped
+
     private void limpiarCampos()
     {
         txtNombre.setText("");
@@ -472,6 +491,7 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
     
     private void inicio(boolean x)
     {
+        
         limpiarCampos();
         txtNombre.setEnabled(x);
         txtApellido.setEnabled(x);

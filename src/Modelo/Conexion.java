@@ -13,23 +13,22 @@ import java.sql.Connection;
  */
 public class Conexion {
     
-    public static Connection sql;
-       
-        public static String user="facuCba";
-        public static String pas="1234";
+        public static Connection c;
+        public static String usuario="facuCba";
+        public static String pass="1234";
        
                 
         public static Connection conectar() throws Exception {
                 try {
                         String databaseURL ="jdbc:sqlserver://localhost;databaseName=Drone_Store";
                         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                        sql = java.sql.DriverManager.getConnection(databaseURL, user, pas);
+                        c = java.sql.DriverManager.getConnection(databaseURL, usuario, pass);
                         //System.out.println("Conexion Establecida..");
                 } catch (Exception e) {
                         e.printStackTrace();
                         throw new Exception(e);
                 }
-                return sql;
+                return c;
         }
     
 }

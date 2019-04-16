@@ -2,6 +2,7 @@ package Controlador;
 
 import Modelo.Cliente;
 import Modelo.Conexion;
+import Modelo.Empresa;
 import Modelo.Localidad;
 import Modelo.Pais;
 import Modelo.Provincia;
@@ -49,6 +50,38 @@ public class Gestor {
 
     }
 
+    public ArrayList<Empresa> getListadoEmpresas()  {
+
+        ArrayList<Empresa> listado = new ArrayList<>();
+
+        try {
+            con = Conexion.conectar();
+            ResultSet rs;
+            Statement consulta;
+            String sql = "select * from empresas";
+            consulta = con.createStatement();
+            rs = consulta.executeQuery(sql);
+
+            while (rs.next()) {
+                int id = rs.getInt("id_empresa");
+                String nombre = rs.getString("empresa");
+                Empresa nuevo = new Empresa(id, nombre);
+                listado.add(nuevo);
+            }
+
+            con.close();
+            consulta.close();
+            rs.close();
+
+        } catch (Exception e) {
+            System.out.println("Error al obtener datos de las empresas: " + e.toString());
+        }
+
+        return listado;
+
+    }
+    
+    
     public ArrayList<Pais> getListadoPaises()  {
 
         ArrayList<Pais> listado = new ArrayList<>();
@@ -145,7 +178,6 @@ public class Gestor {
         } catch (Exception e) {
         
                 conectar.rollback();
-        
                 e.printStackTrace();
         } finally {
                 // cerrar la Conexion

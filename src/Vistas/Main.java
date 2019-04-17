@@ -141,6 +141,11 @@ public class Main extends javax.swing.JFrame {
         jMenu7.setText("Productos");
 
         jMenuItem10.setText("Listado Productos ");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
         jMenu7.add(jMenuItem10);
 
         jMenuItem11.setText("Buscar Producto");
@@ -240,6 +245,15 @@ public class Main extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_formWindowClosing
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        //abrir frame para consultar listado de productos.
+        
+        ListadoProductosFiltros nuevo = new ListadoProductosFiltros();
+        jPanel1.add(nuevo);
+        nuevo.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     /**
      * @param args the command line arguments

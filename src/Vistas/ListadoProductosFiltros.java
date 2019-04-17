@@ -36,9 +36,9 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
 
         setClosable(true);
         setTitle("Filtrado de Listado de productos");
@@ -60,11 +60,17 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 51, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(41, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -72,20 +78,16 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 691, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(242, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         pack();
@@ -100,12 +102,22 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
         
         DefaultTableModel modelo = new DefaultTableModel();
         listado = gestor.getDetalleProductos();
-        modelo.setColumnIdentifiers(new String[]{"Descripcion", "Origen", "Marca"});
+        modelo.setColumnIdentifiers(new String[]{"Descripcion", "Origen", "Marca","Tipo",
+                                    "En Stock","Reposición","Precio de venta","Proveedor",
+                                    "Costo ","Forma de pago","Plazo de entrega"});
         for (ProductoDTO p : listado) {
             Vector v = new Vector();
             v.add(p.getDescripcion());
             v.add(p.getOrigen());
             v.add(p.getMarca());
+            v.add(p.getTipo());
+            v.add(p.getStock());
+            v.add(p.getAlerta());
+            v.add(p.getPrecioUnitario());
+            v.add(p.getProveedor());
+            v.add(p.getCostoReposicion());
+            v.add(p.getFormaPago());
+            v.add(p.getPlazoEntrega());
             modelo.addRow(v);
         }
         
@@ -114,23 +126,24 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
         //color de los bordes de las celdas
         jTable1.setGridColor(new java.awt.Color(214, 213, 208)); 
         //tamaño de columnas
-        jTable1.getColumnModel().getColumn(0).setPreferredWidth(67);
-        jTable1.getColumnModel().getColumn(1).setPreferredWidth(224);
-        jTable1.getColumnModel().getColumn(2).setPreferredWidth(55);
-        jTable1.getColumnModel().getColumn(3).setPreferredWidth(70);
-        jTable1.getColumnModel().getColumn(3).setMaxWidth(70);
-        jTable1.getColumnModel().getColumn(4).setPreferredWidth(66);
-        jTable1.getColumnModel().getColumn(5).setPreferredWidth(90);
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(430);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(180);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(150);
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(150);
+        jTable1.getColumnModel().getColumn(5).setPreferredWidth(200);
+        jTable1.getColumnModel().getColumn(6).setPreferredWidth(200);
+        jTable1.getColumnModel().getColumn(7).setPreferredWidth(200);
+        jTable1.getColumnModel().getColumn(8).setPreferredWidth(200);
+        jTable1.getColumnModel().getColumn(9).setPreferredWidth(200);
+        jTable1.getColumnModel().getColumn(10).setPreferredWidth(200);
+        
         //altura de filas
         jTable1.setRowHeight(24);
         //se asigna el nuevo CellRenderer a cada columna segun su contenido
-        //jTable1.getColumnModel().getColumn( 0 ).setCellRenderer( new CellRenderer("hour") );
-        //jTable1.getColumnModel().getColumn( 1 ).setCellRenderer( new CellRenderer("text") );
-        //jTable1.getColumnModel().getColumn( 2 ).setCellRenderer( new CellRenderer("num") );
-        //jTable1.getColumnModel().getColumn( 3 ).setCellRenderer( new CellRenderer("icon") );
-        //jTable1.getColumnModel().getColumn( 4 ).setCellRenderer( new CellRenderer("num") );
-        //jTable1.getColumnModel().getColumn( 5 ).setCellRenderer( new CellRenderer("text center") );
-        //jTable1.getColumnModel().getColumn( 6 ).setCellRenderer( new CellRenderer("text center") );    
+        jTable1.getColumnModel().getColumn(4).setCellRenderer( new CellRenderer("num") );
+        jTable1.getColumnModel().getColumn(5).setCellRenderer( new CellRenderer("minimo") );
+        jTable1.getColumnModel().getColumn(10).setCellRenderer( new CellRenderer("num") );
         //Se asigna nuevo header a la tabla
         JTableHeader jtableHeader = jTable1.getTableHeader();
         jtableHeader.setDefaultRenderer(new HeaderCellRenderer());

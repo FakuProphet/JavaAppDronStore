@@ -16,8 +16,8 @@ public class CellRenderer extends DefaultTableCellRenderer {
     private Font normal = new Font( "Arial",Font.PLAIN ,12 );
     private Font bold = new Font( "Arial",Font.BOLD ,12 );
     private JLabel label = new JLabel();
-  //  private ImageIcon salida = new ImageIcon(getClass().getResource("/com/bolivia/app/images/salida.jpg"));
-  //  private ImageIcon entrada = new ImageIcon(getClass().getResource("/com/bolivia/app/images/entrada.jpg"));
+  //  private ImageIcon salida = new ImageIcon(getClass().getResource("/direccion"));
+  //  private ImageIcon entrada = new ImageIcon(getClass().getResource("/direccion"));
     
     
     
@@ -68,11 +68,19 @@ public class CellRenderer extends DefaultTableCellRenderer {
         if( tipo.equals("num"))
         {           
             this.setHorizontalAlignment( JLabel.CENTER );
-            this.setText( (String) value );            
+            this.setText( value.toString() );            
             this.setForeground( (selected)?new Color(255,255,255):new Color(32,117,32) );            
             this.setFont(bold);            
             return this;   
-        }        
+        }
+        if( tipo.equals("minimo"))
+        {           
+            this.setHorizontalAlignment( JLabel.CENTER );
+            this.setText( value.toString() );            
+            this.setForeground( (selected)?new Color(255,255,255):new Color(255,0,0) );            
+            this.setFont(bold);            
+            return this;   
+        }                
         /*
         if( tipo.equals("icon"))
         {

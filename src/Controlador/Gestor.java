@@ -72,6 +72,15 @@ public class Gestor {
                         p.setDescripcion(rs.getString(1));
                         p.setOrigen(rs.getString(2));
                         p.setMarca(rs.getString(3));
+                        p.setTipo(rs.getString(4));
+                        p.setStock(rs.getInt(5));
+                        p.setAlerta(rs.getInt(6));
+                        p.setPrecioUnitario(rs.getFloat(7));
+                        p.setProveedor(rs.getString(8));
+                        p.setCostoReposicion(rs.getFloat(9));
+                        p.setFormaPago(rs.getString(10));
+                        p.setPlazoEntrega(rs.getInt(11));
+                        
                         listado.add(p);
                 }
                 

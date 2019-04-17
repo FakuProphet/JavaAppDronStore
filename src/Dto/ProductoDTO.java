@@ -21,7 +21,7 @@ public class ProductoDTO {
     private String proveedor;
     private float costoReposicion;
     private String formaPago;
-    private float plazoEntrega;
+    private int plazoEntrega;
 
     
     
@@ -31,7 +31,7 @@ public class ProductoDTO {
     
     
     
-    public ProductoDTO(String descripcion, String origen, String marca, String tipo, int stock, int alerta, float precioUnitario, String proveedor, float costoReposicion, String formaPago, float plazoEntrega) {
+    public ProductoDTO(String descripcion, String origen, String marca, String tipo, int stock, int alerta, float precioUnitario, String proveedor, float costoReposicion, String formaPago, int plazoEntrega) {
         this.descripcion = descripcion;
         this.origen = origen;
         this.marca = marca;
@@ -130,11 +130,11 @@ public class ProductoDTO {
         this.formaPago = formaPago;
     }
 
-    public float getPlazoEntrega() {
+    public int getPlazoEntrega() {
         return plazoEntrega;
     }
 
-    public void setPlazoEntrega(float plazoEntrega) {
+    public void setPlazoEntrega(int plazoEntrega) {
         this.plazoEntrega = plazoEntrega;
     }
     

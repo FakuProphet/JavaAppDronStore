@@ -62,7 +62,7 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1314, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -80,7 +80,7 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,7 +103,7 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
         DefaultTableModel modelo = new DefaultTableModel();
         listado = gestor.getDetalleProductos();
         modelo.setColumnIdentifiers(new String[]{"Descripcion", "Origen", "Marca","Tipo",
-                                    "En Stock","Reposición","Precio de venta","Proveedor",
+                                    "En Stock","Mínimo","Precio de venta","Proveedor",
                                     "Costo ","Forma de pago","Plazo de entrega"});
         for (ProductoDTO p : listado) {
             Vector v = new Vector();
@@ -126,7 +126,7 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
         //color de los bordes de las celdas
         jTable1.setGridColor(new java.awt.Color(214, 213, 208)); 
         //tamaño de columnas
-        jTable1.getColumnModel().getColumn(0).setPreferredWidth(430);
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(460);
         jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
         jTable1.getColumnModel().getColumn(2).setPreferredWidth(180);
         jTable1.getColumnModel().getColumn(3).setPreferredWidth(150);

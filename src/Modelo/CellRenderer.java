@@ -73,11 +73,13 @@ public class CellRenderer extends DefaultTableCellRenderer {
             this.setFont(bold);            
             return this;   
         }
+        
+        //mostrar en rojo los valores renderizados
         if( tipo.equals("minimo"))
         {           
             this.setHorizontalAlignment( JLabel.CENTER );
             this.setText( value.toString() );            
-            this.setForeground( (selected)?new Color(255,255,255):new Color(255,0,0) );            
+            this.setForeground((selected)?new Color(255,255,255):new Color(255,0,0));            
             this.setFont(bold);            
             return this;   
         }                

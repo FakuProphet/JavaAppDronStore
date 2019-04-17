@@ -22,7 +22,7 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
    
     public ListadoProductosFiltros() {
         initComponents();
-        estiloJTable();
+       // estiloJTable();
     }
 
     @SuppressWarnings("unchecked")
@@ -112,13 +112,13 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
         //altura de filas
         jTable1.setRowHeight(24);
         //se asigna el nuevo CellRenderer a cada columna segun su contenido
-        jTable1.getColumnModel().getColumn( 0 ).setCellRenderer( new CellRenderer("hour") );
-        jTable1.getColumnModel().getColumn( 1 ).setCellRenderer( new CellRenderer("text") );
-        jTable1.getColumnModel().getColumn( 2 ).setCellRenderer( new CellRenderer("num") );
+        //jTable1.getColumnModel().getColumn( 0 ).setCellRenderer( new CellRenderer("hour") );
+        //jTable1.getColumnModel().getColumn( 1 ).setCellRenderer( new CellRenderer("text") );
+        //jTable1.getColumnModel().getColumn( 2 ).setCellRenderer( new CellRenderer("num") );
         //jTable1.getColumnModel().getColumn( 3 ).setCellRenderer( new CellRenderer("icon") );
-        jTable1.getColumnModel().getColumn( 4 ).setCellRenderer( new CellRenderer("num") );
-        jTable1.getColumnModel().getColumn( 5 ).setCellRenderer( new CellRenderer("text center") );
-        jTable1.getColumnModel().getColumn( 6 ).setCellRenderer( new CellRenderer("text center") );    
+        //jTable1.getColumnModel().getColumn( 4 ).setCellRenderer( new CellRenderer("num") );
+        //jTable1.getColumnModel().getColumn( 5 ).setCellRenderer( new CellRenderer("text center") );
+        //jTable1.getColumnModel().getColumn( 6 ).setCellRenderer( new CellRenderer("text center") );    
         //Se asigna nuevo header a la tabla
         JTableHeader jtableHeader = jTable1.getTableHeader();
         jtableHeader.setDefaultRenderer(new HeaderCellRenderer());

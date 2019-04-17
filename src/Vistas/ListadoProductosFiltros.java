@@ -5,8 +5,11 @@
  */
 package Vistas;
 
+import Dto.ProductoDTO;
 import Modelo.CellRenderer;
 import Modelo.HeaderCellRenderer;
+import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
@@ -83,14 +86,19 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
 
 
     
-    private void estiloJTable(){
+    private void cargarTabla(ArrayList<ProductoDTO> lista){
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.setColumnIdentifiers(new String[]{"Descripcion", "Origen", "Marca"});
+        for (ProductoDTO p : lista) {
+            Vector v = new Vector();
+            v.add(p.getDescripcion());
+            v.add(p.getOrigen());
+            v.add(p.getMarca());
+            modelo.addRow(v);
+        }
         
-        Object[][] data = { {"02:27 pm","xxx","222","xx","2","xxxx","xxxx"},};
-        
-         //nombre de columnas
-        String[] columNames = {"Hora" ,"Descripción del Producto","Habia","Tipo","Cantidad","Cajero","Departamento"}; 
-        DefaultTableModel datos = new DefaultTableModel(data,columNames);
-        jTable1.setModel(datos);        
+     
+        jTable1.setModel(modelo);        
         //color de los bordes de las celdas
         jTable1.setGridColor(new java.awt.Color(214, 213, 208)); 
         //tamaño de columnas

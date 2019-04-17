@@ -5,6 +5,9 @@
  */
 package Vistas;
 
+
+
+import Controlador.Gestor;
 import Dto.ProductoDTO;
 import Modelo.CellRenderer;
 import Modelo.HeaderCellRenderer;
@@ -20,9 +23,13 @@ import javax.swing.table.JTableHeader;
 public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
 
    
+    private ArrayList<ProductoDTO>listado;
+    private Gestor gestor;
     public ListadoProductosFiltros() {
         initComponents();
-       // estiloJTable();
+        gestor = new Gestor();
+        cargarTabla();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -86,10 +93,15 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
 
 
     
-    private void cargarTabla(ArrayList<ProductoDTO> lista){
+    private void cargarTabla(){
+        
+        try
+        {
+        
         DefaultTableModel modelo = new DefaultTableModel();
+        listado = gestor.getDetalleProductos();
         modelo.setColumnIdentifiers(new String[]{"Descripcion", "Origen", "Marca"});
-        for (ProductoDTO p : lista) {
+        for (ProductoDTO p : listado) {
             Vector v = new Vector();
             v.add(p.getDescripcion());
             v.add(p.getOrigen());
@@ -123,6 +135,12 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
         JTableHeader jtableHeader = jTable1.getTableHeader();
         jtableHeader.setDefaultRenderer(new HeaderCellRenderer());
         jTable1.setTableHeader(  jtableHeader );
+        }
+        
+        catch(Exception e)
+        {
+            
+        }
     }
     
     

@@ -1,5 +1,6 @@
 package Controlador;
 
+import Dto.ProductoDTO;
 import Modelo.Cliente;
 import Modelo.Conexion;
 import Modelo.Empresa;
@@ -50,6 +51,49 @@ public class Gestor {
 
     }
 
+    
+    public ArrayList<ProductoDTO> getDetalleProductos() throws SQLException  {
+
+        ArrayList<ProductoDTO> listado = new ArrayList<>();
+        Connection conectar = null;
+       
+        
+        
+        try{
+                
+                conectar = Conexion.conectar();    
+                conectar.setAutoCommit(false);
+         
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call InfoProductos()}");
+                ResultSet rs = prcProcedimientoAlmacenado.executeQuery();
+                while(rs.next())
+                {
+                        ProductoDTO p = new ProductoDTO();
+                        p.setDescripcion(rs.getString(1));
+                        p.setOrigen(rs.getString(2));
+                        p.setMarca(rs.getString(3));
+                        listado.add(p);
+                }
+                
+        
+                conectar.commit();
+               
+                
+        } catch (Exception e) {
+                conectar.rollback();
+                
+        } finally {
+                // cerrar la Conexion
+                conectar.close();
+        }
+        
+        
+
+        return listado;
+
+    }
+    
+    
     public ArrayList<Empresa> getListadoEmpresas()  {
 
         ArrayList<Empresa> listado = new ArrayList<>();

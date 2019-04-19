@@ -6,16 +6,11 @@ import Modelo.CellRenderer;
 import Modelo.HeaderCellRenderer;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 /**
@@ -26,18 +21,28 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
 
     private TableRowSorter trsfiltro;
     String filtro;
+    String filtro2;
     private ArrayList<ProductoDTO> listado;
-    private Gestor gestor;
+    private final Gestor gestor;
 
     public ListadoProductosFiltros() {
         initComponents();
         txtFiltroProducto.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(final KeyEvent e) {
-                String cadena = (txtFiltroProducto.getText()).toUpperCase();
+                String cadena = (txtFiltroProducto.getText().toUpperCase());
                 txtFiltroProducto.setText(cadena);
                 repaint();
                 filtro();
+            }
+        });
+        txtPrecioFiltro.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(final KeyEvent e) {
+                String cadena = (txtPrecioFiltro.getText());
+                txtPrecioFiltro.setText(cadena);
+                repaint();
+                filtro2();
             }
         });
         gestor = new Gestor();
@@ -52,11 +57,9 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        btnFiltrarPorMarca = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtFiltroProducto = new javax.swing.JTextField();
-        btnBuscarPorMarca = new javax.swing.JButton();
+        txtPrecioFiltro = new javax.swing.JTextField();
 
         setClosable(true);
         setTitle("Filtrado de Listado de productos");
@@ -74,11 +77,7 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel1.setText("Filtrar por marca:");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        btnFiltrarPorMarca.setText("jButton1");
+        jLabel1.setText("Filtrar por precio:");
 
         jLabel2.setText("Buscar producto:");
 
@@ -91,10 +90,9 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
             }
         });
 
-        btnBuscarPorMarca.setText("jButton1");
-        btnBuscarPorMarca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarPorMarcaActionPerformed(evt);
+        txtPrecioFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrecioFiltroKeyTyped(evt);
             }
         });
 
@@ -103,39 +101,35 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnFiltrarPorMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtFiltroProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
                         .addGap(18, 18, 18)
-                        .addComponent(btnBuscarPorMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtFiltroProducto)
+                            .addComponent(txtPrecioFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1314, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(97, Short.MAX_VALUE))
+                        .addGap(1, 1, 1)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1305, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(205, 205, 205)
+                .addContainerGap(26, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFiltrarPorMarca)
+                    .addComponent(txtPrecioFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtFiltroProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscarPorMarca))
-                .addContainerGap(38, Short.MAX_VALUE))
+                    .addComponent(txtFiltroProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -146,15 +140,15 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_txtFiltroProductoKeyPressed
 
-    private void btnBuscarPorMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPorMarcaActionPerformed
-
-
-    }//GEN-LAST:event_btnBuscarPorMarcaActionPerformed
-
     private void txtFiltroProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroProductoKeyTyped
         trsfiltro = new TableRowSorter(jTable1.getModel());
         jTable1.setRowSorter(trsfiltro);
     }//GEN-LAST:event_txtFiltroProductoKeyTyped
+
+    private void txtPrecioFiltroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioFiltroKeyTyped
+        trsfiltro = new TableRowSorter(jTable1.getModel());
+        jTable1.setRowSorter(trsfiltro);
+    }//GEN-LAST:event_txtPrecioFiltroKeyTyped
 
     public void filtro() {
         filtro = txtFiltroProducto.getText();
@@ -166,6 +160,14 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
         **************************************************************************
         */
     }
+    
+    public void filtro2() {
+        
+        filtro2 = txtPrecioFiltro.getText();
+        trsfiltro.setRowFilter(RowFilter.regexFilter(txtPrecioFiltro.getText(), 6));
+       
+    }
+    
 
     private void cargarTabla() {
 
@@ -211,6 +213,7 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
             //altura de filas
             jTable1.setRowHeight(24);
             //se asigna el nuevo CellRenderer a cada columna segun su contenido
+            jTable1.getColumnModel().getColumn(0).setCellRenderer(new CellRenderer("text center"));
             jTable1.getColumnModel().getColumn(4).setCellRenderer(new CellRenderer("num"));
             jTable1.getColumnModel().getColumn(5).setCellRenderer(new CellRenderer("minimo"));
             jTable1.getColumnModel().getColumn(10).setCellRenderer(new CellRenderer("num"));
@@ -225,13 +228,11 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscarPorMarca;
-    private javax.swing.JButton btnFiltrarPorMarca;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtFiltroProducto;
+    private javax.swing.JTextField txtPrecioFiltro;
     // End of variables declaration//GEN-END:variables
 }

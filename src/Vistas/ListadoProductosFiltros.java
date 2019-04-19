@@ -16,6 +16,7 @@ import javax.swing.table.TableRowSorter;
 /**
  *
  * @author Prophet
+ * 
  */
 public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
 
@@ -27,6 +28,8 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
 
     public ListadoProductosFiltros() {
         initComponents();
+        //FOCO EN EL CONTROL
+        txtFiltroProducto.requestFocus();
         txtFiltroProducto.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(final KeyEvent e) {
@@ -101,20 +104,18 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
+                        .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtFiltroProducto)
-                            .addComponent(txtPrecioFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1305, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                        .addComponent(txtFiltroProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtPrecioFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1331, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,12 +125,10 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtPrecioFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPrecioFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(txtFiltroProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         pack();
@@ -198,7 +197,7 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
             //color de los bordes de las celdas
             jTable1.setGridColor(new java.awt.Color(214, 213, 208));
             //tamaño de columnas
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(460);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(590);
             jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
             jTable1.getColumnModel().getColumn(2).setPreferredWidth(180);
             jTable1.getColumnModel().getColumn(3).setPreferredWidth(150);
@@ -213,7 +212,7 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
             //altura de filas
             jTable1.setRowHeight(24);
             //se asigna el nuevo CellRenderer a cada columna segun su contenido
-            jTable1.getColumnModel().getColumn(0).setCellRenderer(new CellRenderer("text center"));
+            jTable1.getColumnModel().getColumn(0).setCellRenderer(new CellRenderer("text"));
             jTable1.getColumnModel().getColumn(4).setCellRenderer(new CellRenderer("num"));
             jTable1.getColumnModel().getColumn(5).setCellRenderer(new CellRenderer("minimo"));
             jTable1.getColumnModel().getColumn(10).setCellRenderer(new CellRenderer("num"));

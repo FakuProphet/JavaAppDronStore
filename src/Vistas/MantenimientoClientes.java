@@ -383,6 +383,7 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
                 else
                 {
                     txtDni.setText(String.valueOf( c.getClienteDni()));
+                    
                     txtNombre.setText(c.getNombre());
                     txtCuit.setText(c.getCuit());
                     txtApellido.setText(c.getApellido());
@@ -416,7 +417,7 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
         txtNombre.setEnabled(x);
         txtApellido.setEnabled(x);
         txtDireccion.setEnabled(x);
-        txtDni.setEnabled(x);
+        txtDni.setEnabled(!x);
         txtCuit.setEnabled(x);
         cboLocalidades.setEnabled(x);
         cboPaises.setEnabled(x);

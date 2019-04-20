@@ -58,7 +58,7 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ListadoProductosFiltros nuevo = new ListadoProductosFiltros();
-        
+        Main.panelEscritorio.add(nuevo);
         nuevo.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 

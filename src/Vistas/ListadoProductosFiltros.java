@@ -174,12 +174,13 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
 
             DefaultTableModel modelo = new DefaultTableModel();
             listado = gestor.getDetalleProductos();
-            modelo.setColumnIdentifiers(new String[]{"Descripcion", "Origen", "Marca", "Tipo",
+            modelo.setColumnIdentifiers(new String[]{"Descripcion","Tipo Producto", "Origen", "Marca", "Tipo",
                 "En Stock", "Mínimo", "Precio de venta", "Proveedor",
                 "Costo ", "Forma de pago", "Plazo de entrega"});
             for (ProductoDTO p : listado) {
                 Vector v = new Vector();
                 v.add(p.getDescripcion());
+                v.add(p.getTipoProducto());
                 v.add(p.getOrigen());
                 v.add(p.getMarca());
                 v.add(p.getTipo());

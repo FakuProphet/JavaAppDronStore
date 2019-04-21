@@ -80,7 +80,7 @@ public class Gestor {
                         p.setCostoReposicion(rs.getFloat(9));
                         p.setFormaPago(rs.getString(10));
                         p.setPlazoEntrega(rs.getInt(11));
-                        
+                        p.setTipoProducto(rs.getString(12));
                         listado.add(p);
                 }
                 

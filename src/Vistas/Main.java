@@ -130,9 +130,9 @@ public class Main extends javax.swing.JFrame {
 
         jMenu2.add(jMenu4);
 
-        jMenu7.setText("Productos");
+        jMenu7.setText("Equipos");
 
-        jMenuItem10.setText("Listado Productos ");
+        jMenuItem10.setText("Equipos y accesorios");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem10ActionPerformed(evt);

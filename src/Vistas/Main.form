@@ -97,7 +97,7 @@
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="jMenuItem10">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Equipos y accesorios"/>
+                    <Property name="text" type="java.lang.String" value="Equipos y accesorios ADM"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem10ActionPerformed"/>

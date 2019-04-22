@@ -1,22 +1,16 @@
 
 package Vistas;
 
-import java.awt.BorderLayout;
 import java.awt.Image;
-import java.awt.Toolkit;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Prophet
- */
+
+
 public class Main extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Main
-     */
+    
+    
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public Main() {
         initComponents();
@@ -132,7 +126,7 @@ public class Main extends javax.swing.JFrame {
 
         jMenu7.setText("Equipos");
 
-        jMenuItem10.setText("Equipos y accesorios");
+        jMenuItem10.setText("Equipos y accesorios ADM");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem10ActionPerformed(evt);
@@ -256,9 +250,9 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        //abrir frame para consultar y filtrar listado de productos.
-
-        ListadoProductosFiltros nuevo = new ListadoProductosFiltros();
+        //abrir frame para Administrar equipos y accesorios.
+        
+        EquiposYAccesoriosADM nuevo = new EquiposYAccesoriosADM();
         panelEscritorio.add(nuevo);
         nuevo.setVisible(true);
 

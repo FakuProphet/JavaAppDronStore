@@ -15,7 +15,7 @@ public class Producto {
     private int origen;
     private int marca;
     private int tipoDron;
-    private int stock;
+    private int stockIngreso;
     private int alerta;
     private float precioUnitario;
     private int proveedor;
@@ -23,16 +23,17 @@ public class Producto {
     private int formaPago;
     private int plazoEntrega;
     private int tipoProducto;
-
+    private int unidadMedida;
+    
     public Producto() {
     }
 
-    public Producto(String descripcion, int origen, int marca, int tipoDron, int stock, int alerta, float precioUnitario, int proveedor, float costoReposicion, int formaPago, int plazoEntrega, int tipoProducto) {
+    public Producto(String descripcion, int origen, int marca, int tipoDron, int stockIngreso, int alerta, float precioUnitario, int proveedor, float costoReposicion, int formaPago, int plazoEntrega, int tipoProducto, int unidadMedida) {
         this.descripcion = descripcion;
         this.origen = origen;
         this.marca = marca;
         this.tipoDron = tipoDron;
-        this.stock = stock;
+        this.stockIngreso = stockIngreso;
         this.alerta = alerta;
         this.precioUnitario = precioUnitario;
         this.proveedor = proveedor;
@@ -40,7 +41,18 @@ public class Producto {
         this.formaPago = formaPago;
         this.plazoEntrega = plazoEntrega;
         this.tipoProducto = tipoProducto;
+        this.unidadMedida = unidadMedida;
     }
+
+    public int getUnidadMedida() {
+        return unidadMedida;
+    }
+
+    public void setUnidadMedida(int unidadMedida) {
+        this.unidadMedida = unidadMedida;
+    }
+
+    
 
     public String getDescripcion() {
         return descripcion;
@@ -74,12 +86,12 @@ public class Producto {
         this.tipoDron = tipoDron;
     }
 
-    public int getStock() {
-        return stock;
+    public int getStockIngreso() {
+        return stockIngreso;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setStockIngreso(int stock) {
+        this.stockIngreso = stock;
     }
 
     public int getAlerta() {

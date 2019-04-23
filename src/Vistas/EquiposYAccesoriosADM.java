@@ -8,10 +8,12 @@ package Vistas;
 import Controlador.Gestor;
 import Modelo.Marca;
 import Modelo.Pais;
+import Modelo.Producto;
 import Modelo.Proveedor;
 import Modelo.TipoDron;
 import Modelo.TipoProducto;
 import Modelo.UM;
+import Modelo.UnidadMedida;
 import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
@@ -297,11 +299,36 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
         
+        
+       
        try
        {
-            Proveedor p = new Proveedor();
+            Producto p = new Producto();
+            Marca m = (Marca) cboMarca.getSelectedItem();
+            TipoProducto tp = (TipoProducto) cboTipoProducto.getSelectedItem();
+            TipoDron td = (TipoDron) cboTipoDron.getSelectedItem();
+            Pais o = (Pais) cboOrigen.getSelectedItem();
+            Proveedor pr = (Proveedor) cboProveedor.getSelectedItem();
+            UM um = (UM) cboUnidadesMedida.getSelectedItem();
             p.setDescripcion(txtDescripcionEq.getText());
-            p.setCuit(txt);
+            p.setMarca(m.getId());
+            p.setOrigen(o.getId());
+            p.setPrecioUnitario(Float.valueOf(txtPrecUnitarioEq.getText()));
+            p.setProveedor(pr.getCodigo());
+            p.setCostoReposicion(Float.valueOf(txtCostoProveedor.getText()));
+            p.setAlerta(Integer.valueOf(nivelAlertaEq.toString()));
+            p.setUnidadMedida(um.getId());
+            p.setTipoProducto(tp.getId());
+            p.setTipoDron(td.getId_tipo_dron());
+            
+             if (JOptionPane.showConfirmDialog(rootPane, "Registrar el "+tp.getDescripcion()+" nombre: "+p.getDescripcion()+", ¿desea continuar?",
+            "Actualizar registro", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+            {
+                String mensaje = g.setNuevoProducto(p);
+                JOptionPane.showMessageDialog(this, mensaje,"Aviso",JOptionPane.INFORMATION_MESSAGE);
+                inicio();
+            }
+            
        }
        catch(Exception e)
        {

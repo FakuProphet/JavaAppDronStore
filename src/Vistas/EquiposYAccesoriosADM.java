@@ -113,6 +113,7 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
         cboUnidadesMedida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnABMProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/ico_Add_New_32.png"))); // NOI18N
+        btnABMProveedor.setToolTipText("Agregar nuevo proveedor");
 
         javax.swing.GroupLayout jPanelEquipoLayout = new javax.swing.GroupLayout(jPanelEquipo);
         jPanelEquipo.setLayout(jPanelEquipoLayout);

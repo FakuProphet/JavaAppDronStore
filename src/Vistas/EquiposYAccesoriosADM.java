@@ -5,8 +5,17 @@
  */
 package Vistas;
 
+import Controlador.Gestor;
+import Modelo.Marca;
+import Modelo.Pais;
+import Modelo.Proveedor;
+import Modelo.TipoDron;
+import Modelo.TipoProducto;
+import Modelo.UM;
 import java.awt.Component;
-import java.awt.Dimension;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -14,13 +23,20 @@ import java.awt.Dimension;
  */
 public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form EquiposYAccesoriosADM
-     */
+    
+    private ArrayList<Marca>lMarcas;
+    private ArrayList<TipoProducto>lTipoProd;
+    private ArrayList<TipoDron>lTipoDron;
+    private ArrayList<Pais>lPaises;
+    private ArrayList<Proveedor>lProveedores;
+    private ArrayList<UM>lUM;
+    private Gestor g;
     public EquiposYAccesoriosADM() {
         initComponents();
+        g = new Gestor();
         this.setTitle("Admnistración de  Equipos y accesorios");
-      //  inicio();
+        cargarTodosLosCombos();
+        
     }
 
     /**
@@ -113,32 +129,35 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
                     .addComponent(txtDescripcionEq)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelEquipoLayout.createSequentialGroup()
                         .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cboProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34)
+                            .addGroup(jPanelEquipoLayout.createSequentialGroup()
+                                .addComponent(cboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(34, 34, 34)
+                                .addComponent(jLabel5)
+                                .addGap(0, 21, Short.MAX_VALUE))
+                            .addComponent(cboProveedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cboOrigen, 0, 124, Short.MAX_VALUE)
-                            .addComponent(txtCostoProveedor)))
+                            .addComponent(cboOrigen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelEquipoLayout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtCostoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(cboTipoProducto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanelEquipoLayout.createSequentialGroup()
                         .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(txtPrecUnitarioEq)
                             .addComponent(cboTipoDron, 0, 122, Short.MAX_VALUE))
-                        .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelEquipoLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                                .addComponent(jLabel10)
-                                .addGap(18, 18, 18)
-                                .addComponent(cboUnidadesMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanelEquipoLayout.createSequentialGroup()
                                 .addGap(8, 8, 8)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nivelAlertaEq)))))
+                                .addComponent(nivelAlertaEq))
+                            .addGroup(jPanelEquipoLayout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cboUnidadesMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         jPanelEquipoLayout.setVerticalGroup(
@@ -203,37 +222,64 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
                     .addComponent(btnsalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnsalir1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnsalir3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnsalir2, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
+                    .addComponent(btnsalir2, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanelEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnsalir3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnsalir2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnsalir1)
                         .addGap(14, 14, 14)
-                        .addComponent(btnsalir))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanelEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnsalir)))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void inicio()
-{
-    for (Component c : jPanelEquipo.getComponents()) {
+    private void inicio()
+    {
+        for (Component c : jPanelEquipo.getComponents()) {
         c.setEnabled(false);
+        }
     }
-}
+   
+    private void cargarTodosLosCombos()
+    {   
+        lMarcas = g.getListadoMarcas();
+        lTipoProd = g.getListadoTiposDeProducto();
+        lTipoDron = g.getListadoTiposDeDrones();
+        lPaises = g.getListadoPaises();
+        lUM= g.getListadoUnidadesMedida();
+        lProveedores = g.getListadoProveedores();
+        cargarCombo(lMarcas, cboMarca);
+        cargarCombo(lTipoDron, cboTipoDron);
+        cargarCombo(lTipoProd, cboTipoProducto);
+        cargarCombo(lPaises, cboOrigen);
+        cargarCombo(lUM, cboUnidadesMedida);
+        cargarCombo(lProveedores, cboProveedor);
+    }
+    
+
+    private void cargarCombo(ArrayList lista, JComboBox combo)
+    {
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        
+        for (Object o : lista) 
+        {
+            modelo.addElement(o);
+        }
+        
+        combo.setModel(modelo);
+    }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

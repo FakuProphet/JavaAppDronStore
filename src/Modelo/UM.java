@@ -9,12 +9,13 @@ package Modelo;
  *
  * @author Prophet
  */
-public class TipoProducto {
+public class UM {
     
+    //clase para encapsular unidades de medida
     private int id;
     private String descripcion;
 
-    public TipoProducto(int id, String descripcion) {
+    public UM(int id, String descripcion) {
         this.id = id;
         this.descripcion = descripcion;
     }
@@ -37,9 +38,8 @@ public class TipoProducto {
 
     @Override
     public String toString() {
-        return descripcion ;
+        return descripcion;
     }
-
     
     
     

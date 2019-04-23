@@ -5,8 +5,13 @@ import Modelo.Cliente;
 import Modelo.Conexion;
 import Modelo.Empresa;
 import Modelo.Localidad;
+import Modelo.Marca;
 import Modelo.Pais;
+import Modelo.Proveedor;
 import Modelo.Provincia;
+import Modelo.TipoDron;
+import Modelo.TipoProducto;
+import Modelo.UM;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -50,7 +55,169 @@ public class Gestor {
         return listado;
 
     }
+    
+    
+    public ArrayList<TipoDron> getListadoTiposDeDrones()  {
 
+        ArrayList<TipoDron> listado = new ArrayList<>();
+
+        try {
+            con = Conexion.conectar();
+            ResultSet rs;
+            Statement consulta;
+            String sql = "select * from tiposDeDron";
+            consulta = con.createStatement();
+            rs = consulta.executeQuery(sql);
+
+            while (rs.next()) {
+                int id = rs.getInt("id_tipo_dron");
+                String tipo = rs.getString("tipo");
+                TipoDron nuevo = new TipoDron(id, tipo);
+                listado.add(nuevo);
+            }
+
+            con.close();
+            consulta.close();
+            rs.close();
+
+        } catch (Exception e) {
+            System.out.println("Error al obtener datos de las tipos de drones: " + e.toString());
+        }
+
+        return listado;
+
+    }
+
+    
+    
+    public ArrayList<Marca> getListadoMarcas()  {
+
+        ArrayList<Marca> listado = new ArrayList<>();
+
+        try {
+            con = Conexion.conectar();
+            ResultSet rs;
+            Statement consulta;
+            String sql = "select * from marcas";
+            consulta = con.createStatement();
+            rs = consulta.executeQuery(sql);
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String marca = rs.getString("marca");
+                Marca nueva = new Marca(id, marca);
+                listado.add(nueva);
+            }
+
+            con.close();
+            consulta.close();
+            rs.close();
+
+        } catch (Exception e) {
+            System.out.println("Error al obtener datos de las marcas: " + e.toString());
+        }
+
+        return listado;
+
+    }
+
+    
+    public ArrayList<TipoProducto> getListadoTiposDeProducto()  {
+
+        ArrayList<TipoProducto >listado = new ArrayList<>();
+
+        try {
+            con = Conexion.conectar();
+            ResultSet rs;
+            Statement consulta;
+            String sql = "select * from tipoProducto";
+            consulta = con.createStatement();
+            rs = consulta.executeQuery(sql);
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String descripcion = rs.getString("descripcion");
+                TipoProducto nuevo = new TipoProducto(id, descripcion);
+                listado.add(nuevo);
+            }
+
+            con.close();
+            consulta.close();
+            rs.close();
+
+        } catch (Exception e) {
+            System.out.println("Error al obtener datos de los tipos de producto: " + e.toString());
+        }
+
+        return listado;
+
+    }
+    
+    public ArrayList<Proveedor> getListadoProveedores()  {
+
+        ArrayList<Proveedor>listado = new ArrayList<>();
+
+        try {
+            con = Conexion.conectar();
+            ResultSet rs;
+            Statement consulta;
+            String sql = "select * from Proveedores";
+            consulta = con.createStatement();
+            rs = consulta.executeQuery(sql);
+
+            while (rs.next()) {
+                Proveedor p = new Proveedor();
+                p.setCodigo(rs.getInt(1));
+                p.setDescripcion(rs.getString(2));
+                listado.add(p);
+            }
+
+            con.close();
+            consulta.close();
+            rs.close();
+
+        } catch (Exception e) {
+            System.out.println("Error al obtener datos de los datos de los proveedores: " + e.toString());
+        }
+
+        return listado;
+
+    }
+    
+    
+    public ArrayList<UM> getListadoUnidadesMedida()  {
+
+        ArrayList<UM>listado = new ArrayList<>();
+
+        try {
+            con = Conexion.conectar();
+            ResultSet rs;
+            Statement consulta;
+            String sql = "select * from UnidadesDeMedida";
+            consulta = con.createStatement();
+            rs = consulta.executeQuery(sql);
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String descripcion = rs.getString("descripcion");
+                UM nuevo = new UM(id, descripcion);
+                listado.add(nuevo);
+            }
+
+            con.close();
+            consulta.close();
+            rs.close();
+
+        } catch (Exception e) {
+            System.out.println("Error al obtener datos de los datos de unidades de medida: " + e.toString());
+        }
+
+        return listado;
+
+    }
+
+    
+    
     
     public ArrayList<ProductoDTO> getDetalleProductos() throws SQLException  {
 

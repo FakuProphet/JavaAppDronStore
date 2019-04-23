@@ -306,7 +306,7 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
 
     private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
         // Abandonar la ventana 
-         if (JOptionPane.showConfirmDialog(rootPane, "Va a salir de la ADM de equipos y accesorios, ¿desea continuar?",
+        if (JOptionPane.showConfirmDialog(rootPane, "Va a salir de la ADM de equipos y accesorios, ¿desea continuar?",
         "Abandonar", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
         {
             this.dispose();

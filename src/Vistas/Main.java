@@ -120,6 +120,11 @@ public class Main extends javax.swing.JFrame {
         jMenu4.setText("Proveedores");
 
         jMenuItem7.setText("ADM Proveedores");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem7);
 
         jMenu2.add(jMenu4);
@@ -265,6 +270,13 @@ public class Main extends javax.swing.JFrame {
         p.setVisible(true);
 
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // Abrir ADM de proveedores
+        AdministracionProveedores a = new AdministracionProveedores();
+        panelEscritorio.add(a);
+        a.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
      * @param args the command line arguments

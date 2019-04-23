@@ -409,10 +409,7 @@ public class Gestor {
         
     }
     
-    
-    
-    
-    public String setNuevoCliente(Cliente c) throws SQLException
+     public String setNuevoCliente(Cliente c) throws SQLException
     {
         Connection conectar = null;
         String mensaje = "No se ha registrado";
@@ -433,6 +430,49 @@ public class Gestor {
                 prcProcedimientoAlmacenado.setInt(9,c.getId_localidad());
                 prcProcedimientoAlmacenado.setInt(10,c.getId_provincia());
                 prcProcedimientoAlmacenado.setInt(11,c.getId_pais());
+                // se ejecuta el procedimiento
+                prcProcedimientoAlmacenado.execute();
+                
+                conectar.commit();
+                mensaje ="Insertado con exito";
+             
+                
+        } catch (Exception e) {
+        
+                conectar.rollback();
+                e.printStackTrace();
+        } finally {
+                // cerrar la Conexion
+                conectar.close();
+        }
+        
+        return mensaje;
+    }
+    
+    
+    
+    public String setNuevoProveedor(Proveedor p) throws SQLException
+    {
+        Connection conectar = null;
+        String mensaje = "No se ha registrado";
+        try{
+                
+                conectar = Conexion.conectar();
+                conectar.setAutoCommit(false);
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call nuevoProveedor(?,?,?,?,?,?,?,?,?,?,?)}");
+                
+                // cargar parametros
+                prcProcedimientoAlmacenado.setString(1,p.getDescripcion());
+                prcProcedimientoAlmacenado.setString(2,p.getCuit());
+                prcProcedimientoAlmacenado.setString(3,p.getEmail());
+                prcProcedimientoAlmacenado.setString(4,p.getTel());
+                prcProcedimientoAlmacenado.setString(5,p.getResponsable());
+                prcProcedimientoAlmacenado.setInt(6,p.getCantidadSucursales());
+                prcProcedimientoAlmacenado.setInt(7,p.getLocalidad());
+                prcProcedimientoAlmacenado.setString(8,p.getDireccion());
+                prcProcedimientoAlmacenado.setInt(9,p.getPlazos());
+                prcProcedimientoAlmacenado.setInt(10,p.getFormasDePago());
+               
                 // se ejecuta el procedimiento
                 prcProcedimientoAlmacenado.execute();
                 

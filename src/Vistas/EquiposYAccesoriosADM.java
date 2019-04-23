@@ -66,6 +66,8 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Alerta reposición");
 
+        nivelAlertaEq.setModel(new javax.swing.SpinnerNumberModel(1, 0, null, 1));
+
         jLabel4.setText("Marca");
 
         cboMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));

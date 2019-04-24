@@ -76,6 +76,7 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
         btnCancelar = new javax.swing.JButton();
         btnGrabar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
+        btnAbrirListado = new javax.swing.JButton();
 
         jPanelEquipo.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos"));
 
@@ -258,6 +259,14 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
             }
         });
 
+        btnAbrirListado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons8_Drone_32.png"))); // NOI18N
+        btnAbrirListado.setText("Ir a listado");
+        btnAbrirListado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAbrirListadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -270,7 +279,8 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
                     .addComponent(btnsalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnGrabar, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                    .addComponent(btnNuevo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnNuevo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAbrirListado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -280,8 +290,10 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanelEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAbrirListado, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCancelar)
@@ -354,6 +366,13 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnGrabarActionPerformed
 
+    private void btnAbrirListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirListadoActionPerformed
+        // Abrir listado de equipos y accesorios
+        ListadoProductosFiltros l = new ListadoProductosFiltros();
+        Main.panelEscritorio.add(l);
+        l.setVisible(true);
+    }//GEN-LAST:event_btnAbrirListadoActionPerformed
+
     private void inicio()
     {
         //txtDescripcionEq.grabFocus();
@@ -424,6 +443,7 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnABMProveedor;
+    private javax.swing.JButton btnAbrirListado;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGrabar;
     private javax.swing.JButton btnNuevo;

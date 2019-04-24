@@ -254,7 +254,7 @@ public class Gestor {
     
     
     
-    public ArrayList<ProductoDTO> getDetalleProductos() throws SQLException  {
+    public ArrayList<ProductoDTO> getDetalleProductos(int tps) throws SQLException  {
 
         ArrayList<ProductoDTO> listado = new ArrayList<>();
         Connection conectar = null;
@@ -266,7 +266,8 @@ public class Gestor {
                 conectar = Conexion.conectar();    
                 conectar.setAutoCommit(false);
          
-                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call InfoProductos()}");
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call InfoEquipos(?)}");
+                prcProcedimientoAlmacenado.setInt(1, tps);
                 ResultSet rs = prcProcedimientoAlmacenado.executeQuery();
                 while(rs.next())
                 {

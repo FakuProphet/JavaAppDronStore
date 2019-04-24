@@ -475,7 +475,7 @@ public class AdministracionProveedores extends javax.swing.JInternalFrame {
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
         // Registrar un nuevo proveedor
         
-         try
+       try
        {
             Proveedor p = new Proveedor();
             Localidad l = (Localidad) cboLocalidades.getSelectedItem();

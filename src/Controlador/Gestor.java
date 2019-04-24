@@ -4,6 +4,7 @@ import Dto.ProductoDTO;
 import Modelo.Cliente;
 import Modelo.Conexion;
 import Modelo.Empresa;
+import Modelo.FormaPago;
 import Modelo.Localidad;
 import Modelo.Marca;
 import Modelo.Pais;
@@ -56,6 +57,39 @@ public class Gestor {
         return listado;
 
     }
+    
+    
+    public ArrayList<FormaPago> getListadoFormasDePago()  {
+
+        ArrayList<FormaPago> listado = new ArrayList<>();
+
+        try {
+            con = Conexion.conectar();
+            ResultSet rs;
+            Statement consulta;
+            String sql = "select * from TiposDePago";
+            consulta = con.createStatement();
+            rs = consulta.executeQuery(sql);
+
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String nombre = rs.getString(2);
+                FormaPago nuevo = new FormaPago(id, nombre);
+                listado.add(nuevo);
+            }
+
+            con.close();
+            consulta.close();
+            rs.close();
+
+        } catch (Exception e) {
+            System.out.println("Error al obtener datos de las localidades: " + e.toString());
+        }
+
+        return listado;
+
+    }
+    
     
     
     public ArrayList<TipoDron> getListadoTiposDeDrones()  {
@@ -460,7 +494,7 @@ public class Gestor {
                 
                 conectar = Conexion.conectar();
                 conectar.setAutoCommit(false);
-                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call nuevoProveedor(?,?,?,?,?,?,?,?,?,?,?)}");
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call nuevoProveedor(?,?,?,?,?,?,?,?,?,?)}");
                 
                 // cargar parametros
                 prcProcedimientoAlmacenado.setString(1,p.getDescripcion());

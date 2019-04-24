@@ -13,7 +13,6 @@ import Modelo.Proveedor;
 import Modelo.TipoDron;
 import Modelo.TipoProducto;
 import Modelo.UM;
-import Modelo.UnidadMedida;
 import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;

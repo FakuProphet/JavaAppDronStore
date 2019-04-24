@@ -13,11 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
 
-/**
- *
- * @author Prophet
- * 
- */
+
 public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
 
     private TableRowSorter trsfiltro;

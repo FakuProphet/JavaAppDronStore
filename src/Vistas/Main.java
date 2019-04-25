@@ -33,22 +33,22 @@ public class Main extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
-        jMenu8 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         menuMantClientes = new javax.swing.JMenuItem();
+        jMenu9 = new javax.swing.JMenu();
+        jMenuItem8 = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -98,18 +98,6 @@ public class Main extends javax.swing.JFrame {
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Quadcopter_48px.png"))); // NOI18N
         jMenu2.setText("Compras");
 
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons8_Drone_16.png"))); // NOI18N
-        jMenuItem2.setText("Nuevo pedido");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem2);
-
-        jMenuItem3.setText("Estado Pedido");
-        jMenu2.add(jMenuItem3);
-
         jMenu5.setText("Stock");
 
         jMenuItem5.setText("ADM Stock");
@@ -126,6 +114,12 @@ public class Main extends javax.swing.JFrame {
             }
         });
         jMenu4.add(jMenuItem7);
+
+        jMenuItem12.setText("Nueva orden de compra");
+        jMenu4.add(jMenuItem12);
+
+        jMenuItem13.setText("Verificar Ordenes de compra");
+        jMenu4.add(jMenuItem13);
 
         jMenu2.add(jMenu4);
 
@@ -149,13 +143,6 @@ public class Main extends javax.swing.JFrame {
 
         jMenu2.add(jMenu7);
 
-        jMenu8.setText("Presupuesto");
-
-        jMenuItem6.setText("Nuevo");
-        jMenu8.add(jMenuItem6);
-
-        jMenu2.add(jMenu8);
-
         jMenuBar1.add(jMenu2);
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Checkout_48px.png"))); // NOI18N
@@ -169,7 +156,7 @@ public class Main extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem4);
 
-        jMenuItem9.setText("Ventas");
+        jMenuItem9.setText("Información de ventas");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem9ActionPerformed(evt);
@@ -188,6 +175,13 @@ public class Main extends javax.swing.JFrame {
         jMenu6.add(menuMantClientes);
 
         jMenu3.add(jMenu6);
+
+        jMenu9.setText("Presupuesto");
+
+        jMenuItem8.setText("Generar y emitir");
+        jMenu9.add(jMenuItem8);
+
+        jMenu3.add(jMenu9);
 
         jMenuBar1.add(jMenu3);
 
@@ -263,14 +257,6 @@ public class Main extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-
-        PedidoProveedor p = new PedidoProveedor();
-        panelEscritorio.add(p);
-        p.setVisible(true);
-
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         // Abrir ADM de proveedores
         AdministracionProveedores a = new AdministracionProveedores();
@@ -339,17 +325,17 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
-    private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem menuMantClientes;
     public static javax.swing.JDesktopPane panelEscritorio;

@@ -170,7 +170,7 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
                     .addComponent(rbtAccesorios))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -237,7 +237,7 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
             DefaultTableModel modelo = new DefaultTableModel();
             listado = gestor.getDetalleProductos(tps);
             modelo.setColumnIdentifiers(new String[]{"Descripcion","Tipo Producto", "Origen", "Marca", "Tipo",
-                "En Stock", "Precio de venta"});
+                "En Stock", "Precio de COMPRA"});
             for (ProductoDTO p : listado) {
                 Vector v = new Vector();
                 v.add(p.getDescripcion());
@@ -246,7 +246,7 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
                 v.add(p.getMarca());
                 v.add(p.getTipo());
                 v.add(p.getStock());
-                v.add(p.getPrecioUnitario());
+                v.add(p.getCostoReposicion());
              
                 modelo.addRow(v);
             }

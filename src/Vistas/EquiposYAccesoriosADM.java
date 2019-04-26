@@ -28,6 +28,7 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
     private Gestor g;
     public EquiposYAccesoriosADM() {
         initComponents();
+        btnCancelar.setEnabled(false);
         g = new Gestor();
         this.setTitle("Admnistración de  Equipos y accesorios");
         cargarTodosLosCombos();
@@ -370,11 +371,13 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
     {
         //txtDescripcionEq.grabFocus();
         btnGrabar.setEnabled(false);
-        btnCancelar.setEnabled(false);
         txtCantidad.setText("");
+        btnCancelar.setEnabled(false);
+        btnsalir.setEnabled(true);
         txtCostoProveedor.setText("");
         txtDescripcionEq.setText("");
         txtPrecUnitarioEq.setText("");
+        btnNuevo.setEnabled(true);
         habilitarComponentes(false);
     }
    

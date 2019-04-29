@@ -1,8 +1,10 @@
 
 package Vistas;
 
+import java.awt.Dimension;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 
@@ -116,6 +118,11 @@ public class Main extends javax.swing.JFrame {
         jMenu4.add(jMenuItem7);
 
         jMenuItem12.setText("Nueva orden de compra");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem12);
 
         jMenuItem13.setText("Verificar Ordenes de compra");
@@ -265,6 +272,12 @@ public class Main extends javax.swing.JFrame {
         a.setVisible(true);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        // Abrir ventana de nueva orden de compra.
+        PedidoProveedor nuevo = new PedidoProveedor();
+        CentrarVentana(nuevo);
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -314,7 +327,13 @@ public class Main extends javax.swing.JFrame {
     
     
    
-    
+    void CentrarVentana(JInternalFrame frame) {
+        panelEscritorio.add(frame);
+        Dimension dim = panelEscritorio.getSize();
+        Dimension framesise = frame.getSize();
+        frame.setLocation((dim.width - framesise.width) / 2, (dim.height - framesise.height) / 2);
+        frame.show();
+    }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

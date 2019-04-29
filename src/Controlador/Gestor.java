@@ -204,6 +204,8 @@ public class Gestor {
                 Proveedor p = new Proveedor();
                 p.setCodigo(rs.getInt(1));
                 p.setDescripcion(rs.getString(2));
+                p.setCuit(rs.getString(3));
+                p.setResponsable(rs.getString(6));
                 listado.add(p);
             }
 

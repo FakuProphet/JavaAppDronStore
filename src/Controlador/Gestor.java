@@ -537,20 +537,19 @@ public class Gestor {
                 
                 conectar = Conexion.conectar();
                 conectar.setAutoCommit(false);
-                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call nuevoProducto(?,?,?,?,?,?,?,?,?,?,?)}");
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call nuevoProducto(?,?,?,?,?,?,?,?,?,?)}");
                 
                 // cargar parametros
                 prcProcedimientoAlmacenado.setString(1,p.getDescripcion());
-                prcProcedimientoAlmacenado.setFloat(2,p.getPrecioUnitario());
-                prcProcedimientoAlmacenado.setInt(3,p.getAlerta());
-                prcProcedimientoAlmacenado.setInt(4,p.getStockIngreso());
-                prcProcedimientoAlmacenado.setInt(5,p.getMarca());
-                prcProcedimientoAlmacenado.setInt(6,p.getOrigen());
-                prcProcedimientoAlmacenado.setInt(7,p.getProveedor());
-                prcProcedimientoAlmacenado.setFloat(8,p.getCostoReposicion());
-                prcProcedimientoAlmacenado.setInt(9,p.getTipoDron());
-                prcProcedimientoAlmacenado.setInt(10,p.getUnidadMedida());
-                prcProcedimientoAlmacenado.setInt(11,p.getTipoProducto());
+                prcProcedimientoAlmacenado.setInt(2,p.getAlerta());
+                prcProcedimientoAlmacenado.setInt(3,p.getStockIngreso());
+                prcProcedimientoAlmacenado.setInt(4,p.getMarca());
+                prcProcedimientoAlmacenado.setInt(5,p.getOrigen());
+                prcProcedimientoAlmacenado.setInt(6,p.getProveedor());
+                prcProcedimientoAlmacenado.setFloat(7,p.getCostoReposicion());
+                prcProcedimientoAlmacenado.setInt(8,p.getTipoDron());
+                prcProcedimientoAlmacenado.setInt(9,p.getUnidadMedida());
+                prcProcedimientoAlmacenado.setInt(10,p.getTipoProducto());
                 
                 // se ejecuta el procedimiento
                 prcProcedimientoAlmacenado.execute();

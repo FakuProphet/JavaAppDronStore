@@ -255,7 +255,6 @@ public class Gestor {
 
     
     
-    
     public ArrayList<ProductoDTO> getDetalleProductos(int tps) throws SQLException  {
 
         ArrayList<ProductoDTO> listado = new ArrayList<>();
@@ -285,6 +284,59 @@ public class Gestor {
                         p.setFormaPago(rs.getString(9));
                         p.setPlazoEntrega(rs.getInt(10));
                         p.setTipoProducto(rs.getString(11));
+                        listado.add(p);
+                }
+                
+        
+                conectar.commit();
+               
+                
+        } catch (Exception e) {
+                conectar.rollback();
+                
+        } finally {
+                // cerrar la Conexion
+                conectar.close();
+        }
+        
+        
+
+        return listado;
+
+    }
+    
+    
+    
+    public ArrayList<ProductoDTO> getDetalleProductosPorProveedor(int codProv) throws SQLException  {
+
+        ArrayList<ProductoDTO> listado = new ArrayList<>();
+        Connection conectar = null;
+       
+        
+        
+        try{
+                
+                conectar = Conexion.conectar();    
+                conectar.setAutoCommit(false);
+         
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call ListadoProductosPorProveedor(?)}");
+                prcProcedimientoAlmacenado.setInt(1, codProv);
+                ResultSet rs = prcProcedimientoAlmacenado.executeQuery();
+                while(rs.next())
+                {
+                        ProductoDTO p = new ProductoDTO();
+                        p.setDescripcion(rs.getString(1));
+                        p.setOrigen(rs.getString(2));
+                        p.setMarca(rs.getString(3));
+                        p.setTipo(rs.getString(4));
+                        p.setStock(rs.getInt(5));
+                        p.setAlerta(rs.getInt(6));
+                        p.setProveedor(rs.getString(7));
+                        p.setCostoReposicion(rs.getFloat(8));
+                        p.setFormaPago(rs.getString(9));
+                        p.setPlazoEntrega(rs.getInt(10));
+                        p.setTipoProducto(rs.getString(11));
+                        
                         listado.add(p);
                 }
                 

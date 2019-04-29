@@ -206,6 +206,7 @@ public class Gestor {
                 p.setDescripcion(rs.getString(2));
                 p.setCuit(rs.getString(3));
                 p.setResponsable(rs.getString(6));
+                p.setPlazos(rs.getInt(10));
                 listado.add(p);
             }
 

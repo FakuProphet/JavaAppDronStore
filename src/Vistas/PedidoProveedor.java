@@ -530,8 +530,8 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
             cantidad = Integer.valueOf(jTable3.getValueAt(i, 2).toString());
             costo = Double.valueOf(jTable3.getValueAt(i, 3).toString());
             SubTotal+=cantidad*costo;
-            IvaDiscriminado += (SubTotal * iva ) /100;
-            total += SubTotal + IvaDiscriminado;
+            IvaDiscriminado = (SubTotal * iva ) /100;
+            total = SubTotal + IvaDiscriminado;
             }
             DecimalFormat f = new DecimalFormat("###,###.##");
             lblSubtotal.setText(String.valueOf(f.format(SubTotal)));

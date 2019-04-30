@@ -1,6 +1,7 @@
 package Controlador;
 
 import Dto.ProductoDTO;
+import Dto.ProductoExistencia;
 import Modelo.Cliente;
 import Modelo.Conexion;
 import Modelo.Empresa;
@@ -358,6 +359,52 @@ public class Gestor {
         return listado;
 
     }
+    
+    
+    
+     public ArrayList<ProductoExistencia> getListadoProductosEnExistencia(int tipoProducto) throws SQLException  {
+
+        ArrayList<ProductoExistencia> listado = new ArrayList<>();
+        Connection conectar = null;
+       
+        
+        
+        try{
+                
+                conectar = Conexion.conectar();    
+                conectar.setAutoCommit(false);
+         
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call StockProductos(?)}");
+                prcProcedimientoAlmacenado.setInt(1, tipoProducto);
+                ResultSet rs = prcProcedimientoAlmacenado.executeQuery();
+                while(rs.next())
+                {
+                        ProductoExistencia p = new ProductoExistencia();
+                        p.setDescripcion(rs.getString(1));
+                        p.setActual(rs.getInt(2));
+                        p.setMinimo(rs.getInt(3));
+                        p.setDiferencia(rs.getString(4));
+                        listado.add(p);
+                }
+                
+        
+                conectar.commit();
+               
+                
+        } catch (Exception e) {
+                conectar.rollback();
+                
+        } finally {
+                // cerrar la Conexion
+                conectar.close();
+        }
+        
+        
+
+        return listado;
+
+    }
+    
     
     
     public ArrayList<Empresa> getListadoEmpresas()  {

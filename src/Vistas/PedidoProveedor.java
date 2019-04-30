@@ -11,7 +11,6 @@ import Dto.ProductoDTO;
 import Dto.ProductoExistencia;
 import Modelo.CellRenderer;
 import Modelo.HeaderCellRenderer;
-import Modelo.Producto;
 import Modelo.Proveedor;
 import Modelo.TipoProducto;
 import static Vistas.Main.panelEscritorio;
@@ -53,7 +52,6 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
     public PedidoProveedor() {
         initComponents();
         inicio();
-       
     }
 
     /**

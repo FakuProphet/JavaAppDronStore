@@ -187,14 +187,7 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
         */
     }
     
-    /*
-    public void filtro2() {
-        
-        filtro2 = txtPrecioFiltro.getText();
-        trsfiltro.setRowFilter(RowFilter.regexFilter(txtPrecioFiltro.getText(), 7));
-       
-    }
-    */
+   
    
     
 

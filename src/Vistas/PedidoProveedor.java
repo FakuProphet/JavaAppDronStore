@@ -564,7 +564,7 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
 
             DefaultTableModel modelo = new DefaultTableModel();
             modelo.setColumnIdentifiers(new String[]{"Código","Descripción", "Cantidad"});
-       
+            
             jTable3.setModel(modelo);
             //color de los bordes de las celdas
             jTable3.setGridColor(new java.awt.Color(214, 213, 208));

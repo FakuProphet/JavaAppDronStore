@@ -241,7 +241,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-         if (JOptionPane.showConfirmDialog(rootPane, "Esta por abandonar el sistema DronStore, ¿desea continuar?",
+        if (JOptionPane.showConfirmDialog(rootPane, "Esta por abandonar el sistema DronStore, ¿desea continuar?",
         "Abandonar el sistema", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
         {
             System.exit(0);

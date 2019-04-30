@@ -82,7 +82,23 @@ public class CellRenderer extends DefaultTableCellRenderer {
             this.setForeground((selected)?new Color(255,255,255):new Color(255,0,0));            
             this.setFont(bold);            
             return this;   
-        }                
+        }  
+        if( tipo.equals("actual"))
+        {           
+            this.setHorizontalAlignment( JLabel.CENTER );
+            this.setText( value.toString() );            
+            this.setForeground((selected)?new Color(255,255,255):new Color(0,0,250));            
+            this.setFont(bold);            
+            return this;   
+        } 
+        if( tipo.equals("diferencia"))
+        {           
+            this.setHorizontalAlignment( JLabel.CENTER );
+            this.setText( value.toString() );            
+            this.setForeground((selected)?new Color(255,255,255):new Color(0,255,0));            
+            this.setFont(bold);            
+            return this;   
+        }      
         /*
         if( tipo.equals("icon"))
         {

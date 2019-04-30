@@ -16,6 +16,7 @@ import Modelo.Proveedor;
 import Modelo.TipoProducto;
 import static Vistas.Main.panelEscritorio;
 import java.awt.Dimension;
+import java.awt.HeadlessException;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -51,7 +52,6 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
    Gestor g; 
     public PedidoProveedor() {
         initComponents();
-       
         inicio();
        
     }
@@ -501,6 +501,8 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
         {
             for (int i = 0; i < jTable3.getRowCount(); i++) 
             {
+                //el cero indica la columna la cual se evalua
+                //en este caso es el codigo del producto
                 if(jTable3.getValueAt(i, 0)!=null)
                 {
                     int codigo =  Integer.valueOf(jTable3.getValueAt(i, 0).toString());
@@ -680,6 +682,7 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
             JTableHeader jtableHeader = jTable3.getTableHeader();
             jtableHeader.setDefaultRenderer(new HeaderCellRenderer());
             jTable3.setTableHeader(jtableHeader);
+            filasNoEditables(jTable3);
            
        
     }
@@ -767,21 +770,32 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
         int row = table.rowAtPoint(point);
         if (Mouse_evt.getClickCount() == 2) 
         {
-           
-         
-          
-            pr = new CarritoDTO();
-            pr.setCodigoProducto(Integer.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
-            pr.setDescripcionProducto(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
-            pr.setCantidad(Integer.valueOf(JOptionPane.showInputDialog("INGRESE La CANTIDAD...")));
-            pr.setCosto(Double.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString()));
+              
+           try 
+           {   
+                pr = new CarritoDTO();
+                pr.setCodigoProducto(Integer.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
+                pr.setDescripcionProducto(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
+                pr.setCosto(Double.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString()));
+                pr.setCantidad(Integer.valueOf(JOptionPane.showInputDialog("INGRESE La CANTIDAD..."))); 
+                if(validarDatosTabla(pr.getCodigoProducto()))
+                {
+                    carrito.add(pr);     
+                    cargarTablaTres(carrito);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "El producto ya se encuentra cargado", "Información", JOptionPane.INFORMATION_MESSAGE);
+                }
+           } 
+           catch (HeadlessException | NumberFormatException e) 
+           {
+                JOptionPane.showMessageDialog(null, "Debe ingresar un valor numérico", "Información", JOptionPane.INFORMATION_MESSAGE);            
+           }
             
-            if(validarDatosTabla(pr.getCodigoProducto()))
-            {
-                carrito.add(pr);     
-                cargarTablaTres(carrito);
-            }
         }
+        
+        
         }
         });
     }

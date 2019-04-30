@@ -23,7 +23,7 @@ public class ProductoDTO {
     private String formaPago;
     private int plazoEntrega;
     private String tipoProducto;
-    
+    private int codigoProducto;
     
     public ProductoDTO() {
     }
@@ -43,6 +43,22 @@ public class ProductoDTO {
         this.tipoProducto = tipoProducto;
     }
 
+    public ProductoDTO(String descripcion, String origen, String marca, String tipo, int stock, int alerta, float precioUnitario, String proveedor, float costoReposicion, String formaPago, int plazoEntrega, String tipoProducto, int codigoProducto) {
+        this.descripcion = descripcion;
+        this.origen = origen;
+        this.marca = marca;
+        this.tipo = tipo;
+        this.stock = stock;
+        this.alerta = alerta;
+        this.precioUnitario = precioUnitario;
+        this.proveedor = proveedor;
+        this.costoReposicion = costoReposicion;
+        this.formaPago = formaPago;
+        this.plazoEntrega = plazoEntrega;
+        this.tipoProducto = tipoProducto;
+        this.codigoProducto = codigoProducto;
+    }
+
     
     
     
@@ -52,6 +68,14 @@ public class ProductoDTO {
 
     public void setTipoProducto(String tipoProducto) {
         this.tipoProducto = tipoProducto;
+    }
+
+    public int getCodigoProducto() {
+        return codigoProducto;
+    }
+
+    public void setCodigoProducto(int codigoProducto) {
+        this.codigoProducto = codigoProducto;
     }
 
     

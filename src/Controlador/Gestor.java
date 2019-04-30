@@ -338,7 +338,7 @@ public class Gestor {
                         p.setFormaPago(rs.getString(9));
                         p.setPlazoEntrega(rs.getInt(10));
                         p.setTipoProducto(rs.getString(11));
-                        
+                        p.setCodigoProducto(rs.getInt(12));
                         listado.add(p);
                 }
                 

@@ -10,16 +10,23 @@ import Dto.ProductoDTO;
 import Dto.ProductoExistencia;
 import Modelo.CellRenderer;
 import Modelo.HeaderCellRenderer;
+import Modelo.Producto;
 import Modelo.Proveedor;
 import Modelo.TipoProducto;
-import java.sql.SQLException;
+import static Vistas.Main.panelEscritorio;
+import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
@@ -35,6 +42,7 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
    private ArrayList<Proveedor>lProveedores;
    private ArrayList<ProductoDTO> listado;
    private ArrayList<ProductoExistencia> lStock;
+   private Producto miProductoPedido;
    private int codProv;
    private int tipoProducto;
    Gestor g; 
@@ -43,6 +51,20 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
         g = new Gestor();
         this.setTitle("Realizar pedido");
         inicio();
+        jTable1.addMouseListener(new MouseAdapter() {
+        public void mousePressed(MouseEvent Mouse_evt) {
+        JTable table =(JTable) Mouse_evt.getSource();
+        Point point = Mouse_evt.getPoint();
+        int row = table.rowAtPoint(point);
+        if (Mouse_evt.getClickCount() == 2) 
+        {
+            miProductoPedido = new Producto();
+            miProductoPedido.setDescripcion(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
+            miProductoPedido.setPrecioUnitario(Float.valueOf(JOptionPane.showInputDialog("INGRESE EL COSTO")));
+            System.out.println("Seleccion:" + miProductoPedido.getDescripcion() +" Costo:"+ miProductoPedido.getPrecioUnitario());
+        }
+        }
+        });
     }
 
     /**
@@ -85,6 +107,10 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
 
         addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentRemoved(java.awt.event.ContainerEvent evt) {
@@ -159,6 +185,11 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
 
         btnAbrirADMProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/ico_Add_New_32.png"))); // NOI18N
         btnAbrirADMProveedores.setToolTipText("Agregar Nuevo Proveedor");
+        btnAbrirADMProveedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAbrirADMProveedoresActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -171,6 +202,7 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.setToolTipText("Dloble Click para seleccionar producto");
         jScrollPane1.setViewportView(jTable1);
 
         jLabel6.setText("Responsable:");
@@ -178,17 +210,18 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
         lblResponsable.setForeground(new java.awt.Color(0, 204, 0));
         lblResponsable.setText("...");
 
-        jLabel7.setText("CUIT/CUIL");
+        jLabel7.setText("CUIT/CUIL:");
 
         lblCuitCuil.setText("...");
 
-        jLabel8.setText("Código");
+        jLabel8.setText("Código:");
 
         lblCodProv.setForeground(new java.awt.Color(255, 0, 51));
         lblCodProv.setText("...");
 
-        jLabel10.setText("Pazo entrega estimada:");
+        jLabel10.setText("Plazo entrega estimada:");
 
+        lblPlazoEntrega.setForeground(new java.awt.Color(0, 0, 255));
         lblPlazoEntrega.setText("...");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -216,17 +249,18 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
                             .addComponent(jLabel7))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(lblCuitCuil, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblResponsable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(lblResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 37, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblCuitCuil, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel10)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblPlazoEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 66, Short.MAX_VALUE)))))
+                                .addGap(38, 38, 38)
+                                .addComponent(lblPlazoEntrega, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(28, 28, 28)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -313,6 +347,7 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
         );
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jSeparator1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons8_Exit_32.png"))); // NOI18N
         btnSalir.setText("Salir");
@@ -328,6 +363,40 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
 
         jButton4.setText("jButton1");
 
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle pedido"));
+
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable3);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jLabel11.setText("Seleccionar tipo producto:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -335,45 +404,56 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(12, 12, 12)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(47, 47, 47)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(132, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel11)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton2)
+                            .addComponent(btnSalir))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton4)
-                            .addComponent(jButton3))
+                            .addComponent(jButton3)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnSalir)
-                            .addComponent(jButton2)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jSeparator1)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(24, Short.MAX_VALUE))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -393,9 +473,10 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
 
             DefaultTableModel modelo = new DefaultTableModel();
             listado = g.getDetalleProductosPorProveedor(codProv);
-            modelo.setColumnIdentifiers(new String[]{"Descripción producto","Tipo", "Origen", "Costo"});
+            modelo.setColumnIdentifiers(new String[]{"Código","Descripción producto","Tipo", "Origen", "Costo"});
             for (ProductoDTO p : listado) {
                 Vector v = new Vector();
+                v.add(p.getCodigoProducto());
                 v.add(p.getDescripcion());
                 v.add(p.getTipoProducto());
                 v.add(p.getOrigen());
@@ -408,22 +489,24 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
             //color de los bordes de las celdas
             jTable1.setGridColor(new java.awt.Color(214, 213, 208));
             //tamaño de columnas
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(450);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(180);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(120);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(420);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(150);
             jTable1.getColumnModel().getColumn(3).setPreferredWidth(150);
-         
+            jTable1.getColumnModel().getColumn(4).setPreferredWidth(150);
            
             //altura de filas
             jTable1.setRowHeight(24);
             //se asigna el nuevo CellRenderer a cada columna segun su contenido
-            jTable1.getColumnModel().getColumn(0).setCellRenderer(new CellRenderer("text"));
-            jTable1.getColumnModel().getColumn(3).setCellRenderer(new CellRenderer("num"));
-           
+            jTable1.getColumnModel().getColumn(1).setCellRenderer(new CellRenderer("text"));
+            jTable1.getColumnModel().getColumn(0).setCellRenderer(new CellRenderer("minimo"));
+            jTable1.getColumnModel().getColumn(4).setCellRenderer(new CellRenderer("num"));
             //Se asigna nuevo header a la tabla
             JTableHeader jtableHeader = jTable1.getTableHeader();
             jtableHeader.setDefaultRenderer(new HeaderCellRenderer());
             jTable1.setTableHeader(jtableHeader);
+            filasNoEditables(jTable1);
+            
         } catch (Exception e) {
 
         }
@@ -468,11 +551,55 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
             JTableHeader jtableHeader = jTable2.getTableHeader();
             jtableHeader.setDefaultRenderer(new HeaderCellRenderer());
             jTable2.setTableHeader(jtableHeader);
+            filasNoEditables(jTable2);
         } catch (Exception e) {
 
         }
     }
     
+     
+     private void cargarTablaTres() {
+
+       
+
+            DefaultTableModel modelo = new DefaultTableModel();
+            modelo.setColumnIdentifiers(new String[]{"Código","Descripción", "Cantidad"});
+       
+            jTable3.setModel(modelo);
+            //color de los bordes de las celdas
+            jTable3.setGridColor(new java.awt.Color(214, 213, 208));
+            //tamaño de columnas
+            jTable3.getColumnModel().getColumn(0).setPreferredWidth(150);
+            jTable3.getColumnModel().getColumn(1).setPreferredWidth(420);
+            jTable3.getColumnModel().getColumn(2).setPreferredWidth(150);
+           
+         
+         
+            //altura de filas
+            jTable3.setRowHeight(24);
+            //se asigna el nuevo CellRenderer a cada columna segun su contenido
+            jTable3.getColumnModel().getColumn(1).setCellRenderer(new CellRenderer("text"));
+            jTable3.getColumnModel().getColumn(0).setCellRenderer(new CellRenderer("minimo"));
+            jTable3.getColumnModel().getColumn(2).setCellRenderer(new CellRenderer("actual"));
+           
+            //Se asigna nuevo header a la tabla
+            JTableHeader jtableHeader = jTable3.getTableHeader();
+            jtableHeader.setDefaultRenderer(new HeaderCellRenderer());
+            jTable3.setTableHeader(jtableHeader);
+           
+       
+    }
+     
+     
+    private void filasNoEditables(JTable tabla)
+    {
+         for (int c = 0; c < tabla.getColumnCount(); c++)
+            {
+                Class<?> col_class = tabla.getColumnClass(c);
+                tabla.setDefaultEditor(col_class, null);        // remover editor
+            }
+    }
+     
     private void cboProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboProveedoresActionPerformed
         // TODO add your handling code here:
         Proveedor p = (Proveedor) cboProveedores.getSelectedItem();
@@ -510,15 +637,31 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnAbrirADMProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirADMProveedoresActionPerformed
+        // Abrir adm Proveedores
+        AdministracionProveedores nuevo = new AdministracionProveedores();
+        CentrarVentana(nuevo);
+    }//GEN-LAST:event_btnAbrirADMProveedoresActionPerformed
     
+    
+    void CentrarVentana(JInternalFrame frame) {
+        panelEscritorio.add(frame);
+        Dimension dim = panelEscritorio.getSize();
+        Dimension framesise = frame.getSize();
+        frame.setLocation((dim.width - framesise.width) / 2, (dim.height - framesise.height) / 2);
+        frame.show();
+    }
     
     private void inicio()
     {
         lTipoProd = g.getListadoTiposDeProducto();
         lProveedores = g.getListadoProveedores();
-        
         cargarCombo(lTipoProd, cboTipoProductos);
         cargarCombo(lProveedores, cboProveedores);
+        cargarTabla();
+        cargarTablaDos(tipoProducto);
+        cargarTablaTres();
     }
     
     
@@ -546,6 +689,7 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -557,11 +701,14 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
     private javax.swing.JLabel lblCodProv;
     private javax.swing.JLabel lblCuitCuil;
     private javax.swing.JLabel lblPlazoEntrega;

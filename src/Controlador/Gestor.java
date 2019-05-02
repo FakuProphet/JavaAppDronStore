@@ -1,5 +1,6 @@
 package Controlador;
 
+import Dto.CarritoDTO;
 import Dto.ProductoDTO;
 import Dto.ProductoExistencia;
 import Modelo.Cliente;
@@ -546,7 +547,45 @@ public class Gestor {
         
     }
     
-     public String setNuevoCliente(Cliente c) throws SQLException
+    
+    
+    public String setCompraEncabezado(CarritoDTO c) throws SQLException
+    {
+        Connection conectar = null;
+        String mensaje = "La operación no se ha podido realizar.";
+        
+        
+        try{
+                
+                conectar = Conexion.conectar();    
+                conectar.setAutoCommit(false);
+         
+                /*INSERTAMOS EL CODIGO DEL PROVEEDOR, LA BBDD POR DEFECTO  ME GENERA TODOS LOS DATOS EXTRAS
+                REQUERIDOS EN LA TABLA DE ENCABEZADO DE LA ORDEN DE COMPRA*/
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call OrdenDeCompra(?)}");
+                prcProcedimientoAlmacenado.setInt(1,c.getCodigoProveedor());
+                prcProcedimientoAlmacenado.execute();
+        
+                conectar.commit();
+                mensaje = "registro generado con exito.";
+                
+        } catch (Exception e) {
+                conectar.rollback();
+                
+        } finally {
+                // cerrar la Conexion
+                conectar.close();
+        }
+        
+        return mensaje;
+        
+    }
+    
+    
+    
+    
+    
+    public String setNuevoCliente(Cliente c) throws SQLException
     {
         Connection conectar = null;
         String mensaje = "No se ha registrado";

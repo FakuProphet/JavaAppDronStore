@@ -10,6 +10,7 @@ import Modelo.FormaPago;
 import Modelo.Localidad;
 import Modelo.Marca;
 import Modelo.Pais;
+import Modelo.Pedido;
 import Modelo.Producto;
 import Modelo.Proveedor;
 import Modelo.Provincia;
@@ -307,6 +308,54 @@ public class Gestor {
         return listado;
 
     }
+    
+    
+    public ArrayList<Pedido> getDetallaPedido(int nroOrden,String estado) throws SQLException  {
+
+        ArrayList<Pedido> listado = new ArrayList<>();
+        Connection conectar = null;
+       
+        
+        
+        try{
+                
+                conectar = Conexion.conectar();    
+                conectar.setAutoCommit(false);
+         
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call ListadoProductosOrdenCompra(?,?)}");
+                prcProcedimientoAlmacenado.setInt(1, nroOrden);
+                prcProcedimientoAlmacenado.setString(2, estado);
+                ResultSet rs = prcProcedimientoAlmacenado.executeQuery();
+                while(rs.next())
+                {
+                        Pedido p = new Pedido();
+                        p.setProducto(rs.getString(1));
+                        p.setCodigo(rs.getInt(2));
+                        p.setCantidad(rs.getInt(3));
+                        p.setFecha(rs.getString(4));
+                        p.setEstado(rs.getString(5));
+                        p.setProveedor(rs.getString(6));
+                        listado.add(p);
+                }
+                
+        
+                conectar.commit();
+               
+                
+        } catch (Exception e) {
+                conectar.rollback();
+                
+        } finally {
+                // cerrar la Conexion
+                conectar.close();
+        }
+        
+        
+
+        return listado;
+
+    }
+    
     
     
     

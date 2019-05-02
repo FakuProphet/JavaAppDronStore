@@ -446,7 +446,7 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
         });
 
         btnBorrarElemento2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons8_Drone_32.png"))); // NOI18N
-        btnBorrarElemento2.setText("Seguimiento  pedidos");
+        btnBorrarElemento2.setText("Verificar  pedidos");
         btnBorrarElemento2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarElemento2ActionPerformed(evt);
@@ -868,7 +868,9 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnBorrarElemento2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarElemento2ActionPerformed
-        // TODO add your handling code here:
+        // Verificar y revisar los pedidos
+        Pedido nuevo = new Pedido();
+        CentrarVentana(nuevo);
     }//GEN-LAST:event_btnBorrarElemento2ActionPerformed
     
     public void removeSelectedRows(JTable table)

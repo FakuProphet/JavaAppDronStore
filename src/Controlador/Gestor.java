@@ -584,6 +584,40 @@ public class Gestor {
     
     
     
+    public String setCompraDetalle(CarritoDTO c) throws SQLException
+    {
+        Connection conectar = null;
+        String mensaje = "El registro en detalle no pudo concretarse";
+        
+        
+        try{
+                
+                conectar = Conexion.conectar();    
+                conectar.setAutoCommit(false);
+         
+                /*INSERTAMOS EL CODIGO DEL PROVEEDOR, LA BBDD POR DEFECTO  ME GENERA TODOS LOS DATOS EXTRAS
+                REQUERIDOS EN LA TABLA DE ENCABEZADO DE LA ORDEN DE COMPRA*/
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call detalleOrdenCompra(?,?)}");
+                prcProcedimientoAlmacenado.setInt(1,c.getCodigoProducto());
+                prcProcedimientoAlmacenado.setInt(2,c.getCantidad());
+                prcProcedimientoAlmacenado.execute();
+        
+                conectar.commit();
+                mensaje = "registro de los productos generado con exito.";
+                
+        } catch (Exception e) {
+                conectar.rollback();
+                
+        } finally {
+                // cerrar la Conexion
+                conectar.close();
+        }
+        
+        return mensaje;
+        
+    }
+    
+    
     
     public String setNuevoCliente(Cliente c) throws SQLException
     {

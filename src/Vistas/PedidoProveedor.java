@@ -19,6 +19,7 @@ import java.awt.HeadlessException;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -91,7 +92,7 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         btnSalir = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnSetPedido = new javax.swing.JButton();
         btnBorrarElemento = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -349,8 +350,13 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Report Card_50px.png"))); // NOI18N
-        jButton2.setText("Generar");
+        btnSetPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Report Card_50px.png"))); // NOI18N
+        btnSetPedido.setText("Generar");
+        btnSetPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSetPedidoActionPerformed(evt);
+            }
+        });
 
         btnBorrarElemento.setText("Borrar");
         btnBorrarElemento.addActionListener(new java.awt.event.ActionListener() {
@@ -422,7 +428,7 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSetPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(33, 33, 33)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -477,7 +483,7 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
                                 .addGap(73, 73, 73)
                                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSetPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
@@ -756,6 +762,29 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_btnBorrarElementoActionPerformed
+
+    private void btnSetPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetPedidoActionPerformed
+       try 
+       {
+           // Se procede a generar el pedido , y su registro en bbdd.
+
+           CarritoDTO c = carrito.get(1);
+           String mensaje = g.setCompraEncabezado(c);
+           
+           for (CarritoDTO cto : carrito) 
+           {
+               
+           }
+           
+       } catch (SQLException ex) {
+           
+       }
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btnSetPedidoActionPerformed
     
     public void removeSelectedRows(JTable table)
     {
@@ -808,7 +837,8 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
                 pr.setCodigoProducto(Integer.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
                 pr.setDescripcionProducto(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
                 pr.setCosto(Double.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString()));
-                pr.setCantidad(Integer.valueOf(JOptionPane.showInputDialog("INGRESE La CANTIDAD..."))); 
+                pr.setCantidad(Integer.valueOf(JOptionPane.showInputDialog("INGRESE La CANTIDAD...")));
+                pr.setCodigoProveedor(codProv);
                 if(validarDatosTabla(pr.getCodigoProducto()))
                 {
                     carrito.add(pr);     
@@ -848,11 +878,11 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnAbrirADMProveedores;
     private javax.swing.JButton btnBorrarElemento;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnSetPedido;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cboProveedores;
     private javax.swing.JComboBox<String> cboTipoProductos;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

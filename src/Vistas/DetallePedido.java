@@ -259,6 +259,15 @@ public class DetallePedido extends javax.swing.JInternalFrame {
                         txtObservaciones.setText(miPedido.getObservaciones());
                         lblCodigoEstado.setText(miPedido.getCodigoEstado());
                         cargarTabla(nroOrden);
+                        /*
+                        Pregunta si el pedido ha sido procesado
+                        el código que lo especifica es la letra T, y esto sirve para no volver a 
+                        procesar un pedido ya actualizado.
+                        Si el pedido registra el código de estado T, se bloquea 
+                        el control para operar.
+                        Tambien se resalta la descripción  del estado 
+                        con un color para cada caso
+                        */
                         if(miPedido.getCodigoEstado().startsWith("T"))
                         {
                             btnActualizarStock.setEnabled(false);

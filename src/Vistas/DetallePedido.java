@@ -250,7 +250,13 @@ public class DetallePedido extends javax.swing.JInternalFrame {
            
                 if(!lista.isEmpty())
                 {
-                    Pedido miPedido = lista.get(0);
+                        /*
+                            Para evaluar el pedido ya que obtengo un listado, guardo
+                            en una nueva instancia de pedido el primer elemento del ArrayList,
+                            este contiene toda la información para evaluar cada orden, y los productos
+                            asociados.
+                        */
+                        Pedido miPedido = lista.get(0);
                    
                         lblProveedor.setText(miPedido.getProveedor().toUpperCase());
                         lblEstadoPedido.setText(miPedido.getEstado().toUpperCase());

@@ -1,5 +1,6 @@
 package Controlador;
 
+import Dto.ActualizarStock;
 import Dto.CarritoDTO;
 import Dto.ProductoDTO;
 import Dto.ProductoExistencia;
@@ -310,7 +311,7 @@ public class Gestor {
     }
     
     
-    public ArrayList<Pedido> getDetallePedido(int nroOrden,String estado) throws SQLException  {
+    public ArrayList<Pedido> getDetallePedido(int nroOrden) throws SQLException  {
 
         ArrayList<Pedido> listado = new ArrayList<>();
         Connection conectar = null;
@@ -322,9 +323,9 @@ public class Gestor {
                 conectar = Conexion.conectar();    
                 conectar.setAutoCommit(false);
          
-                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call ListadoProductosOrdenCompra(?,?)}");
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call ListadoProductosOrdenCompra(?)}");
                 prcProcedimientoAlmacenado.setInt(1, nroOrden);
-                prcProcedimientoAlmacenado.setString(2, estado);
+                
                 ResultSet rs = prcProcedimientoAlmacenado.executeQuery();
                 while(rs.next())
                 {
@@ -337,6 +338,7 @@ public class Gestor {
                         p.setProveedor(rs.getString(6));
                         p.setObservaciones(rs.getString(7));
                         p.setNroOrden(rs.getInt(8));
+                        p.setCodigoEstado(rs.getString(9));
                         listado.add(p);
                 }
                 
@@ -598,6 +600,41 @@ public class Gestor {
         
     }
     
+    
+    
+    public String actualizarStock(ActualizarStock s) throws SQLException
+    {
+        Connection conectar = null;
+        String mensaje = "No se ha realizado la actualización de los productos";
+        
+        
+        try{
+                
+                conectar = Conexion.conectar();    
+                conectar.setAutoCommit(false);
+         
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call ActualizarStock(?,?)}");
+        
+                prcProcedimientoAlmacenado.setInt(1,s.getCodigoProducto());
+                prcProcedimientoAlmacenado.setInt(2,s.getCantidad());
+                
+                
+                prcProcedimientoAlmacenado.execute();
+        
+                conectar.commit();
+                mensaje = "El stock ha sido actualizado con exito!";
+                
+        } catch (Exception e) {
+                conectar.rollback();
+                
+        } finally {
+                // cerrar la Conexion
+                conectar.close();
+        }
+        
+        return mensaje;
+        
+    }
     
     
     public String setCompraEncabezado(CarritoDTO c) throws SQLException

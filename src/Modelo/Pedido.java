@@ -20,7 +20,7 @@ public class Pedido {
     private String estado;
     private String observaciones;
     private int nroOrden;
-    
+    private String codigoEstado;
     
     public Pedido() {
     }
@@ -47,6 +47,29 @@ public class Pedido {
         this.estado = estado;
     }
 
+    public Pedido(String producto, int cantidad, int codigo, String fecha, String Proveedor, String estado, String observaciones, int nroOrden, String codigoEstado) {
+        this.producto = producto;
+        this.cantidad = cantidad;
+        this.codigo = codigo;
+        this.fecha = fecha;
+        this.Proveedor = Proveedor;
+        this.estado = estado;
+        this.observaciones = observaciones;
+        this.nroOrden = nroOrden;
+        this.codigoEstado = codigoEstado;
+    }
+
+    public String getCodigoEstado() {
+        return codigoEstado;
+    }
+
+    public void setCodigoEstado(String codigoEstado) {
+        this.codigoEstado = codigoEstado;
+    }
+
+    
+    
+    
     public String getObservaciones() {
         return observaciones;
     }

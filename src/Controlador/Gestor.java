@@ -1,6 +1,6 @@
 package Controlador;
 
-import Dto.ActualizarStock;
+
 import Dto.CarritoDTO;
 import Dto.ProductoDTO;
 import Dto.ProductoExistencia;
@@ -600,12 +600,10 @@ public class Gestor {
         
     }
     
-    
-    
-    public String actualizarStock(ActualizarStock s) throws SQLException
+    public String actualizarEstadoPedido(int nroOrden, String codigoEstado) throws SQLException
     {
         Connection conectar = null;
-        String mensaje = "No se ha realizado la actualización de los productos";
+        String mensaje = "Falla";
         
         
         try{
@@ -613,16 +611,51 @@ public class Gestor {
                 conectar = Conexion.conectar();    
                 conectar.setAutoCommit(false);
          
-                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call ActualizarStock(?,?)}");
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call SP_CambiarEstadoPedido(?,?)}");
         
-                prcProcedimientoAlmacenado.setInt(1,s.getCodigoProducto());
-                prcProcedimientoAlmacenado.setInt(2,s.getCantidad());
-                
+                prcProcedimientoAlmacenado.setInt(1,nroOrden);
+                prcProcedimientoAlmacenado.setString(2,codigoEstado);
+               
                 
                 prcProcedimientoAlmacenado.execute();
         
                 conectar.commit();
-                mensaje = "El stock ha sido actualizado con exito!";
+                mensaje = "OK!";
+                
+        } catch (Exception e) {
+                conectar.rollback();
+                
+        } finally {
+                // cerrar la Conexion
+                conectar.close();
+        }
+        
+        return mensaje;
+        
+    }
+    
+    
+    public String actualizarStock(Pedido p) throws SQLException
+    {
+        Connection conectar = null;
+        String mensaje = "Falla";
+        
+        
+        try{
+                
+                conectar = Conexion.conectar();    
+                conectar.setAutoCommit(false);
+         
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call SP_ActualizarStock(?,?)}");
+        
+                prcProcedimientoAlmacenado.setInt(1,p.getCodigo());
+                prcProcedimientoAlmacenado.setInt(2,p.getCantidad());
+              
+                
+                prcProcedimientoAlmacenado.execute();
+        
+                conectar.commit();
+                mensaje = "OK!";
                 
         } catch (Exception e) {
                 conectar.rollback();

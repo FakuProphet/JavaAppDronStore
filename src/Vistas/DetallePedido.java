@@ -11,6 +11,7 @@ import Modelo.CellRenderer;
 import Modelo.HeaderCellRenderer;
 import Modelo.Pedido;
 import static Vistas.Main.panelEscritorio;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.sql.SQLException;
@@ -35,6 +36,7 @@ public class DetallePedido extends javax.swing.JInternalFrame {
      */
     Gestor g;
     ArrayList<Pedido> lista;
+    int nroOrden;
     public DetallePedido() {
         initComponents();
         inicio();
@@ -66,6 +68,8 @@ public class DetallePedido extends javax.swing.JInternalFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btnActualizarStock = new javax.swing.JButton();
+        lblCodigoEstado = new javax.swing.JLabel();
+        lblEstadoPedido2 = new javax.swing.JLabel();
 
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons8_Exit_32.png"))); // NOI18N
         btnSalir.setText("Salir");
@@ -131,6 +135,11 @@ public class DetallePedido extends javax.swing.JInternalFrame {
             }
         });
 
+        lblCodigoEstado.setForeground(new java.awt.Color(255, 0, 0));
+        lblCodigoEstado.setText("...");
+
+        lblEstadoPedido2.setText("Código:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -138,43 +147,43 @@ public class DetallePedido extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(220, 220, 220)
+                        .addComponent(jLabel6)
+                        .addGap(28, 28, 28)
+                        .addComponent(lblNroOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(220, 220, 220)
-                                .addComponent(jLabel6)
-                                .addGap(28, 28, 28)
-                                .addComponent(lblNroOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane2))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jScrollPane2))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(lblEstadoPedido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(lblFechaPedido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)))))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnActualizarStock)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnBuscarPedido)
-                        .addGap(20, 20, 20)
-                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnActualizarStock)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnBuscarPedido)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(34, 34, 34))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblEstadoPedido2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblCodigoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(lblEstadoPedido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblFechaPedido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)))))))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,7 +204,11 @@ public class DetallePedido extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEstadoPedido)
                     .addComponent(jLabel4))
-                .addGap(18, 31, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEstadoPedido2)
+                    .addComponent(lblCodigoEstado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -230,21 +243,33 @@ public class DetallePedido extends javax.swing.JInternalFrame {
         {
             // Buscar el pedido por nro de orden.
           
-            int nroOrden = Integer.valueOf( JOptionPane.showInputDialog("INGRESE EL NRO DE ORDEN..."));
-            
+            nroOrden = Integer.valueOf( JOptionPane.showInputDialog("INGRESE EL NRO DE ORDEN..."));
             lista = g.getDetallePedido(nroOrden);
             
+           
            
                 if(!lista.isEmpty())
                 {
                     Pedido miPedido = lista.get(0);
-                    lblProveedor.setText(miPedido.getProveedor().toUpperCase());
-                    lblEstadoPedido.setText(miPedido.getEstado().toUpperCase());
-                    lblNroOrden.setText(String.valueOf(miPedido.getNroOrden()));
-                    lblFechaPedido.setText(miPedido.getFecha());
-                    txtObservaciones.setText(miPedido.getObservaciones());
-                    cargarTabla(nroOrden);
-                    btnActualizarStock.setEnabled(true);
+                   
+                        lblProveedor.setText(miPedido.getProveedor().toUpperCase());
+                        lblEstadoPedido.setText(miPedido.getEstado().toUpperCase());
+                        lblNroOrden.setText(String.valueOf(miPedido.getNroOrden()));
+                        lblFechaPedido.setText(miPedido.getFecha());
+                        txtObservaciones.setText(miPedido.getObservaciones());
+                        lblCodigoEstado.setText(miPedido.getCodigoEstado());
+                        cargarTabla(nroOrden);
+                        if(miPedido.getCodigoEstado().startsWith("T"))
+                        {
+                            btnActualizarStock.setEnabled(false);
+                            lblEstadoPedido.setForeground(Color.GREEN);
+                        }
+                        else
+                        {
+                            btnActualizarStock.setEnabled(true);
+                            lblEstadoPedido.setForeground(Color.RED);
+                        }
+                    
                 }
                 else
                 {
@@ -265,7 +290,34 @@ public class DetallePedido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarPedidoActionPerformed
 
     private void btnActualizarStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarStockActionPerformed
-        // TODO add your handling code here:
+        // Generar la actualizacion del stock, con los datos de la orden de compra
+        
+        
+        try 
+        {
+            
+            if (JOptionPane.showConfirmDialog(rootPane, "Se va a realizar la modificación en stock, ¿desea continuar?",
+            "Actualizar Stock", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+            {
+                String codigoEstado = "T";
+                
+                for (Pedido pedido : lista)
+                {
+                    g.actualizarStock(pedido);
+                }
+                
+                g.actualizarEstadoPedido(nroOrden,codigoEstado);
+                JOptionPane.showMessageDialog(null, "Actualización del stock se ha concrecato exitosamente!", "Información", JOptionPane.INFORMATION_MESSAGE); 
+                this.dispose();
+                DetallePedido nuevo = new DetallePedido();
+                CentrarVentana(nuevo);  
+            }
+         
+        } 
+        catch (SQLException ex) {
+                Logger.getLogger(DetallePedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
     }//GEN-LAST:event_btnActualizarStockActionPerformed
 
     
@@ -361,7 +413,9 @@ public class DetallePedido extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblCodigoEstado;
     private javax.swing.JLabel lblEstadoPedido;
+    private javax.swing.JLabel lblEstadoPedido2;
     private javax.swing.JLabel lblFechaPedido;
     private javax.swing.JLabel lblNroOrden;
     private javax.swing.JLabel lblProveedor;

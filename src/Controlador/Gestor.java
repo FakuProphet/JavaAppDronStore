@@ -310,7 +310,7 @@ public class Gestor {
     }
     
     
-    public ArrayList<Pedido> getDetallaPedido(int nroOrden,String estado) throws SQLException  {
+    public ArrayList<Pedido> getDetallePedido(int nroOrden,String estado) throws SQLException  {
 
         ArrayList<Pedido> listado = new ArrayList<>();
         Connection conectar = null;
@@ -335,6 +335,8 @@ public class Gestor {
                         p.setFecha(rs.getString(4));
                         p.setEstado(rs.getString(5));
                         p.setProveedor(rs.getString(6));
+                        p.setObservaciones(rs.getString(7));
+                        p.setNroOrden(rs.getInt(8));
                         listado.add(p);
                 }
                 

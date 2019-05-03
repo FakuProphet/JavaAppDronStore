@@ -6,12 +6,23 @@
 package Vistas;
 
 import Controlador.Gestor;
+import Dto.ProductoDTO;
+import Modelo.CellRenderer;
+import Modelo.HeaderCellRenderer;
 import Modelo.Pedido;
+import static Vistas.Main.panelEscritorio;
+import java.awt.Dimension;
+import java.awt.HeadlessException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -23,6 +34,7 @@ public class DetallePedido extends javax.swing.JInternalFrame {
      * Creates new form DetallePedido
      */
     Gestor g;
+    ArrayList<Pedido> lista;
     public DetallePedido() {
         initComponents();
         inicio();
@@ -48,7 +60,7 @@ public class DetallePedido extends javax.swing.JInternalFrame {
         lblEstadoPedido = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtObservaciones = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
         lblNroOrden = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -86,10 +98,10 @@ public class DetallePedido extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Observaciones:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setEnabled(false);
-        jScrollPane2.setViewportView(jTextArea1);
+        txtObservaciones.setColumns(20);
+        txtObservaciones.setRows(5);
+        txtObservaciones.setEnabled(false);
+        jScrollPane2.setViewportView(txtObservaciones);
 
         jLabel6.setText("NRO DE ORDEN");
 
@@ -200,16 +212,33 @@ public class DetallePedido extends javax.swing.JInternalFrame {
         try 
         {
             // Buscar el pedido por nro de orden.
-            
+          
             int nroOrden = Integer.valueOf( JOptionPane.showInputDialog("INGRESE EL NRO DE ORDEN..."));
             String estado = "A";
-            ArrayList<Pedido> lista = g.getDetallaPedido(nroOrden, estado);
+            lista = g.getDetallePedido(nroOrden, estado);
             
-            if(!lista.isEmpty())
-            {
-               Pedido miPedido = lista.get(0);
-               lblProveedor.setText(miPedido.getProveedor());
-            }
+           
+                if(!lista.isEmpty())
+                {
+                    Pedido miPedido = lista.get(0);
+                    lblProveedor.setText(miPedido.getProveedor());
+                    lblEstadoPedido.setText(miPedido.getEstado());
+                    lblNroOrden.setText(String.valueOf(miPedido.getNroOrden()));
+                    lblFechaPedido.setText(miPedido.getFecha());
+                    txtObservaciones.setText(miPedido.getObservaciones());
+                    cargarTabla(nroOrden, estado);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "El pedido con el número de orden: " + nroOrden+" no se encuentra", "Información", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                    DetallePedido nuevo = new DetallePedido();
+                    CentrarVentana(nuevo);  
+                }
+            
+            
+        } catch (HeadlessException | NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un valor a buscar", "Información", JOptionPane.INFORMATION_MESSAGE); 
             
         } catch (SQLException ex) {
             Logger.getLogger(DetallePedido.class.getName()).log(Level.SEVERE, null, ex);
@@ -217,8 +246,78 @@ public class DetallePedido extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnBuscarPedidoActionPerformed
 
-
     
+      
+    void CentrarVentana(JInternalFrame frame) {
+        panelEscritorio.add(frame);
+        Dimension dim = panelEscritorio.getSize();
+        Dimension framesise = frame.getSize();
+        frame.setLocation((dim.width - framesise.width) / 2, (dim.height - framesise.height) / 2);
+        frame.show();
+    }
+    
+    private void limpiar()
+    {
+        lblNroOrden.setText("...");
+        lblEstadoPedido.setText("...");
+        lblFechaPedido.setText("...");
+        lblProveedor.setText("...");
+        txtObservaciones.setText("");
+        this.dispose();
+    }
+    
+    
+
+    private void cargarTabla(int nroOrden, String estado) {
+
+        try {
+
+            DefaultTableModel modelo = new DefaultTableModel();
+            lista = g.getDetallePedido(nroOrden, estado);
+            modelo.setColumnIdentifiers(new String[]{"Código","Descripción producto","Cantidad"});
+            for (Pedido p : lista) {
+                Vector v = new Vector();
+                v.add(p.getCodigo());
+                v.add(p.getProducto());
+                v.add(p.getCantidad());        
+                modelo.addRow(v);
+            }
+
+            jTable1.setModel(modelo);
+            //color de los bordes de las celdas
+            jTable1.setGridColor(new java.awt.Color(214, 213, 208));
+            //tamaño de columnas
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(120);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(420);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(150);
+          
+           
+            //altura de filas
+            jTable1.setRowHeight(24);
+            //se asigna el nuevo CellRenderer a cada columna segun su contenido
+            jTable1.getColumnModel().getColumn(1).setCellRenderer(new CellRenderer("text"));
+            jTable1.getColumnModel().getColumn(0).setCellRenderer(new CellRenderer("minimo"));
+            jTable1.getColumnModel().getColumn(2).setCellRenderer(new CellRenderer("num"));
+            //Se asigna nuevo header a la tabla
+            JTableHeader jtableHeader = jTable1.getTableHeader();
+            jtableHeader.setDefaultRenderer(new HeaderCellRenderer());
+            jTable1.setTableHeader(jtableHeader);
+            filasNoEditables(jTable1);
+            
+        } catch (Exception e) {
+
+        }
+    }
+    
+    
+    private void filasNoEditables(JTable tabla)
+    {
+         for (int c = 0; c < tabla.getColumnCount(); c++)
+            {
+                Class<?> col_class = tabla.getColumnClass(c);
+                tabla.setDefaultEditor(col_class, null);        // remover editor
+            }
+    }
     
     private void inicio()
     {
@@ -239,10 +338,10 @@ public class DetallePedido extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblEstadoPedido;
     private javax.swing.JLabel lblFechaPedido;
     private javax.swing.JLabel lblNroOrden;
     private javax.swing.JLabel lblProveedor;
+    private javax.swing.JTextArea txtObservaciones;
     // End of variables declaration//GEN-END:variables
 }

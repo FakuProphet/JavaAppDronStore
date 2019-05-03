@@ -18,10 +18,26 @@ public class Pedido {
     private String fecha;
     private String Proveedor;
     private String estado;
-
+    private String observaciones;
+    private int nroOrden;
+    
+    
     public Pedido() {
     }
 
+    public Pedido(String producto, int cantidad, int codigo, String fecha, String Proveedor, String estado, String observaciones, int nroOrden) {
+        this.producto = producto;
+        this.cantidad = cantidad;
+        this.codigo = codigo;
+        this.fecha = fecha;
+        this.Proveedor = Proveedor;
+        this.estado = estado;
+        this.observaciones = observaciones;
+        this.nroOrden = nroOrden;
+    }
+
+    
+    
     public Pedido(String producto, int cantidad, int codigo, String fecha, String Proveedor, String estado) {
         this.producto = producto;
         this.cantidad = cantidad;
@@ -31,45 +47,78 @@ public class Pedido {
         this.estado = estado;
     }
 
-    public String getProducto() {
-        return producto;
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    public int getNroOrden() {
+        return nroOrden;
     }
 
     public void setProducto(String producto) {
         this.producto = producto;
     }
 
-    public int getCantidad() {
-        return cantidad;
-    }
-
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
-    }
-
-    public int getCodigo() {
-        return codigo;
     }
 
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
 
-    public String getFecha() {
-        return fecha;
-    }
-
     public void setFecha(String fecha) {
         this.fecha = fecha;
-    }
-
-    public String getProveedor() {
-        return Proveedor;
     }
 
     public void setProveedor(String Proveedor) {
         this.Proveedor = Proveedor;
     }
+
+    public void setNroOrden(int nroOrden) {
+        this.nroOrden = nroOrden;
+    }
+
+   
+
+    
+    
+    
+    
+    
+    public String getProducto() {
+        return producto;
+    }
+
+   
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+  
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+   
+
+    public String getFecha() {
+        return fecha;
+    }
+
+   
+
+    public String getProveedor() {
+        return Proveedor;
+    }
+
+   
 
     public String getEstado() {
         return estado;

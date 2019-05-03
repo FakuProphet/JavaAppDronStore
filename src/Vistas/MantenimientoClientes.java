@@ -369,7 +369,7 @@ public class MantenimientoClientes extends javax.swing.JInternalFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         //boton bucar cliente
         
-            int dni=Integer.parseInt( JOptionPane.showInputDialog("INGRESE EL DNI DEL CLIENTE A BUSCAR"));
+            int dni=Integer.parseInt(JOptionPane.showInputDialog("INGRESE EL DNI DEL CLIENTE A BUSCAR"));
            
             try
             { 

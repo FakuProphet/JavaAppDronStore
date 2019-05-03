@@ -5,18 +5,25 @@
  */
 package Vistas;
 
+import Controlador.Gestor;
+import Modelo.Pedido;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Prophet
  */
-public class Pedido extends javax.swing.JInternalFrame {
+public class DetallePedido extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form Pedido
+     * Creates new form DetallePedido
      */
-    public Pedido() {
+    Gestor g;
+    public DetallePedido() {
         initComponents();
         inicio();
     }
@@ -190,7 +197,24 @@ public class Pedido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnBuscarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPedidoActionPerformed
-        // TODO add your handling code here:
+        try 
+        {
+            // Buscar el pedido por nro de orden.
+            
+            int nroOrden = Integer.valueOf( JOptionPane.showInputDialog("INGRESE EL NRO DE ORDEN..."));
+            String estado = "A";
+            ArrayList<Pedido> lista = g.getDetallaPedido(nroOrden, estado);
+            
+            if(!lista.isEmpty())
+            {
+               Pedido miPedido = lista.get(0);
+               lblProveedor.setText(miPedido.getProveedor());
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DetallePedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_btnBuscarPedidoActionPerformed
 
 
@@ -199,6 +223,7 @@ public class Pedido extends javax.swing.JInternalFrame {
     private void inicio()
     {
         this.setTitle("Verificar orden de pedido");
+        g = new Gestor();
     }
     
     

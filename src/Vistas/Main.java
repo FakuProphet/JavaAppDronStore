@@ -286,7 +286,7 @@ public class Main extends javax.swing.JFrame {
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
         // Verificar y revisar pedidos
         
-        Pedido nuevo = new Pedido();
+        DetallePedido nuevo = new DetallePedido();
         CentrarVentana(nuevo);
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 

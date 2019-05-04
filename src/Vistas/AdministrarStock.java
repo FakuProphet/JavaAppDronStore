@@ -20,6 +20,7 @@ public class AdministrarStock extends javax.swing.JInternalFrame {
      */
     public AdministrarStock() {
         initComponents();
+        this.setTitle("Administrar Stock");
     }
 
     /**
@@ -31,12 +32,33 @@ public class AdministrarStock extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnAbrirOrdenPedido = new javax.swing.JButton();
         btnAbrirDetallePedido = new javax.swing.JButton();
+        btnAbrirListadoProductos = new javax.swing.JButton();
 
-        btnAbrirDetallePedido.setText("Verificar ordene de pedido");
+        setClosable(true);
+
+        btnAbrirOrdenPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Create Order_50px.png"))); // NOI18N
+        btnAbrirOrdenPedido.setText("Nuevo Pedido ");
+        btnAbrirOrdenPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAbrirOrdenPedidoActionPerformed(evt);
+            }
+        });
+
+        btnAbrirDetallePedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Approval_48px.png"))); // NOI18N
+        btnAbrirDetallePedido.setText("Verificar  pedidos");
         btnAbrirDetallePedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAbrirDetallePedidoActionPerformed(evt);
+            }
+        });
+
+        btnAbrirListadoProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Ask Question_50px.png"))); // NOI18N
+        btnAbrirListadoProductos.setText("Consultar stock");
+        btnAbrirListadoProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAbrirListadoProductosActionPerformed(evt);
             }
         });
 
@@ -44,27 +66,48 @@ public class AdministrarStock extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(529, Short.MAX_VALUE)
-                .addComponent(btnAbrirDetallePedido, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAbrirOrdenPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAbrirDetallePedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAbrirListadoProductos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(369, Short.MAX_VALUE)
-                .addComponent(btnAbrirDetallePedido, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(203, Short.MAX_VALUE)
+                .addComponent(btnAbrirListadoProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnAbrirOrdenPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnAbrirDetallePedido, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAbrirOrdenPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirOrdenPedidoActionPerformed
+       PedidoProveedor nuevo = new PedidoProveedor();
+        CentrarVentana(nuevo);
+    }//GEN-LAST:event_btnAbrirOrdenPedidoActionPerformed
+
     private void btnAbrirDetallePedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirDetallePedidoActionPerformed
         // Abrir detalle de pedido
         DetallePedido nuevo = new DetallePedido();
         CentrarVentana(nuevo);
     }//GEN-LAST:event_btnAbrirDetallePedidoActionPerformed
+
+    private void btnAbrirListadoProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirListadoProductosActionPerformed
+        // listado para revisar stock
+        
+        ListadoProductosFiltros nuevo =new ListadoProductosFiltros();
+        nuevo.setTitle("Consultar Stock");
+        CentrarVentana(nuevo);
+        
+    }//GEN-LAST:event_btnAbrirListadoProductosActionPerformed
 
         
     void CentrarVentana(JInternalFrame frame) {
@@ -78,5 +121,7 @@ public class AdministrarStock extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAbrirDetallePedido;
+    private javax.swing.JButton btnAbrirListadoProductos;
+    private javax.swing.JButton btnAbrirOrdenPedido;
     // End of variables declaration//GEN-END:variables
 }

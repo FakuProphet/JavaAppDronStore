@@ -246,7 +246,7 @@ public class DetallePedido extends javax.swing.JInternalFrame {
             nroOrden = Integer.valueOf( JOptionPane.showInputDialog("INGRESE EL NRO DE ORDEN..."));
             lista = g.getDetallePedido(nroOrden);
             
-           
+            
            
                 if(!lista.isEmpty())
                 {

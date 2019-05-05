@@ -563,7 +563,7 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
                                             .addComponent(btnBorrarElemento)
                                             .addGap(18, 18, 18)))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(116, 116, 116)
+                                        .addGap(76, 76, 76)
                                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(15, 15, 15)

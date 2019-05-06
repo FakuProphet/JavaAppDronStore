@@ -272,7 +272,7 @@ public class Gestor {
                 conectar = Conexion.conectar();    
                 conectar.setAutoCommit(false);
          
-                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call InfoEquipos(?)}");
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call ListadoProductos(?)}");
                 prcProcedimientoAlmacenado.setInt(1, tps);
                 ResultSet rs = prcProcedimientoAlmacenado.executeQuery();
                 while(rs.next())
@@ -284,11 +284,7 @@ public class Gestor {
                         p.setTipo(rs.getString(4));
                         p.setStock(rs.getInt(5));
                         p.setAlerta(rs.getInt(6));
-                        p.setProveedor(rs.getString(7));
-                        p.setCostoReposicion(rs.getFloat(8));
-                        p.setFormaPago(rs.getString(9));
-                        p.setPlazoEntrega(rs.getInt(10));
-                        p.setTipoProducto(rs.getString(11));
+                        p.setTipoProducto(rs.getString(7));
                         listado.add(p);
                 }
                 

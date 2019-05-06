@@ -197,8 +197,7 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
 
             DefaultTableModel modelo = new DefaultTableModel();
             listado = gestor.getDetalleProductos(tps);
-            modelo.setColumnIdentifiers(new String[]{"Descripcion","Tipo Producto", "Origen", "Marca", "Tipo",
-                "En Stock", "Precio de COMPRA"});
+            modelo.setColumnIdentifiers(new String[]{"Descripcion","Tipo Producto", "Origen", "Marca", "Tipo"});
             for (ProductoDTO p : listado) {
                 Vector v = new Vector();
                 v.add(p.getDescripcion());
@@ -206,8 +205,8 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
                 v.add(p.getOrigen());
                 v.add(p.getMarca());
                 v.add(p.getTipo());
-                v.add(p.getStock());
-                v.add(p.getCostoReposicion());
+               
+               
              
                 modelo.addRow(v);
             }
@@ -221,15 +220,14 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
             jTable1.getColumnModel().getColumn(2).setPreferredWidth(180);
             jTable1.getColumnModel().getColumn(3).setPreferredWidth(150);
             jTable1.getColumnModel().getColumn(4).setPreferredWidth(150);
-            jTable1.getColumnModel().getColumn(5).setPreferredWidth(150);
-            jTable1.getColumnModel().getColumn(6).setPreferredWidth(200);
+           
            
             //altura de filas
             jTable1.setRowHeight(24);
             //se asigna el nuevo CellRenderer a cada columna segun su contenido
             jTable1.getColumnModel().getColumn(0).setCellRenderer(new CellRenderer("text"));
             jTable1.getColumnModel().getColumn(5).setCellRenderer(new CellRenderer("num"));
-            jTable1.getColumnModel().getColumn(6).setCellRenderer(new CellRenderer("num"));
+           
             //Se asigna nuevo header a la tabla
             JTableHeader jtableHeader = jTable1.getTableHeader();
             jtableHeader.setDefaultRenderer(new HeaderCellRenderer());

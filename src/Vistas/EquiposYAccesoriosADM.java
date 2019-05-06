@@ -165,7 +165,7 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
                 .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(cboOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         btnsalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons8_Shutdown_32.png"))); // NOI18N
@@ -357,7 +357,7 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
         lTipoDron = g.getListadoTiposDeDrones();
         lPaises = g.getListadoPaises();
         lUM= g.getListadoUnidadesMedida();
-        lProveedores = g.getListadoProveedores();
+       
         cargarCombo(lMarcas, cboMarca);
         cargarCombo(lTipoDron, cboTipoDron);
         cargarCombo(lTipoProd, cboTipoProducto);

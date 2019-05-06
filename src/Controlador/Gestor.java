@@ -832,19 +832,16 @@ public class Gestor {
                 
                 conectar = Conexion.conectar();
                 conectar.setAutoCommit(false);
-                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call nuevoProducto(?,?,?,?,?,?,?,?,?,?)}");
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call nuevoProducto(?,?,?,?,?,?,?)}");
                 
                 // cargar parametros
                 prcProcedimientoAlmacenado.setString(1,p.getDescripcion());
                 prcProcedimientoAlmacenado.setInt(2,p.getAlerta());
-                prcProcedimientoAlmacenado.setInt(3,p.getStockIngreso());
-                prcProcedimientoAlmacenado.setInt(4,p.getMarca());
-                prcProcedimientoAlmacenado.setInt(5,p.getOrigen());
-                prcProcedimientoAlmacenado.setInt(6,p.getProveedor());
-                prcProcedimientoAlmacenado.setFloat(7,p.getCostoReposicion());
-                prcProcedimientoAlmacenado.setInt(8,p.getTipoDron());
-                prcProcedimientoAlmacenado.setInt(9,p.getUnidadMedida());
-                prcProcedimientoAlmacenado.setInt(10,p.getTipoProducto());
+                prcProcedimientoAlmacenado.setInt(3,p.getMarca());
+                prcProcedimientoAlmacenado.setInt(4,p.getOrigen());
+                prcProcedimientoAlmacenado.setInt(5,p.getTipoDron());
+                prcProcedimientoAlmacenado.setInt(6,p.getUnidadMedida());
+                prcProcedimientoAlmacenado.setInt(7,p.getTipoProducto());
                 
                 // se ejecuta el procedimiento
                 prcProcedimientoAlmacenado.execute();

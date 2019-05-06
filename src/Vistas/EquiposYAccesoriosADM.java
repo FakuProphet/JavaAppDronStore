@@ -23,7 +23,6 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
     private ArrayList<TipoProducto>lTipoProd;
     private ArrayList<TipoDron>lTipoDron;
     private ArrayList<Pais>lPaises;
-    private ArrayList<Proveedor>lProveedores;
     private ArrayList<UM>lUM;
     private Gestor g;
     public EquiposYAccesoriosADM() {
@@ -51,19 +50,12 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
         cboMarca = new javax.swing.JComboBox<>();
         cboOrigen = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        cboProveedor = new javax.swing.JComboBox<>();
-        jLabel7 = new javax.swing.JLabel();
-        txtCostoProveedor = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         cboTipoProducto = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         cboTipoDron = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         cboUnidadesMedida = new javax.swing.JComboBox<>();
-        btnABMProveedor = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
-        txtCantidad = new javax.swing.JTextField();
         btnsalir = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnGrabar = new javax.swing.JButton();
@@ -87,12 +79,6 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Origen");
 
-        jLabel6.setText("Proveedor");
-
-        cboProveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel7.setText("Costo");
-
         jLabel8.setForeground(new java.awt.Color(204, 0, 0));
         jLabel8.setText("Tipo de producto");
 
@@ -106,11 +92,6 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
 
         cboUnidadesMedida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        btnABMProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/ico_Add_New_32.png"))); // NOI18N
-        btnABMProveedor.setToolTipText("Agregar nuevo proveedor");
-
-        jLabel11.setText("Cantidad");
-
         javax.swing.GroupLayout jPanelEquipoLayout = new javax.swing.GroupLayout(jPanelEquipo);
         jPanelEquipo.setLayout(jPanelEquipoLayout);
         jPanelEquipoLayout.setHorizontalGroup(
@@ -119,56 +100,43 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
                 .addGap(40, 40, 40)
                 .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelEquipoLayout.createSequentialGroup()
-                        .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cboUnidadesMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanelEquipoLayout.createSequentialGroup()
-                                .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel1))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtDescripcionEq, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cboTipoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 76, Short.MAX_VALUE))
-                    .addGroup(jPanelEquipoLayout.createSequentialGroup()
                         .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
-                            .addComponent(jLabel4)
                             .addComponent(jLabel5)
-                            .addGroup(jPanelEquipoLayout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(jLabel6))
                             .addComponent(jLabel3))
                         .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelEquipoLayout.createSequentialGroup()
-                                .addGap(16, 16, 16)
                                 .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanelEquipoLayout.createSequentialGroup()
-                                        .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(cboOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(cboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(cboTipoDron, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanelEquipoLayout.createSequentialGroup()
-                                                .addGap(27, 27, 27)
-                                                .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel10)
-                                                    .addGroup(jPanelEquipoLayout.createSequentialGroup()
-                                                        .addGap(47, 47, 47)
-                                                        .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                            .addComponent(jLabel7)
-                                                            .addComponent(jLabel11))))
-                                                .addGap(123, 123, 123))
-                                            .addComponent(txtCostoProveedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(16, 16, 16)
+                                        .addComponent(cboTipoDron, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanelEquipoLayout.createSequentialGroup()
-                                        .addComponent(cboProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(btnABMProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(nivelAlertaEq, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(29, 29, 29)
+                                .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanelEquipoLayout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanelEquipoLayout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanelEquipoLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(nivelAlertaEq, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(cboOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(cboUnidadesMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanelEquipoLayout.createSequentialGroup()
+                            .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel8)
+                                .addComponent(jLabel1))
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtDescripcionEq, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cboTipoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(0, 76, Short.MAX_VALUE))
         );
         jPanelEquipoLayout.setVerticalGroup(
             jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,32 +158,14 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(nivelAlertaEq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
-                .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel7)
-                        .addComponent(txtCostoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cboMarca, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanelEquipoLayout.createSequentialGroup()
-                        .addComponent(cboOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                        .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(cboProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanelEquipoLayout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnABMProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelEquipoLayout.createSequentialGroup()
-                        .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(44, 44, 44)))
-                .addContainerGap(85, Short.MAX_VALUE))
+                    .addComponent(nivelAlertaEq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(cboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(jPanelEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(cboOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(174, Short.MAX_VALUE))
         );
 
         btnsalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons8_Shutdown_32.png"))); // NOI18N
@@ -277,7 +227,7 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(40, Short.MAX_VALUE)
+                .addContainerGap(39, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanelEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -326,16 +276,12 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
             TipoProducto tp = (TipoProducto) cboTipoProducto.getSelectedItem();
             TipoDron td = (TipoDron) cboTipoDron.getSelectedItem();
             Pais o = (Pais) cboOrigen.getSelectedItem();
-            Proveedor pr = (Proveedor) cboProveedor.getSelectedItem();
+           
             UM um = (UM) cboUnidadesMedida.getSelectedItem();
             int nivel = Integer.valueOf(nivelAlertaEq.getValue().toString());
             p.setDescripcion(txtDescripcionEq.getText());
             p.setMarca(m.getId());
-            p.setStockIngreso(Integer.valueOf(txtCantidad.getText()));
             p.setOrigen(o.getId());
-            
-            p.setProveedor(pr.getCodigo());
-            p.setCostoReposicion(Float.valueOf(txtCostoProveedor.getText()));
             p.setAlerta(nivel);
             p.setUnidadMedida(um.getId());
             p.setTipoProducto(tp.getId());
@@ -368,10 +314,10 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
     {
         //txtDescripcionEq.grabFocus();
         btnGrabar.setEnabled(false);
-        txtCantidad.setText("");
+      
         btnCancelar.setEnabled(false);
         btnsalir.setEnabled(true);
-        txtCostoProveedor.setText("");
+    
         txtDescripcionEq.setText("");
         //txtPrecUnitarioEq.setText("");
         btnNuevo.setEnabled(true);
@@ -417,7 +363,7 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
         cargarCombo(lTipoProd, cboTipoProducto);
         cargarCombo(lPaises, cboOrigen);
         cargarCombo(lUM, cboUnidadesMedida);
-        cargarCombo(lProveedores, cboProveedor);
+        
     }
     
 
@@ -435,7 +381,6 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnABMProveedor;
     private javax.swing.JButton btnAbrirListado;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGrabar;
@@ -443,24 +388,18 @@ public class EquiposYAccesoriosADM extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnsalir;
     private javax.swing.JComboBox<String> cboMarca;
     private javax.swing.JComboBox<String> cboOrigen;
-    private javax.swing.JComboBox<String> cboProveedor;
     private javax.swing.JComboBox<String> cboTipoDron;
     private javax.swing.JComboBox<String> cboTipoProducto;
     private javax.swing.JComboBox<String> cboUnidadesMedida;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanelEquipo;
     private javax.swing.JSpinner nivelAlertaEq;
-    private javax.swing.JTextField txtCantidad;
-    private javax.swing.JTextField txtCostoProveedor;
     private javax.swing.JTextField txtDescripcionEq;
     // End of variables declaration//GEN-END:variables
 }

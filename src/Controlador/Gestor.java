@@ -285,6 +285,7 @@ public class Gestor {
                         p.setStock(rs.getInt(5));
                         p.setAlerta(rs.getInt(6));
                         p.setTipoProducto(rs.getString(7));
+                        p.setCodigoProducto(rs.getInt(8));
                         listado.add(p);
                 }
                 

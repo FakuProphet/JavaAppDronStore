@@ -8,6 +8,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -148,6 +149,18 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
+    private void filasNoEditables(JTable tabla)
+    {
+         for (int c = 0; c < tabla.getColumnCount(); c++)
+            {
+                Class<?> col_class = tabla.getColumnClass(c);
+                tabla.setDefaultEditor(col_class, null);        // remover editor
+            }
+    }
+    
+    
     private void txtFiltroProductoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroProductoKeyPressed
 
 
@@ -197,11 +210,11 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
 
             DefaultTableModel modelo = new DefaultTableModel();
             listado = gestor.getDetalleProductos(tps);
-            modelo.setColumnIdentifiers(new String[]{"Descripcion","Tipo Producto", "Origen", "Marca", "Tipo"});
+            modelo.setColumnIdentifiers(new String[]{"Código","Descripcion", "Origen", "Marca", "Tipo"});
             for (ProductoDTO p : listado) {
                 Vector v = new Vector();
+                v.add(p.getCodigoProducto());
                 v.add(p.getDescripcion());
-                v.add(p.getTipoProducto());
                 v.add(p.getOrigen());
                 v.add(p.getMarca());
                 v.add(p.getTipo());
@@ -215,23 +228,27 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
             //color de los bordes de las celdas
             jTable1.setGridColor(new java.awt.Color(214, 213, 208));
             //tamaño de columnas
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(450);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(180);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(150);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(150);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(450);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(150);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(100);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);
+            jTable1.getColumnModel().getColumn(4).setPreferredWidth(100);
            
            
             //altura de filas
             jTable1.setRowHeight(24);
             //se asigna el nuevo CellRenderer a cada columna segun su contenido
-            jTable1.getColumnModel().getColumn(0).setCellRenderer(new CellRenderer("text"));
-            jTable1.getColumnModel().getColumn(5).setCellRenderer(new CellRenderer("num"));
+            jTable1.getColumnModel().getColumn(4).setCellRenderer(new CellRenderer("text"));
+            jTable1.getColumnModel().getColumn(3).setCellRenderer(new CellRenderer("text"));
+            jTable1.getColumnModel().getColumn(2).setCellRenderer(new CellRenderer("text"));
+            jTable1.getColumnModel().getColumn(1).setCellRenderer(new CellRenderer("text"));
+            jTable1.getColumnModel().getColumn(0).setCellRenderer(new CellRenderer("num"));
            
             //Se asigna nuevo header a la tabla
             JTableHeader jtableHeader = jTable1.getTableHeader();
             jtableHeader.setDefaultRenderer(new HeaderCellRenderer());
             jTable1.setTableHeader(jtableHeader);
+            filasNoEditables(jTable1);
         } catch (Exception e) {
 
         }

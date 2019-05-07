@@ -103,9 +103,7 @@ public class AdministrarStock extends javax.swing.JInternalFrame {
     private void btnAbrirListadoProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirListadoProductosActionPerformed
         // listado para revisar stock
         
-        ListadoProductosFiltros nuevo =new ListadoProductosFiltros();
-        nuevo.setTitle("Consultar Stock");
-        CentrarVentana(nuevo);
+       
         
     }//GEN-LAST:event_btnAbrirListadoProductosActionPerformed
 

@@ -29,8 +29,23 @@ public class Imagen extends javax.swing.JPanel{
     @Override
     public void paint(Graphics g) {
         /*de manera no muy elegante y como para pasar por parametro concatenamos el codigo del producto*/
-        ImageIcon Img = new ImageIcon(getClass().getResource("/Resources/"+codigoProducto+".png"));
-        g.drawImage(Img.getImage(), 0, 0, x, y, null);
+        
+       
+        java.net.URL imgURL = getClass().getResource("/Resources/"+codigoProducto+".png");
+        if (imgURL != null) 
+        {
+            ImageIcon Img = new ImageIcon(getClass().getResource("/Resources/"+codigoProducto+".png"));
+            g.drawImage(Img.getImage(), 0, 0, x, y, null);
+        } 
+        else 
+        {
+            ImageIcon Img2 = new ImageIcon(getClass().getResource("/Resources/contenido-no-disponible.png"));
+            g.drawImage(Img2.getImage(), 0, 0, x, y, null);
+            System.err.println("Couldn't find file");
+        }
+        
+        
+        
     }    
     
 }

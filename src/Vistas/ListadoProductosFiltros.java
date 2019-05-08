@@ -164,7 +164,7 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
+                .addContainerGap(27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(rbtEquipos)
@@ -172,11 +172,11 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
                     .addComponent(txtFiltroProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 20, Short.MAX_VALUE)
+                .addGap(18, 23, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelImagenProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -231,13 +231,14 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
             {
                 lblMensaje.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
                 Imagen im = new Imagen(panelImagenProducto,lblMensaje.getText().trim());
-                panelImagenProducto.add(im).repaint();
+                panelImagenProducto.add(im).repaint();   
             }
 
 
         }
-        catch(Exception ex){
- 
+        catch(Exception ex)
+        {
+                
         }
     }//GEN-LAST:event_jTable1KeyReleased
 

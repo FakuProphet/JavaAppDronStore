@@ -41,7 +41,7 @@ public class Imagen extends javax.swing.JPanel{
         {
             ImageIcon Img2 = new ImageIcon(getClass().getResource("/Resources/contenido-no-disponible.png"));
             g.drawImage(Img2.getImage(), 0, 0, x, y, null);
-            System.err.println("Couldn't find file");
+            System.err.println("No se puede encontrar el recurso.");
         }
         
         

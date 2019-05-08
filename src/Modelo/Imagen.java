@@ -28,6 +28,7 @@ public class Imagen extends javax.swing.JPanel{
 
     @Override
     public void paint(Graphics g) {
+        /*de manera no muy elegante y como para pasar por parametro concatenamos el codigo del producto*/
         ImageIcon Img = new ImageIcon(getClass().getResource("/Resources/"+codigoProducto+".png"));
         g.drawImage(Img.getImage(), 0, 0, x, y, null);
     }    

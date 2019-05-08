@@ -64,7 +64,7 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
         lblMensaje = new javax.swing.JLabel();
 
         setClosable(true);
-        setTitle("Filtrado de Listado de productos");
+        setTitle("Productos");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

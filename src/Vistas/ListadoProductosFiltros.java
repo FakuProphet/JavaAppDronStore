@@ -4,6 +4,7 @@ import Controlador.Gestor;
 import Dto.ProductoDTO;
 import Modelo.CellRenderer;
 import Modelo.HeaderCellRenderer;
+import Modelo.Imagen;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -59,6 +60,8 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         rbtEquipos = new javax.swing.JRadioButton();
         rbtAccesorios = new javax.swing.JRadioButton();
+        panelImagenProducto = new javax.swing.JPanel();
+        lblMensaje = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Filtrado de Listado de productos");
@@ -74,6 +77,16 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jTable1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTable1KeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel2.setText("Buscar producto:");
@@ -109,12 +122,28 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
             }
         });
 
+        panelImagenProducto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout panelImagenProductoLayout = new javax.swing.GroupLayout(panelImagenProducto);
+        panelImagenProducto.setLayout(panelImagenProductoLayout);
+        panelImagenProductoLayout.setHorizontalGroup(
+            panelImagenProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 368, Short.MAX_VALUE)
+        );
+        panelImagenProductoLayout.setVerticalGroup(
+            panelImagenProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1014, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(jLabel2)
@@ -125,25 +154,29 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(rbtEquipos)
                         .addGap(18, 18, 18)
-                        .addComponent(rbtAccesorios))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1331, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                        .addComponent(rbtAccesorios)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelImagenProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(68, Short.MAX_VALUE)
+                .addContainerGap(24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(rbtEquipos)
                     .addComponent(rbtAccesorios)
                     .addComponent(txtFiltroProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 20, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelImagenProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -189,15 +222,35 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
         cargarTabla();
     }//GEN-LAST:event_rbtAccesoriosActionPerformed
 
+    private void jTable1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyReleased
+        
+        try 
+        {
+ 
+            if (evt.getKeyCode() == 38 || evt.getKeyCode()== 40) 
+            {
+                lblMensaje.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+                Imagen im = new Imagen(panelImagenProducto,lblMensaje.getText().trim());
+                panelImagenProducto.add(im).repaint();
+            }
+
+
+        }
+        catch(Exception ex){
+ 
+        }
+    }//GEN-LAST:event_jTable1KeyReleased
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        
+        
+     
+    }//GEN-LAST:event_jTable1MouseClicked
+
     public void filtro() {
         filtro = txtFiltroProducto.getText();
         trsfiltro.setRowFilter(RowFilter.regexFilter(txtFiltroProducto.getText(), 0));
-        /*
-        ********************Para buscar por una o varias filas******************
-        trsfiltro.setRowFilter(RowFilter.regexFilter(jTextField1.getText(), 0));
-        trsfiltro.setRowFilter(RowFilter.regexFilter(jTextField1.getText(), 1,2,3));
-        **************************************************************************
-        */
+       
     }
     
    
@@ -228,11 +281,11 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
             //color de los bordes de las celdas
             jTable1.setGridColor(new java.awt.Color(214, 213, 208));
             //tamaño de columnas
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(450);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(150);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(100);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(200);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(30);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(30);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(30);
+            jTable1.getColumnModel().getColumn(4).setPreferredWidth(30);
            
            
             //altura de filas
@@ -262,6 +315,8 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblMensaje;
+    private javax.swing.JPanel panelImagenProducto;
     private javax.swing.JRadioButton rbtAccesorios;
     private javax.swing.JRadioButton rbtEquipos;
     private javax.swing.JTextField txtFiltroProducto;

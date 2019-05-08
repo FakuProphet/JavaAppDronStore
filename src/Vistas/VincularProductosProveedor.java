@@ -165,13 +165,19 @@ public class VincularProductosProveedor extends javax.swing.JInternalFrame {
     private void btnBuscarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProveedorActionPerformed
         // buscar proveedor
         
-         int codigo = Integer.parseInt(JOptionPane.showInputDialog("INGRESE EL COD DE PROVEEDOR"));
-         Proveedor p = buscarProveedor(codigo);
-         if(p!=null)
-         {
-            lblCodigoProveedor.setText(String.valueOf(p.getCodigo()));
-            lblDetalleProveedor.setText(p.getDescripcion());
-         }
+        
+        Proveedor p = new Proveedor();
+       
+        p=buscarProveedor(Integer.parseInt(JOptionPane.showInputDialog("INGRESE EL COD DE PROVEEDOR")));
+        if(p.getCodigo()==0)
+        { 
+            JOptionPane.showMessageDialog(this,"El código de  proveedor no existe.","Aviso de error",JOptionPane.INFORMATION_MESSAGE);            
+        }
+        else
+        {
+           lblCodigoProveedor.setText(String.valueOf(p.getCodigo()));
+           lblDetalleProveedor.setText(p.getDescripcion());
+        }
     }//GEN-LAST:event_btnBuscarProveedorActionPerformed
 
     

@@ -5,17 +5,22 @@
  */
 package Vistas;
 
+import Controlador.Gestor;
+import Modelo.Proveedor;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Prophet
  */
 public class VincularProductosProveedor extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form VincularProductosProveedor
-     */
+    ArrayList<Proveedor> listaProveedores;
+    Gestor g;
     public VincularProductosProveedor() {
         initComponents();
+        this.setTitle("Vincular producto con proveedor");
     }
 
     /**
@@ -27,21 +32,180 @@ public class VincularProductosProveedor extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        lblCodigoProducto = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lblCodigoProveedor = new javax.swing.JLabel();
+        btnBuscarProducto = new javax.swing.JButton();
+        btnBuscarProveedor = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        lblDetalleProveedor = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtPrecio = new javax.swing.JTextField();
+        btnVincular = new javax.swing.JButton();
+
+        jLabel1.setText("Código de producto:");
+
+        lblCodigoProducto.setForeground(new java.awt.Color(255, 51, 51));
+        lblCodigoProducto.setText("...");
+
+        jLabel3.setText("Código de proveedor");
+
+        lblCodigoProveedor.setForeground(new java.awt.Color(255, 51, 51));
+        lblCodigoProveedor.setText("...");
+
+        btnBuscarProducto.setText("Buscar Producto");
+
+        btnBuscarProveedor.setText("Buscar Proveedor");
+        btnBuscarProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarProveedorActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Detalle producto:");
+
+        jLabel4.setText("Detalle proveedor:");
+
+        lblDetalleProveedor.setText("...");
+
+        jLabel6.setText("...");
+
+        jLabel7.setText("Establecer precio para el proveedor");
+
+        btnVincular.setText("Vincular y establecer precio");
+        btnVincular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVincularActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 845, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnVincular))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(25, 25, 25)
+                                .addComponent(lblCodigoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnBuscarProducto)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(42, 42, 42)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(87, 87, 87)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnBuscarProveedor)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(26, 26, 26)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblCodigoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblDetalleProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 475, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblCodigoProducto)
+                    .addComponent(jLabel3)
+                    .addComponent(lblCodigoProveedor))
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4)
+                    .addComponent(lblDetalleProveedor)
+                    .addComponent(jLabel6))
+                .addGap(51, 51, 51)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscarProducto)
+                    .addComponent(btnBuscarProveedor))
+                .addGap(86, 86, 86)
+                .addComponent(jLabel7)
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVincular))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnVincularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVincularActionPerformed
+        // vincular y establecer precio del producto para el proveedor
+        if(!txtPrecio.getText().isEmpty())
+        {
+           
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this,"El campo precio no debe estar vacio.","Aviso de error",JOptionPane.INFORMATION_MESSAGE);
+            txtPrecio.grabFocus();
+        }
+    }//GEN-LAST:event_btnVincularActionPerformed
+
+    private void btnBuscarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProveedorActionPerformed
+        // buscar proveedor
+        
+         int codigo = Integer.parseInt(JOptionPane.showInputDialog("INGRESE EL COD DE PROVEEDOR"));
+         Proveedor p = buscarProveedor(codigo);
+         if(p!=null)
+         {
+            lblCodigoProveedor.setText(String.valueOf(p.getCodigo()));
+            lblDetalleProveedor.setText(p.getDescripcion());
+         }
+    }//GEN-LAST:event_btnBuscarProveedorActionPerformed
+
+    
+    private Proveedor buscarProveedor(int codigo)
+    {
+        g = new Gestor();
+        Proveedor p = new Proveedor();
+        listaProveedores = g.getListadoProveedores();
+        for (Proveedor pr : listaProveedores) {
+            if(pr.getCodigo()==codigo)
+            {
+                p=pr;
+                break;
+            }
+        }
+        
+        return p;
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscarProducto;
+    private javax.swing.JButton btnBuscarProveedor;
+    private javax.swing.JButton btnVincular;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel lblCodigoProducto;
+    private javax.swing.JLabel lblCodigoProveedor;
+    private javax.swing.JLabel lblDetalleProveedor;
+    private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
 }

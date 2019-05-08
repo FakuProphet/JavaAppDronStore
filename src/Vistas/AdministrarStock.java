@@ -35,6 +35,7 @@ public class AdministrarStock extends javax.swing.JInternalFrame {
         btnAbrirOrdenPedido = new javax.swing.JButton();
         btnAbrirDetallePedido = new javax.swing.JButton();
         btnAbrirListadoProductos = new javax.swing.JButton();
+        btnAbrirVincularProductoProveedor = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -62,6 +63,14 @@ public class AdministrarStock extends javax.swing.JInternalFrame {
             }
         });
 
+        btnAbrirVincularProductoProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Handshake_50px.png"))); // NOI18N
+        btnAbrirVincularProductoProveedor.setText("Vincular producto");
+        btnAbrirVincularProductoProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAbrirVincularProductoProveedorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -71,13 +80,16 @@ public class AdministrarStock extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnAbrirListadoProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAbrirOrdenPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAbrirDetallePedido, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAbrirDetallePedido, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAbrirVincularProductoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(301, Short.MAX_VALUE)
+                .addContainerGap(227, Short.MAX_VALUE)
+                .addComponent(btnAbrirVincularProductoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnAbrirListadoProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnAbrirOrdenPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -107,6 +119,14 @@ public class AdministrarStock extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnAbrirListadoProductosActionPerformed
 
+    private void btnAbrirVincularProductoProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirVincularProductoProveedorActionPerformed
+        // vincular producto con proveedor
+        
+        VincularProductosProveedor v = new  VincularProductosProveedor();
+        CentrarVentana(v);
+        
+    }//GEN-LAST:event_btnAbrirVincularProductoProveedorActionPerformed
+
         
     void CentrarVentana(JInternalFrame frame) {
         panelEscritorio.add(frame);
@@ -121,5 +141,6 @@ public class AdministrarStock extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnAbrirDetallePedido;
     private javax.swing.JButton btnAbrirListadoProductos;
     private javax.swing.JButton btnAbrirOrdenPedido;
+    private javax.swing.JButton btnAbrirVincularProductoProveedor;
     // End of variables declaration//GEN-END:variables
 }

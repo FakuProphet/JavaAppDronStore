@@ -13,6 +13,7 @@ import Modelo.Marca;
 import Modelo.Pais;
 import Modelo.Pedido;
 import Modelo.Producto;
+import Modelo.ProductoPorProveedor;
 import Modelo.Proveedor;
 import Modelo.Provincia;
 import Modelo.TipoDron;
@@ -509,6 +510,42 @@ public class Gestor {
     }
     
     
+     public String setProductoPorProveedorPrecio(ProductoPorProveedor p) throws SQLException  {
+
+        String mensaje ="No se pudo realizar la operación.";
+        Connection conectar = null;
+       
+        
+        
+        try{
+                
+                conectar = Conexion.conectar();    
+                conectar.setAutoCommit(false);
+         
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call SP_VINCULAR_PRECIO_PRODUCTO_PROVEEDOR(?,?,?)}");
+                prcProcedimientoAlmacenado.setInt(1, tipoProducto);
+                prcProcedimientoAlmacenado.execute();
+               
+                
+        
+                conectar.commit();
+               
+                
+        } catch (Exception e) {
+                conectar.rollback();
+                
+        } finally {
+                // cerrar la Conexion
+                conectar.close();
+        }
+        
+        
+
+        return mensaje;
+
+    }
+     
+     
     
     public ArrayList<Empresa> getListadoEmpresas()  {
 

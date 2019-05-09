@@ -44,6 +44,10 @@ public class Producto {
         this.unidadMedida = unidadMedida;
     }
 
+    public Producto(int tipoProducto) {
+        this.tipoProducto=tipoProducto;
+    }
+
     public int getUnidadMedida() {
         return unidadMedida;
     }

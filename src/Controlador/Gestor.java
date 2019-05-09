@@ -95,47 +95,35 @@ public class Gestor {
 
     }
     
-     public int[] getCantidadesProductos() throws SQLException  {
+     public ArrayList<Producto> getListadoProductosSimple()  {
 
-       int[] c  = new int[1];
-       Connection conectar = null;
-       
-        
-        
-        try{
-                
-                conectar = Conexion.conectar();    
-                conectar.setAutoCommit(false);
-         
-                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call SP_CANTIDAD_CADA_TP()}");
-                
-                ResultSet rs = prcProcedimientoAlmacenado.executeQuery();
-                if(rs.next())
-                {
-                        int cAccesorios = rs.getInt(1);
-                        int cEquipos = rs.getInt(2);                    
-                        c[0]=cAccesorios;
-                        c[1]=cEquipos;
-                }
-                
-        
-                conectar.commit();
-               
-                
+        ArrayList<Producto> listado = new ArrayList<>();
+
+        try {
+            con = Conexion.conectar();
+            ResultSet rs;
+            Statement consulta;
+            String sql = "select * from Productos";
+            consulta = con.createStatement();
+            rs = consulta.executeQuery(sql);
+
+            while (rs.next()) {
+                int tipoProducto = rs.getInt(10);
+                Producto nuevo = new Producto(tipoProducto);
+                listado.add(nuevo);
+            }
+
+            con.close();
+            consulta.close();
+            rs.close();
+
         } catch (Exception e) {
-                conectar.rollback();
-                
-        } finally {
-                // cerrar la Conexion
-                conectar.close();
+            System.out.println("Error al obtener datos de los productos: " + e.toString());
         }
-        
-        
 
-        return c;
+        return listado;
 
     }
-    
     
     public ArrayList<TipoDron> getListadoTiposDeDrones()  {
 

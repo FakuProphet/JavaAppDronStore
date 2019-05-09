@@ -36,6 +36,10 @@ public class AdministrarStock extends javax.swing.JInternalFrame {
         btnAbrirDetallePedido = new javax.swing.JButton();
         btnAbrirListadoProductos = new javax.swing.JButton();
         btnAbrirVincularProductoProveedor = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        lblCantEquipos = new javax.swing.JLabel();
+        lblCantAccesorios = new javax.swing.JLabel();
 
         setClosable(true);
 
@@ -71,6 +75,14 @@ public class AdministrarStock extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel1.setText("CANTIDAD DE EQUIPOS:");
+
+        jLabel2.setText("CANTIDAD DE ACCESORIOS:");
+
+        lblCantEquipos.setText("...");
+
+        lblCantAccesorios.setText("...");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -83,11 +95,29 @@ public class AdministrarStock extends javax.swing.JInternalFrame {
                     .addComponent(btnAbrirDetallePedido, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAbrirVincularProductoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblCantEquipos)
+                    .addComponent(lblCantAccesorios))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(227, Short.MAX_VALUE)
+                .addGap(51, 51, 51)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblCantEquipos))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(lblCantAccesorios))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
                 .addComponent(btnAbrirVincularProductoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnAbrirListadoProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -142,5 +172,9 @@ public class AdministrarStock extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnAbrirListadoProductos;
     private javax.swing.JButton btnAbrirOrdenPedido;
     private javax.swing.JButton btnAbrirVincularProductoProveedor;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lblCantAccesorios;
+    private javax.swing.JLabel lblCantEquipos;
     // End of variables declaration//GEN-END:variables
 }

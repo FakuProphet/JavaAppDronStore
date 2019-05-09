@@ -95,6 +95,46 @@ public class Gestor {
 
     }
     
+     public int[] getCantidadesProductos() throws SQLException  {
+
+       int[] c  = new int[1];
+       Connection conectar = null;
+       
+        
+        
+        try{
+                
+                conectar = Conexion.conectar();    
+                conectar.setAutoCommit(false);
+         
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call SP_CANTIDAD_CADA_TP()}");
+                
+                ResultSet rs = prcProcedimientoAlmacenado.executeQuery();
+                if(rs.next())
+                {
+                        int cAccesorios = rs.getInt(1);
+                        int cEquipos = rs.getInt(2);                    
+                        c[0]=cAccesorios;
+                        c[1]=cEquipos;
+                }
+                
+        
+                conectar.commit();
+               
+                
+        } catch (Exception e) {
+                conectar.rollback();
+                
+        } finally {
+                // cerrar la Conexion
+                conectar.close();
+        }
+        
+        
+
+        return c;
+
+    }
     
     
     public ArrayList<TipoDron> getListadoTiposDeDrones()  {

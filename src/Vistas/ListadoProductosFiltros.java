@@ -5,10 +5,12 @@ import Dto.ProductoDTO;
 import Modelo.CellRenderer;
 import Modelo.HeaderCellRenderer;
 import Modelo.Imagen;
+import Modelo.TipoProducto;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -24,13 +26,14 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
     String filtro3;
     private int tps;
     private ArrayList<ProductoDTO> listado;
-    private final Gestor gestor;
-
+    private Gestor gestor;
     public ListadoProductosFiltros() {
         initComponents();
+       
         tps=2;
         //FOCO EN EL CONTROL
         txtFiltroProducto.requestFocus();
+        
         txtFiltroProducto.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(final KeyEvent e) {
@@ -57,9 +60,6 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         txtFiltroProducto = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        rbtEquipos = new javax.swing.JRadioButton();
-        rbtAccesorios = new javax.swing.JRadioButton();
         panelImagenProducto = new javax.swing.JPanel();
         lblMensaje = new javax.swing.JLabel();
 
@@ -77,11 +77,7 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
-            }
-        });
+        jTable1.setToolTipText("Para visualizar la imagen recorrer la tabla con teclas arriba y abajo");
         jTable1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTable1KeyReleased(evt);
@@ -102,23 +98,6 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtFiltroProductoKeyTyped(evt);
-            }
-        });
-
-        jLabel3.setText("Seleccione tipo de producto");
-
-        rbtEquipos.setSelected(true);
-        rbtEquipos.setText("Equipos");
-        rbtEquipos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtEquiposActionPerformed(evt);
-            }
-        });
-
-        rbtAccesorios.setText("Accesorios");
-        rbtAccesorios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtAccesoriosActionPerformed(evt);
             }
         });
 
@@ -148,13 +127,7 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
                         .addGap(20, 20, 20)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtFiltroProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(93, 93, 93)
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(rbtEquipos)
-                        .addGap(18, 18, 18)
-                        .addComponent(rbtAccesorios)))
+                        .addComponent(txtFiltroProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelImagenProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -166,23 +139,21 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(rbtEquipos)
-                    .addComponent(rbtAccesorios)
                     .addComponent(txtFiltroProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 23, Short.MAX_VALUE)
+                .addGap(18, 25, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelImagenProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+       
+  
     
     private void filasNoEditables(JTable tabla)
     {
@@ -208,20 +179,18 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_txtFiltroProductoActionPerformed
 
-    private void rbtEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtEquiposActionPerformed
-        // establece el valor de la variable tps variable
-        tps=2;
-        rbtAccesorios.setSelected(false);
-        cargarTabla();
-    }//GEN-LAST:event_rbtEquiposActionPerformed
-
-    private void rbtAccesoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtAccesoriosActionPerformed
+    
+    
+    
+    public void limpiarJTable(){
+        DefaultTableModel tb = (DefaultTableModel) jTable1.getModel();
+        int a = tb.getRowCount()-1;
+        for (int i = a; i >= 0; i--) {           
+        tb.removeRow(tb.getRowCount()-1);
+        } 
         
-        tps=1;
-        rbtEquipos.setSelected(false);
-        cargarTabla();
-    }//GEN-LAST:event_rbtAccesoriosActionPerformed
-
+    }
+    
     private void jTable1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyReleased
         
         try 
@@ -242,16 +211,10 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jTable1KeyReleased
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        
-        
-     
-    }//GEN-LAST:event_jTable1MouseClicked
-
-    public void filtro() {
+    public void filtro() 
+    {
         filtro = txtFiltroProducto.getText();
-        trsfiltro.setRowFilter(RowFilter.regexFilter(txtFiltroProducto.getText(), 0));
-       
+        trsfiltro.setRowFilter(RowFilter.regexFilter(txtFiltroProducto.getText(), 1));
     }
     
    
@@ -263,7 +226,7 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
         try {
 
             DefaultTableModel modelo = new DefaultTableModel();
-            listado = gestor.getDetalleProductos(tps);
+            listado = gestor.getListadoProductos();
             modelo.setColumnIdentifiers(new String[]{"Código","Descripcion", "Origen", "Marca", "Tipo"});
             for (ProductoDTO p : listado) {
                 Vector v = new Vector();
@@ -313,13 +276,10 @@ public class ListadoProductosFiltros extends javax.swing.JInternalFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblMensaje;
     private javax.swing.JPanel panelImagenProducto;
-    private javax.swing.JRadioButton rbtAccesorios;
-    private javax.swing.JRadioButton rbtEquipos;
     private javax.swing.JTextField txtFiltroProducto;
     // End of variables declaration//GEN-END:variables
 }

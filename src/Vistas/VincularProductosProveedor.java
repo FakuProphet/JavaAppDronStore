@@ -23,6 +23,7 @@ public class VincularProductosProveedor extends javax.swing.JInternalFrame {
     ArrayList<Proveedor> listaProveedores;
     ArrayList<ProductoDTO> listadoProductos;
     Gestor g;
+    boolean param1,param2;
     public VincularProductosProveedor() {
         initComponents();
         this.setTitle("Vincular producto con proveedor");
@@ -56,7 +57,10 @@ public class VincularProductosProveedor extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Establecer precio para el proveedor");
 
+        txtPrecio.setEnabled(false);
+
         btnVincular.setText("Vincular y establecer precio");
+        btnVincular.setEnabled(false);
         btnVincular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVincularActionPerformed(evt);
@@ -184,13 +188,13 @@ public class VincularProductosProveedor extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtPrecio)
                     .addComponent(btnVincular, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(35, 35, 35))
+                .addGap(44, 44, 44))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,13 +242,16 @@ public class VincularProductosProveedor extends javax.swing.JInternalFrame {
         p=buscarProveedor(Integer.parseInt(JOptionPane.showInputDialog("INGRESE EL COD DE PROVEEDOR")));
         if(p.getCodigo()==0)
         { 
-            JOptionPane.showMessageDialog(this,"El código de  proveedor no existe.","Aviso de error",JOptionPane.INFORMATION_MESSAGE);            
+            JOptionPane.showMessageDialog(this,"El código de  proveedor no existe.","Aviso de error",JOptionPane.INFORMATION_MESSAGE);
+            lblCodigoProveedor.setText("");
+            lblDetalleProveedor.setText("");
         }
         else
         {
            lblCodigoProveedor.setText(String.valueOf(p.getCodigo()));
            lblDetalleProveedor.setText(p.getDescripcion());
         }
+         validar(param1, param2);
     }//GEN-LAST:event_btnBuscarProveedorActionPerformed
 
     private void btnBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProductoActionPerformed
@@ -254,12 +261,15 @@ public class VincularProductosProveedor extends javax.swing.JInternalFrame {
         if(p.getCodigoProducto()==0)
         {
             JOptionPane.showMessageDialog(this,"El código del producto no existe.","Aviso de error",JOptionPane.INFORMATION_MESSAGE);    
+            lblCodigoProducto.setText("");
+            lblDescProducto.setText("");
         }
         else
         {
             lblCodigoProducto.setText(String.valueOf(p.getCodigoProducto()));
             lblDescProducto.setText(p.getDescripcion());
         }
+        validar(param1, param2);
     }//GEN-LAST:event_btnBuscarProductoActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -281,7 +291,12 @@ public class VincularProductosProveedor extends javax.swing.JInternalFrame {
                 if(pr.getCodigoProducto()==codigo)
                 {
                     p=pr;
+                    param1=true;
                     break;
+                }
+                else
+                {
+                    param1=false;
                 }
             }
             
@@ -302,14 +317,34 @@ public class VincularProductosProveedor extends javax.swing.JInternalFrame {
             if(pr.getCodigo()==codigo)
             {
                 p=pr;
+                param2=true;
                 break;
+            }
+            else
+            {
+                param2=false;
             }
         }
         
         return p;
     }
     
-    
+    private void validar(boolean param1,boolean param2)
+    {
+        
+        if(param1 && param2)
+        {
+            txtPrecio.setEnabled(true);
+            btnVincular.setEnabled(true);
+        }
+        else
+        {
+            txtPrecio.setEnabled(false);
+            btnVincular.setEnabled(false);
+        }
+            
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarProducto;

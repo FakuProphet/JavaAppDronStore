@@ -521,13 +521,12 @@ public class Gestor {
                 
                 conectar = Conexion.conectar();    
                 conectar.setAutoCommit(false);
-         
                 CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call SP_VINCULAR_PRECIO_PRODUCTO_PROVEEDOR(?,?,?)}");
-                prcProcedimientoAlmacenado.setInt(1, tipoProducto);
+                prcProcedimientoAlmacenado.setInt(1, p.getCodigoProducto());
+                prcProcedimientoAlmacenado.setInt(2, p.getCodigoProveedor());
+                prcProcedimientoAlmacenado.setDouble(3, p.getPrecio());
                 prcProcedimientoAlmacenado.execute();
-               
-                
-        
+                mensaje ="Operación realizada con exito!!!";
                 conectar.commit();
                
                 

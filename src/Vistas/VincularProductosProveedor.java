@@ -7,11 +7,15 @@ package Vistas;
 
 import Controlador.Gestor;
 import Dto.ProductoDTO;
+import Modelo.ProductoPorProveedor;
 import Modelo.Proveedor;
+import static Vistas.Main.panelEscritorio;
+import java.awt.Dimension;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,6 +28,9 @@ public class VincularProductosProveedor extends javax.swing.JInternalFrame {
     ArrayList<ProductoDTO> listadoProductos;
     Gestor g;
     boolean param1,param2;
+    ProductoPorProveedor nuevo;
+    Proveedor miProveedor;
+    ProductoDTO miProducto;
     public VincularProductosProveedor() {
         initComponents();
         this.setTitle("Vincular producto con proveedor");
@@ -224,7 +231,26 @@ public class VincularProductosProveedor extends javax.swing.JInternalFrame {
         // vincular y establecer precio del producto para el proveedor
         if(!txtPrecio.getText().isEmpty())
         {
-           
+            nuevo = new ProductoPorProveedor();
+            nuevo.setCodigoProducto(miProducto.getCodigoProducto());
+            nuevo.setCodigoProveedor(miProveedor.getCodigo());
+            nuevo.setPrecio(Double.valueOf(txtPrecio.getText()));
+            if (JOptionPane.showConfirmDialog(rootPane, "Se va a vincular el producto código:"+nuevo.getCodigoProducto()+", con el proveedor nro:"+nuevo.getCodigoProveedor()+" ¿desea continuar?",
+                "Abandonar", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+            {
+                try 
+                {
+                    String mensaje = g.setProductoPorProveedorPrecio(nuevo);
+                    JOptionPane.showMessageDialog(this,mensaje,"Operación",JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                    VincularProductosProveedor v = new  VincularProductosProveedor();
+                    CentrarVentana(v);
+                } 
+                catch (SQLException ex) 
+                {
+                    JOptionPane.showMessageDialog(this,ex.getMessage()+" El producto ya se encuentra vinculado.","Aviso de error",JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
         }
         else
         {
@@ -233,14 +259,24 @@ public class VincularProductosProveedor extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnVincularActionPerformed
 
+    
+     void CentrarVentana(JInternalFrame frame) {
+        panelEscritorio.add(frame);
+        Dimension dim = panelEscritorio.getSize();
+        Dimension framesise = frame.getSize();
+        frame.setLocation((dim.width - framesise.width) / 2, (dim.height - framesise.height) / 2);
+        frame.show();
+    }
+    
+    
     private void btnBuscarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProveedorActionPerformed
         // buscar proveedor
         
         
-        Proveedor p = new Proveedor();
+        miProveedor = new Proveedor();
        
-        p=buscarProveedor(Integer.parseInt(JOptionPane.showInputDialog("INGRESE EL COD DE PROVEEDOR")));
-        if(p.getCodigo()==0)
+        miProveedor=buscarProveedor(Integer.parseInt(JOptionPane.showInputDialog("INGRESE EL COD DE PROVEEDOR")));
+        if(miProveedor.getCodigo()==0)
         { 
             JOptionPane.showMessageDialog(this,"El código de  proveedor no existe.","Aviso de error",JOptionPane.INFORMATION_MESSAGE);
             lblCodigoProveedor.setText("");
@@ -248,17 +284,18 @@ public class VincularProductosProveedor extends javax.swing.JInternalFrame {
         }
         else
         {
-           lblCodigoProveedor.setText(String.valueOf(p.getCodigo()));
-           lblDetalleProveedor.setText(p.getDescripcion());
+           lblCodigoProveedor.setText(String.valueOf(miProveedor.getCodigo()));
+           lblDetalleProveedor.setText(miProveedor.getDescripcion());
         }
-         validar(param1, param2);
+        
+        validar(param1, param2);
     }//GEN-LAST:event_btnBuscarProveedorActionPerformed
 
     private void btnBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProductoActionPerformed
         // buscar producto
-        ProductoDTO p = new ProductoDTO();
-        p=buscarProducto(Integer.parseInt(JOptionPane.showInputDialog("INGRESE EL COD DE PRODUCTO")));
-        if(p.getCodigoProducto()==0)
+        miProducto = new ProductoDTO();
+        miProducto=buscarProducto(Integer.parseInt(JOptionPane.showInputDialog("INGRESE EL COD DE PRODUCTO")));
+        if(miProducto.getCodigoProducto()==0)
         {
             JOptionPane.showMessageDialog(this,"El código del producto no existe.","Aviso de error",JOptionPane.INFORMATION_MESSAGE);    
             lblCodigoProducto.setText("");
@@ -266,15 +303,15 @@ public class VincularProductosProveedor extends javax.swing.JInternalFrame {
         }
         else
         {
-            lblCodigoProducto.setText(String.valueOf(p.getCodigoProducto()));
-            lblDescProducto.setText(p.getDescripcion());
+            lblCodigoProducto.setText(String.valueOf(miProducto.getCodigoProducto()));
+            lblDescProducto.setText(miProducto.getDescripcion());
         }
         validar(param1, param2);
     }//GEN-LAST:event_btnBuscarProductoActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // Salir
-         if (JOptionPane.showConfirmDialog(rootPane, "Se cerrara la ventana, ¿desea continuar?",
+        if (JOptionPane.showConfirmDialog(rootPane, "Se cerrara la ventana, ¿desea continuar?",
         "Abandonar", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
         {
             this.dispose();

@@ -65,6 +65,11 @@ public class VincularProductosProveedor extends javax.swing.JInternalFrame {
         jLabel7.setText("Establecer precio para el proveedor");
 
         txtPrecio.setEnabled(false);
+        txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrecioKeyTyped(evt);
+            }
+        });
 
         btnVincular.setText("Vincular y establecer precio");
         btnVincular.setEnabled(false);
@@ -317,6 +322,17 @@ public class VincularProductosProveedor extends javax.swing.JInternalFrame {
             this.dispose();
         }
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
+        
+        char c=evt.getKeyChar();
+	if(Character.isLetter(c)) {
+		getToolkit().beep();
+		evt.consume();
+        }
+        
+        
+    }//GEN-LAST:event_txtPrecioKeyTyped
 
     private ProductoDTO buscarProducto(int codigo)
     {

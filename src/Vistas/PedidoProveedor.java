@@ -56,7 +56,7 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
     public PedidoProveedor() {
         initComponents();
         inicio();
-         txtFiltroTablaDos.addKeyListener(new KeyAdapter() {
+        txtFiltroTablaDos.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(final KeyEvent e) {
                 String cadena = (txtFiltroTablaDos.getText().toUpperCase());
@@ -393,6 +393,11 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
         jLabel5.setText("Filtrar disponibilidad del producto:");
 
         txtFiltroTablaDos.setToolTipText("Filtro por descripción del producto");
+        txtFiltroTablaDos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFiltroTablaDosActionPerformed(evt);
+            }
+        });
         txtFiltroTablaDos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtFiltroTablaDosKeyTyped(evt);
@@ -619,7 +624,7 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
     }
     
     
-     public void filtro() 
+    public void filtro() 
     {
         filtro = txtFiltroTablaDos.getText();
         /*filtra por la descripcion, o sea en este caso la primera fila de la tabla*/
@@ -705,7 +710,7 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
         }
     }
     
-     private void cargarTablaDos() {
+    private void cargarTablaDos() {
 
         try {
 
@@ -933,10 +938,16 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
             "Orden de compra", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
             {
                 habilitarControles(false);
+                btnSetPedido.grabFocus();
             }
         }
        
     }//GEN-LAST:event_btnFinalizarProcesoActionPerformed
+
+    private void txtFiltroTablaDosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFiltroTablaDosActionPerformed
+        
+        
+    }//GEN-LAST:event_txtFiltroTablaDosActionPerformed
     
     public void removeSelectedRows(JTable table)
     {
@@ -1020,7 +1031,7 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
         btnBorrarElemento.setEnabled(x);
         btnCancelar.setEnabled(!x);
         btnSetPedido.setEnabled(!x);
-        jTable1.setEnabled(x);
+        jTable1.setVisible(x);
         btnSalir.setEnabled(x);
     }
     

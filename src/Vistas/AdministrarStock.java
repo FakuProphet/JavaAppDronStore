@@ -9,8 +9,12 @@ import Controlador.Gestor;
 import Modelo.Producto;
 import static Vistas.Main.panelEscritorio;
 import java.awt.Dimension;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,6 +24,7 @@ public class AdministrarStock extends javax.swing.JInternalFrame {
 
     
     ArrayList<Producto> lProductos;
+    ArrayList<Producto> lProductosStock;
     Gestor g;
     public AdministrarStock() {
         initComponents();
@@ -165,7 +170,7 @@ public class AdministrarStock extends javax.swing.JInternalFrame {
 
     private void btnAbrirOrdenPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirOrdenPedidoActionPerformed
        PedidoProveedor nuevo = new PedidoProveedor();
-        CentrarVentana(nuevo);
+       CentrarVentana(nuevo);
     }//GEN-LAST:event_btnAbrirOrdenPedidoActionPerformed
 
     private void btnAbrirDetallePedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirDetallePedidoActionPerformed
@@ -176,17 +181,14 @@ public class AdministrarStock extends javax.swing.JInternalFrame {
 
     private void btnAbrirListadoProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirListadoProductosActionPerformed
         // listado para revisar stock
-        
-            ConsultarStock c = new ConsultarStock();
-            CentrarVentana(c);
+        ConsultarStock c = new ConsultarStock();
+        CentrarVentana(c);
     }//GEN-LAST:event_btnAbrirListadoProductosActionPerformed
 
     private void btnAbrirVincularProductoProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirVincularProductoProveedorActionPerformed
         // vincular producto con proveedor
-        
         VincularProductosProveedor v = new  VincularProductosProveedor();
-        CentrarVentana(v);
-        
+        CentrarVentana(v); 
     }//GEN-LAST:event_btnAbrirVincularProductoProveedorActionPerformed
 
         
@@ -200,12 +202,13 @@ public class AdministrarStock extends javax.swing.JInternalFrame {
     
     private void inicio()
     {
-        g = new Gestor();
+            g = new Gestor();
         
-           int cAccesorios=0;
-           int cEquipos=0;
-           lProductos=g.getListadoProductosSimple();
-           for (Producto p : lProductos) {
+            int cAccesorios=0;
+            int cEquipos=0;
+            lProductos=g.getListadoProductosSimple();
+            
+            for (Producto p : lProductos) {
                 if(p.getTipoProducto()==1)
                 {
                     cAccesorios++;
@@ -214,12 +217,31 @@ public class AdministrarStock extends javax.swing.JInternalFrame {
                 {
                     cEquipos++;
                 }
-           }
+            }
            
-           lblCantAccesorios.setText(String.valueOf(cAccesorios));
-           lblCantEquipos.setText(String.valueOf(cEquipos));
-       
-        this.setTitle("Administrar Stock");
+            lblCantAccesorios.setText(String.valueOf(cAccesorios));
+            lblCantEquipos.setText(String.valueOf(cEquipos));
+            
+            
+            
+            this.setTitle("Administrar Stock");
+            try 
+            {
+                /*listado de productos con existencia entre 1 y 3 sobre la cantidad de existencia minima*/
+                lProductosStock = g.alertaStock();
+                if(!lProductosStock.isEmpty())
+                {
+                    JOptionPane.showMessageDialog(this,"Cantidad de productos con stock entre 1 y 3 unidades sobre la exigencia mínima: "+lProductosStock.size(),"Advertencia para revisar el stock",JOptionPane.INFORMATION_MESSAGE);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this,"No hay ninguna alerta de productos con stock mínimo de 5 unid.","Aviso",JOptionPane.INFORMATION_MESSAGE);
+                }
+            } 
+            catch (SQLException ex) 
+            {
+                Logger.getLogger(AdministrarStock.class.getName()).log(Level.SEVERE, null, ex);
+            }
         
     }
 

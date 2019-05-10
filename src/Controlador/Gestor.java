@@ -417,6 +417,7 @@ public class Gestor {
                         p.setObservaciones(rs.getString(7));
                         p.setNroOrden(rs.getInt(8));
                         p.setCodigoEstado(rs.getString(9));
+                        p.setOperador(rs.getString(10));
                         listado.add(p);
                 }
                 
@@ -746,6 +747,43 @@ public class Gestor {
         
     }
     
+    
+    public ArrayList<Producto> alertaStock() throws SQLException
+    {
+            Connection conectar = null;
+            ArrayList<Producto> listado = new ArrayList<>();
+            Producto prod;
+            ResultSet rs;
+        
+            try{
+                
+                conectar = Conexion.conectar();    
+                conectar.setAutoCommit(false);
+         
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call SP_ALERTA_STOCK()}");
+                
+                rs = prcProcedimientoAlmacenado.executeQuery();
+
+                while (rs.next()) {
+              
+                prod = new Producto();
+                prod.setDescripcion(rs.getString(1));
+                listado.add(prod);
+                }
+                conectar.commit();
+                
+                
+            } catch (Exception e) {
+                conectar.rollback();
+                
+            } finally {
+                // cerrar la Conexion
+                conectar.close();
+            }
+        
+        return listado;
+        
+    }
     
     public String actualizarStock(Pedido p) throws SQLException
     {

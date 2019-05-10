@@ -21,9 +21,25 @@ public class Pedido {
     private String observaciones;
     private int nroOrden;
     private String codigoEstado;
+    private String operador;
     
     public Pedido() {
     }
+
+    public Pedido(String producto, int cantidad, int codigo, String fecha, String Proveedor, String estado, String observaciones, int nroOrden, String codigoEstado, String operador) {
+        this.producto = producto;
+        this.cantidad = cantidad;
+        this.codigo = codigo;
+        this.fecha = fecha;
+        this.Proveedor = Proveedor;
+        this.estado = estado;
+        this.observaciones = observaciones;
+        this.nroOrden = nroOrden;
+        this.codigoEstado = codigoEstado;
+        this.operador = operador;
+    }
+    
+    
 
     public Pedido(String producto, int cantidad, int codigo, String fecha, String Proveedor, String estado, String observaciones, int nroOrden) {
         this.producto = producto;
@@ -59,6 +75,18 @@ public class Pedido {
         this.codigoEstado = codigoEstado;
     }
 
+    public String getOperador() {
+        return operador;
+    }
+
+    public void setOperador(String operador) {
+        this.operador = operador;
+    }
+
+    
+    
+    
+    
     public String getCodigoEstado() {
         return codigoEstado;
     }

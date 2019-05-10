@@ -6,7 +6,6 @@
 package Vistas;
 
 import Controlador.Gestor;
-import Dto.ProductoDTO;
 import Modelo.CellRenderer;
 import Modelo.HeaderCellRenderer;
 import Modelo.Pedido;
@@ -70,6 +69,8 @@ public class DetallePedido extends javax.swing.JInternalFrame {
         btnActualizarStock = new javax.swing.JButton();
         lblCodigoEstado = new javax.swing.JLabel();
         lblEstadoPedido2 = new javax.swing.JLabel();
+        lblEstadoPedido3 = new javax.swing.JLabel();
+        lblGeneradoPor = new javax.swing.JLabel();
 
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons8_Exit_32.png"))); // NOI18N
         btnSalir.setText("Salir");
@@ -89,7 +90,7 @@ public class DetallePedido extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Proveedor:");
 
-        jLabel2.setText("Fecha:");
+        jLabel2.setText("Fecha pedido:");
 
         jLabel3.setText("Listado");
 
@@ -108,6 +109,7 @@ public class DetallePedido extends javax.swing.JInternalFrame {
         txtObservaciones.setEnabled(false);
         jScrollPane2.setViewportView(txtObservaciones);
 
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel6.setText("NRO DE ORDEN");
 
         lblNroOrden.setForeground(new java.awt.Color(0, 0, 204));
@@ -140,6 +142,11 @@ public class DetallePedido extends javax.swing.JInternalFrame {
 
         lblEstadoPedido2.setText("Código:");
 
+        lblEstadoPedido3.setText("Generado por:");
+
+        lblGeneradoPor.setForeground(new java.awt.Color(0, 102, 0));
+        lblGeneradoPor.setText("...");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -147,9 +154,9 @@ public class DetallePedido extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(220, 220, 220)
+                        .addGap(210, 210, 210)
                         .addComponent(jLabel6)
-                        .addGap(28, 28, 28)
+                        .addGap(38, 38, 38)
                         .addComponent(lblNroOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
@@ -166,24 +173,25 @@ public class DetallePedido extends javax.swing.JInternalFrame {
                                 .addComponent(btnActualizarStock)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnBuscarPedido)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(34, 34, 34))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(lblEstadoPedido2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                                    .addComponent(lblEstadoPedido2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblEstadoPedido3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblCodigoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(lblEstadoPedido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblFechaPedido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)))))))
-                .addContainerGap(38, Short.MAX_VALUE))
+                                        .addComponent(lblFechaPedido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
+                                    .addComponent(lblGeneradoPor, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,7 +216,11 @@ public class DetallePedido extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEstadoPedido2)
                     .addComponent(lblCodigoEstado))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEstadoPedido3)
+                    .addComponent(lblGeneradoPor))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -243,11 +255,9 @@ public class DetallePedido extends javax.swing.JInternalFrame {
         {
             // Buscar el pedido por nro de orden.
           
-            nroOrden = Integer.valueOf( JOptionPane.showInputDialog("INGRESE EL NRO DE ORDEN..."));
-            lista = g.getDetallePedido(nroOrden);
+                nroOrden = Integer.valueOf( JOptionPane.showInputDialog("INGRESE EL NRO DE ORDEN..."));
+                lista = g.getDetallePedido(nroOrden);
             
-            
-           
                 if(!lista.isEmpty())
                 {
                         /*
@@ -264,6 +274,7 @@ public class DetallePedido extends javax.swing.JInternalFrame {
                         lblFechaPedido.setText(miPedido.getFecha());
                         txtObservaciones.setText(miPedido.getObservaciones());
                         lblCodigoEstado.setText(miPedido.getCodigoEstado());
+                        lblGeneradoPor.setText(miPedido.getOperador());
                         cargarTabla(nroOrden);
                         /*
                         Pregunta si el pedido ha sido procesado
@@ -431,7 +442,9 @@ public class DetallePedido extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblCodigoEstado;
     private javax.swing.JLabel lblEstadoPedido;
     private javax.swing.JLabel lblEstadoPedido2;
+    private javax.swing.JLabel lblEstadoPedido3;
     private javax.swing.JLabel lblFechaPedido;
+    private javax.swing.JLabel lblGeneradoPor;
     private javax.swing.JLabel lblNroOrden;
     private javax.swing.JLabel lblProveedor;
     private javax.swing.JTextArea txtObservaciones;

@@ -768,6 +768,7 @@ public class Gestor {
               
                 prod = new Producto();
                 prod.setDescripcion(rs.getString(1));
+                
                 listado.add(prod);
                 }
                 conectar.commit();

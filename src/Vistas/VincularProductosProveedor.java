@@ -61,6 +61,7 @@ public class VincularProductosProveedor extends javax.swing.JInternalFrame {
         btnBuscarProducto = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
+        btnAdministrarVinculos = new javax.swing.JButton();
 
         jLabel7.setText("Establecer precio para el proveedor");
 
@@ -191,6 +192,14 @@ public class VincularProductosProveedor extends javax.swing.JInternalFrame {
             }
         });
 
+        btnAdministrarVinculos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Handshake_50px.png"))); // NOI18N
+        btnAdministrarVinculos.setText("Deshacer vínculo");
+        btnAdministrarVinculos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdministrarVinculosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -204,8 +213,9 @@ public class VincularProductosProveedor extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtPrecio)
-                    .addComponent(btnVincular, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(btnVincular, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAdministrarVinculos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(44, 44, 44))
         );
         layout.setVerticalGroup(
@@ -223,8 +233,12 @@ public class VincularProductosProveedor extends javax.swing.JInternalFrame {
                         .addGap(32, 32, 32)
                         .addComponent(btnVincular)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnSalir)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(btnAdministrarVinculos, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalir))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
@@ -334,6 +348,12 @@ public class VincularProductosProveedor extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_txtPrecioKeyTyped
 
+    private void btnAdministrarVinculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministrarVinculosActionPerformed
+        // Abrir deschacer vinculo
+        AdministrarVinculos nuevo = new AdministrarVinculos();
+        CentrarVentana(nuevo);
+    }//GEN-LAST:event_btnAdministrarVinculosActionPerformed
+
     private ProductoDTO buscarProducto(int codigo)
     {
         g= new Gestor();
@@ -400,6 +420,7 @@ public class VincularProductosProveedor extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdministrarVinculos;
     private javax.swing.JButton btnBuscarProducto;
     private javax.swing.JButton btnBuscarProveedor;
     private javax.swing.JButton btnSalir;

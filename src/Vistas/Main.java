@@ -188,6 +188,11 @@ public class Main extends javax.swing.JFrame {
         jMenu9.setText("Presupuesto");
 
         jMenuItem8.setText("Generar y emitir");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu9.add(jMenuItem8);
 
         jMenu3.add(jMenu9);
@@ -284,6 +289,12 @@ public class Main extends javax.swing.JFrame {
         AdministrarStock nuevo = new AdministrarStock();
         CentrarVentana(nuevo);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // generar y emitir presupuesto
+        Presupuesto nuevo = new Presupuesto();
+        CentrarVentana(nuevo);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -17,18 +17,20 @@ public class Producto {
     private int tipoDron;
     private int stockIngreso;
     private int alerta;
-    private float precioUnitario;
+    private double precioUnitario;
     private int proveedor;
-    private float costoReposicion;
     private int formaPago;
     private int plazoEntrega;
     private int tipoProducto;
     private int unidadMedida;
+   
+    
+    
     
     public Producto() {
     }
 
-    public Producto(String descripcion, int origen, int marca, int tipoDron, int stockIngreso, int alerta, float precioUnitario, int proveedor, float costoReposicion, int formaPago, int plazoEntrega, int tipoProducto, int unidadMedida) {
+    public Producto(String descripcion, int origen, int marca, int tipoDron, int stockIngreso, int alerta, double precioUnitario, int proveedor, int formaPago, int plazoEntrega, int tipoProducto, int unidadMedida) {
         this.descripcion = descripcion;
         this.origen = origen;
         this.marca = marca;
@@ -37,7 +39,6 @@ public class Producto {
         this.alerta = alerta;
         this.precioUnitario = precioUnitario;
         this.proveedor = proveedor;
-        this.costoReposicion = costoReposicion;
         this.formaPago = formaPago;
         this.plazoEntrega = plazoEntrega;
         this.tipoProducto = tipoProducto;
@@ -46,6 +47,11 @@ public class Producto {
 
     public Producto(int tipoProducto) {
         this.tipoProducto=tipoProducto;
+    }
+
+    public Producto(int tipoProducto, double precioUnitario) {
+       this.tipoProducto = tipoProducto;
+       this.precioUnitario = precioUnitario;
     }
 
     public int getUnidadMedida() {
@@ -106,11 +112,11 @@ public class Producto {
         this.alerta = alerta;
     }
 
-    public float getPrecioUnitario() {
+    public double getPrecioUnitario() {
         return precioUnitario;
     }
 
-    public void setPrecioUnitario(float precioUnitario) {
+    public void setPrecioUnitario(double precioUnitario) {
         this.precioUnitario = precioUnitario;
     }
 
@@ -122,13 +128,7 @@ public class Producto {
         this.proveedor = proveedor;
     }
 
-    public float getCostoReposicion() {
-        return costoReposicion;
-    }
-
-    public void setCostoReposicion(float costoReposicion) {
-        this.costoReposicion = costoReposicion;
-    }
+   
 
     public int getFormaPago() {
         return formaPago;

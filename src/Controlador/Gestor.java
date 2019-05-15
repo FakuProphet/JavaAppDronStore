@@ -109,8 +109,11 @@ public class Gestor {
             rs = consulta.executeQuery(sql);
 
             while (rs.next()) {
-                int tipoProducto = rs.getInt(10);
-                Producto nuevo = new Producto(tipoProducto);
+                Producto nuevo = new Producto();
+                nuevo.setDescripcion(rs.getString(2));
+                nuevo.setTipoProducto(rs.getInt(10));
+                nuevo.setPrecioUnitario(rs.getDouble(11));
+                
                 listado.add(nuevo);
             }
 

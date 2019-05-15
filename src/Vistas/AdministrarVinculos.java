@@ -5,7 +5,20 @@
  */
 package Vistas;
 
+import Controlador.Gestor;
+import Modelo.Producto;
+import Modelo.Vinculo;
+import com.toedter.calendar.JCalendar;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -14,11 +27,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AdministrarVinculos extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form AdministrarVinculos
-     */
+   
+    ArrayList<Vinculo> listado;
+    Gestor g;
     public AdministrarVinculos() {
         initComponents();
+        g = new Gestor();
     }
 
     /**
@@ -35,7 +49,9 @@ public class AdministrarVinculos extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         btnDeshacerVinculo = new javax.swing.JButton();
+        btnFiltrar = new javax.swing.JButton();
 
+        setClosable(true);
         setTitle("Editar vinculos entre productos y proveedores");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -57,45 +73,104 @@ public class AdministrarVinculos extends javax.swing.JInternalFrame {
 
         btnDeshacerVinculo.setText("Deshacer vínculo");
 
+        btnFiltrar.setText("Buscar");
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(91, Short.MAX_VALUE)
+                .addContainerGap(40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jLabel1)
-                            .addGap(26, 26, 26)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnDeshacerVinculo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(99, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnDeshacerVinculo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 591, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
+                .addContainerGap(61, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(btnFiltrar)))
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(btnDeshacerVinculo)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+        //buscar vinculos por fecha
+        try
+        {
+            Date fecha = jDateChooser1.getDate();
+            DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+            String parametroFecha = f.format(fecha);
+            cargarTabla(parametroFecha);
+        }
+        catch(Exception e)
+        {
+             JOptionPane.showMessageDialog(this,"Campo fecha vacio o datos de entrada incorrectos","Aviso",JOptionPane.INFORMATION_MESSAGE);
+        }
+            
+        
+    }//GEN-LAST:event_btnFiltrarActionPerformed
+
    
+    private void cargarTabla(String fecha)
+    {
+        try 
+        {       DefaultTableModel dtm = new DefaultTableModel();
+                listado = g.getListadoVinculosPorFecha(fecha);
+                dtm.setColumnIdentifiers(new String[]{"COD PRODUCTO","PRODUCTO","COD PROVEEDOR","PROVEEDOR","HORA ALTA"});
+                for (Vinculo vin : listado) {
+                Vector v = new Vector();
+                v.add(vin.getCodigoProducto());
+                v.add(vin.getProducto());
+                v.add(vin.getCodigoProveedor());
+                v.add(vin.getProveedor());
+                v.add(vin.getHoraAlta());
+                dtm.addRow(v);
+                }
+                jTable1.setModel(dtm);
+                filasNoEditables(jTable1);
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultarStock.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
-    
+    private void filasNoEditables(JTable tabla)
+    {
+         for (int c = 0; c < tabla.getColumnCount(); c++)
+            {
+                Class<?> col_class = tabla.getColumnClass(c);
+                tabla.setDefaultEditor(col_class, null);        // remover editor
+            }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDeshacerVinculo;
+    private javax.swing.JButton btnFiltrar;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

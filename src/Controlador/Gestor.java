@@ -19,6 +19,7 @@ import Modelo.Provincia;
 import Modelo.TipoDron;
 import Modelo.TipoProducto;
 import Modelo.UM;
+import Modelo.Vinculo;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -787,6 +788,53 @@ public class Gestor {
         return listado;
         
     }
+    
+    
+    
+    
+     public ArrayList<Vinculo> getListadoVinculosPorFecha(String fecha) throws SQLException
+    {
+            Connection conectar = null;
+            ArrayList<Vinculo> listado = new ArrayList<>();
+            Vinculo prod;
+            ResultSet rs;
+        
+            try{
+                
+                conectar = Conexion.conectar();    
+                conectar.setAutoCommit(false);
+         
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call SP_LISTAR_VINCULOS_POR_FECHA(?)}");
+                prcProcedimientoAlmacenado.setString(1,fecha);
+                rs = prcProcedimientoAlmacenado.executeQuery();
+
+                while (rs.next()) {
+              
+                prod = new Vinculo();
+                prod.setCodigoProducto(rs.getInt(1));
+                prod.setProducto(rs.getString(2));
+                prod.setCodigoProveedor(rs.getInt(3));
+                prod.setProveedor(rs.getString(4));
+                prod.setHoraAlta(rs.getString(5));
+                
+                listado.add(prod);
+                }
+                conectar.commit();
+                
+                
+            } catch (Exception e) {
+                conectar.rollback();
+                
+            } finally {
+                // cerrar la Conexion
+                conectar.close();
+            }
+        
+        return listado;
+        
+    }
+    
+    
     
     public String actualizarStock(Pedido p) throws SQLException
     {

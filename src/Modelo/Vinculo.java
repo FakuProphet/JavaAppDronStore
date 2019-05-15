@@ -16,7 +16,7 @@ public class Vinculo {
     private int codigoProveedor;
     private String proveedor;
     private String horaAlta;
-
+    
     public Vinculo() {
     }
 

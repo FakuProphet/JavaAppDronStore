@@ -179,15 +179,28 @@ public class AdministrarVinculos extends javax.swing.JInternalFrame {
               
            try 
            {
+                /*
                 int codigoProducto = Integer.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
                 String producto = jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString();
                 int codigoProveedor = Integer.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
                 String proveedor = jTable1.getValueAt(jTable1.getSelectedRow(), 3).toString();
+                */
                 String horaAlta = jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString().trim();
-                if (JOptionPane.showConfirmDialog(rootPane, "Se eliminara el vínculo creado el dia,"+ parametroFecha+" a las "+horaAlta+" ¿desea continuar?",
+                String mensaje="";
+                if (JOptionPane.showConfirmDialog(rootPane, "Se eliminara el vínculo creado el dia,"+ parametroFecha+" a las "+horaAlta+""
+                        + " ¿desea continuar?",
                 "Deshacer vínculos", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
                 {
-                    
+                    try 
+                    {
+                        mensaje = g.eliminarVinculo(parametroFecha, horaAlta);
+                        JOptionPane.showMessageDialog(null,mensaje,"Error",JOptionPane.INFORMATION_MESSAGE);
+                        cargarTabla(parametroFecha);              
+                    } 
+                    catch (SQLException ex) 
+                    {
+                        JOptionPane.showMessageDialog(null, ex.toString()+","+mensaje,"Error",JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
            } 
            catch (HeadlessException | NumberFormatException e) 

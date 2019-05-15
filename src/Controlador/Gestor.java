@@ -541,7 +541,7 @@ public class Gestor {
     }
     
     
-     public String setProductoPorProveedorPrecio(ProductoPorProveedor p) throws SQLException  {
+    public String setProductoPorProveedorPrecio(ProductoPorProveedor p) throws SQLException  {
 
         String mensaje ="No se pudo realizar la operación.";
         Connection conectar = null;
@@ -575,7 +575,44 @@ public class Gestor {
 
     }
      
-     
+    
+    
+    public String eliminarVinculo(String fecha , String hora) throws SQLException  {
+
+        String mensaje ="No se pudo realizar la operación.";
+        Connection conectar = null;
+       
+        
+        
+        try{
+                
+                conectar = Conexion.conectar();    
+                conectar.setAutoCommit(false);
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call SP_ELIMINAR_VINCULO_PRODUCTO_PROVEEDOR(?,?)}");
+                
+                prcProcedimientoAlmacenado.setString(1,fecha);
+                prcProcedimientoAlmacenado.setString(2,hora);
+                
+                prcProcedimientoAlmacenado.execute();
+                mensaje ="Operación realizada con exito!!!";
+                conectar.commit();
+               
+                
+        } catch (Exception e) {
+                conectar.rollback();
+                
+        } finally {
+                // cerrar la Conexion
+                conectar.close();
+        }
+        
+        
+
+        return mensaje;
+
+    }
+    
+    
     
     public ArrayList<Empresa> getListadoEmpresas()  {
 

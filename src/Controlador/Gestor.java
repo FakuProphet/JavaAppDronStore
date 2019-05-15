@@ -337,6 +337,8 @@ public class Gestor {
     }
     
     
+   
+    
     
     
     public ArrayList<ProductoDTO> getListadoProductos() throws SQLException  {

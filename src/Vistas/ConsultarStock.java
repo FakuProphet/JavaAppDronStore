@@ -9,12 +9,16 @@ import Controlador.Gestor;
 import Dto.ProductoExistencia;
 import Modelo.CellRenderer;
 import Modelo.HeaderCellRenderer;
+import Modelo.Producto;
 import static Vistas.Main.panelEscritorio;
 import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
@@ -45,7 +49,7 @@ public class ConsultarStock extends javax.swing.JInternalFrame {
                 filtro();
             }
         });
-        
+        productosAlertaStock();
     }
 
     /**
@@ -61,14 +65,21 @@ public class ConsultarStock extends javax.swing.JInternalFrame {
         tablaProductos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         txtFiltro = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tablaProductosStockBajo = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setClosable(true);
 
         tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
@@ -88,28 +99,20 @@ public class ConsultarStock extends javax.swing.JInternalFrame {
             }
         });
 
-        tablaProductosStockBajo.setModel(new javax.swing.table.DefaultTableModel(
+        jLabel2.setText("listado de productos con existencia entre 1 y 3 sobre la cantidad de existencia minima, y productos con stock 0.");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Descripción producto"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(tablaProductosStockBajo);
-
-        jLabel2.setText("listado de productos con existencia entre 1 y 3 sobre la cantidad de existencia minima");
+        ));
+        jScrollPane3.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -123,8 +126,9 @@ public class ConsultarStock extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -136,11 +140,11 @@ public class ConsultarStock extends javax.swing.JInternalFrame {
                     .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(28, 28, 28)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
@@ -212,6 +216,26 @@ public class ConsultarStock extends javax.swing.JInternalFrame {
         }
     }
     
+    
+    private void productosAlertaStock()
+    {
+        try 
+        {
+                ArrayList<Producto> tabla = g.alertaStock();
+                DefaultTableModel dtm = new DefaultTableModel();
+                dtm.setColumnIdentifiers(new String[]{"Descripción del producto"});
+                for (Producto p : tabla) {
+                Vector v = new Vector();
+                v.add(p.getDescripcion());
+                dtm.addRow(v);
+                }
+                jTable1.setModel(dtm);
+                filasNoEditables(jTable1);
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultarStock.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void filasNoEditables(JTable tabla)
     {
          for (int c = 0; c < tabla.getColumnCount(); c++)
@@ -226,9 +250,9 @@ public class ConsultarStock extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTable tablaProductos;
-    private javax.swing.JTable tablaProductosStockBajo;
     private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
 }

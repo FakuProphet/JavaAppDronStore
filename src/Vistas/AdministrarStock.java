@@ -239,7 +239,7 @@ public class AdministrarStock extends javax.swing.JInternalFrame {
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(this,"No hay ninguna alerta de productos con stock mínimo de 5 unid.","Aviso",JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this,"No hay ninguna alerta de stock","Aviso",JOptionPane.INFORMATION_MESSAGE);
                 }
             } 
             catch (SQLException ex) 

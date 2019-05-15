@@ -6,9 +6,11 @@
 package Vistas;
 
 import Controlador.Gestor;
-import Modelo.Producto;
 import Modelo.Vinculo;
-import com.toedter.calendar.JCalendar;
+import java.awt.HeadlessException;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -30,9 +32,11 @@ public class AdministrarVinculos extends javax.swing.JInternalFrame {
    
     ArrayList<Vinculo> listado;
     Gestor g;
+    String parametroFecha;
     public AdministrarVinculos() {
         initComponents();
         g = new Gestor();
+        inicio();
     }
 
     /**
@@ -48,7 +52,6 @@ public class AdministrarVinculos extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        btnDeshacerVinculo = new javax.swing.JButton();
         btnFiltrar = new javax.swing.JButton();
 
         setClosable(true);
@@ -71,8 +74,6 @@ public class AdministrarVinculos extends javax.swing.JInternalFrame {
 
         jDateChooser1.setDateFormatString("dd/MM/yyyy");
 
-        btnDeshacerVinculo.setText("Deshacer vínculo");
-
         btnFiltrar.setText("Buscar");
         btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,23 +86,21 @@ public class AdministrarVinculos extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(40, Short.MAX_VALUE)
+                .addContainerGap(49, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(btnDeshacerVinculo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 591, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 716, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(61, Short.MAX_VALUE)
+                .addContainerGap(86, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -110,10 +109,8 @@ public class AdministrarVinculos extends javax.swing.JInternalFrame {
                         .addGap(1, 1, 1)
                         .addComponent(btnFiltrar)))
                 .addGap(30, 30, 30)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(btnDeshacerVinculo)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(97, Short.MAX_VALUE))
         );
 
         pack();
@@ -125,12 +122,12 @@ public class AdministrarVinculos extends javax.swing.JInternalFrame {
         {
             Date fecha = jDateChooser1.getDate();
             DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-            String parametroFecha = f.format(fecha);
+            parametroFecha = f.format(fecha);
             cargarTabla(parametroFecha);
         }
         catch(Exception e)
         {
-             JOptionPane.showMessageDialog(this,"Campo fecha vacio o datos de entrada incorrectos","Aviso",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this,"Campo fecha vacio o datos de entrada incorrectos","Aviso",JOptionPane.INFORMATION_MESSAGE);
         }
             
         
@@ -168,8 +165,48 @@ public class AdministrarVinculos extends javax.swing.JInternalFrame {
             }
     }
 
+    
+    private void inicio()
+    {
+        jTable1.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mousePressed(MouseEvent Mouse_evt) {
+        JTable table =(JTable) Mouse_evt.getSource();
+        Point point = Mouse_evt.getPoint();
+        int row = table.rowAtPoint(point);
+        if (Mouse_evt.getClickCount() == 2) 
+        {
+              
+           try 
+           {
+                int codigoProducto = Integer.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+                String producto = jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString();
+                int codigoProveedor = Integer.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
+                String proveedor = jTable1.getValueAt(jTable1.getSelectedRow(), 3).toString();
+                String horaAlta = jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString().trim();
+                if (JOptionPane.showConfirmDialog(rootPane, "Se eliminara el vínculo creado el dia,"+ parametroFecha+" a las "+horaAlta+" ¿desea continuar?",
+                "Deshacer vínculos", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+                {
+                    
+                }
+           } 
+           catch (HeadlessException | NumberFormatException e) 
+           {
+                JOptionPane.showMessageDialog(null, "Debe ingresar un valor numérico", "Información", JOptionPane.INFORMATION_MESSAGE);            
+           }
+            
+        }
+        
+        
+        }
+        });
+    }
+    
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDeshacerVinculo;
     private javax.swing.JButton btnFiltrar;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;

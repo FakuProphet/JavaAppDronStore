@@ -50,6 +50,8 @@ public class Main extends javax.swing.JFrame {
         menuMantClientes = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jMenu8 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -78,7 +80,7 @@ public class Main extends javax.swing.JFrame {
         );
         panelEscritorioLayout.setVerticalGroup(
             panelEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 328, Short.MAX_VALUE)
+            .addGap(0, 324, Short.MAX_VALUE)
         );
 
         jMenuBar1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -199,6 +201,20 @@ public class Main extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
+        jMenu8.setIcon(new javax.swing.ImageIcon("C:\\Users\\Prophet\\Desktop\\DronesJava\\Crown_52px.png")); // NOI18N
+        jMenu8.setText("Administrador");
+
+        jMenuItem2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Prophet\\Desktop\\DronesJava\\icons8_Price_Tag_32.png")); // NOI18N
+        jMenuItem2.setText("Gestión precios de venta");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu8.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu8);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -211,7 +227,7 @@ public class Main extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 328, Short.MAX_VALUE)
+            .addGap(0, 324, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(panelEscritorio))
         );
@@ -296,6 +312,13 @@ public class Main extends javax.swing.JFrame {
         CentrarVentana(nuevo);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // Abrir ADM precio ventas
+        
+        ProductoPrecioVenta nuevo = new ProductoPrecioVenta();
+        CentrarVentana(nuevo);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -363,12 +386,14 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem7;

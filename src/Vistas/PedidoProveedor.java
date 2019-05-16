@@ -984,7 +984,7 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
         cargarTabla();
         cargarTablaDos();
         cargarTablaTres(carrito);
-       jTable1.addMouseListener(new MouseAdapter() {
+        jTable1.addMouseListener(new MouseAdapter() {
         @Override
         public void mousePressed(MouseEvent Mouse_evt) {
         JTable table =(JTable) Mouse_evt.getSource();

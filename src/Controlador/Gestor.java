@@ -110,6 +110,7 @@ public class Gestor {
 
             while (rs.next()) {
                 Producto nuevo = new Producto();
+                
                 nuevo.setDescripcion(rs.getString(2));
                 nuevo.setTipoProducto(rs.getInt(10));
                 nuevo.setPrecioUnitario(rs.getDouble(11));

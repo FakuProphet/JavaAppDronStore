@@ -23,7 +23,7 @@ public class Producto {
     private int plazoEntrega;
     private int tipoProducto;
     private int unidadMedida;
-   
+    private int codigo;
     
     
     
@@ -62,6 +62,15 @@ public class Producto {
         this.unidadMedida = unidadMedida;
     }
 
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    
     
 
     public String getDescripcion() {

@@ -90,7 +90,7 @@ public class DetallePedido extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Proveedor:");
 
-        jLabel2.setText("Fecha pedido:");
+        jLabel2.setText("Fecha emisión:");
 
         jLabel3.setText("Listado");
 
@@ -105,6 +105,7 @@ public class DetallePedido extends javax.swing.JInternalFrame {
         jLabel5.setText("Observaciones:");
 
         txtObservaciones.setColumns(20);
+        txtObservaciones.setForeground(new java.awt.Color(153, 153, 255));
         txtObservaciones.setRows(5);
         txtObservaciones.setEnabled(false);
         jScrollPane2.setViewportView(txtObservaciones);
@@ -171,11 +172,10 @@ public class DetallePedido extends javax.swing.JInternalFrame {
                                 .addComponent(lblProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnActualizarStock)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnBuscarPedido)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34))
+                                .addGap(30, 30, 30)
+                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
@@ -220,7 +220,7 @@ public class DetallePedido extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEstadoPedido3)
                     .addComponent(lblGeneradoPor))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)

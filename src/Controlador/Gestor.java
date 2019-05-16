@@ -618,6 +618,43 @@ public class Gestor {
     }
     
     
+     public String setPreciosVenta(int codigoProducto, double nuevoPrecio) throws SQLException  {
+
+        String mensaje ="No se pudo realizar la operación.";
+        Connection conectar = null;
+       
+        
+        
+        try{
+                
+                conectar = Conexion.conectar();    
+                conectar.setAutoCommit(false);
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call SP_PRECIOS_DE_VENTA(?,?)}");
+                
+                prcProcedimientoAlmacenado.setInt(1,codigoProducto);
+                prcProcedimientoAlmacenado.setDouble(2,nuevoPrecio);
+                
+                prcProcedimientoAlmacenado.execute();
+                mensaje ="Operación realizada con exito!!!";
+                conectar.commit();
+               
+                
+        } catch (Exception e) {
+                conectar.rollback();
+                
+        } finally {
+                // cerrar la Conexion
+                conectar.close();
+        }
+        
+        
+
+        return mensaje;
+
+    }
+    
+    
+    
     
     public ArrayList<Empresa> getListadoEmpresas()  {
 

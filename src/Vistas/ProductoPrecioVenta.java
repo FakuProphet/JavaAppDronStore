@@ -6,16 +6,21 @@
 package Vistas;
 
 import Controlador.Gestor;
-import Dto.CarritoDTO;
 import Modelo.CellRenderer;
 import Modelo.HeaderCellRenderer;
 import Modelo.Producto;
+import static Vistas.Main.panelEscritorio;
+import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -220,11 +225,35 @@ public class ProductoPrecioVenta extends javax.swing.JInternalFrame {
         if (JOptionPane.showConfirmDialog(rootPane, "Se van a actualizar los precios de venta de los productos modificados, ¿desea continuar?",
         "Precio de venta", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
         {
-            
+            try 
+            {
+                for (int i = 0; i < jTable2.getRowCount(); i++) 
+                {
+                    int codigo = (Integer.valueOf(jTable2.getValueAt(i,0).toString()));
+                    double precio = (Double.valueOf(jTable2.getValueAt(i,2).toString()));
+                    gestor.setPreciosVenta(codigo,precio);
+                }
+                JOptionPane.showMessageDialog(null, "Operación exitosa!", "Información", JOptionPane.INFORMATION_MESSAGE);  
+                this.dispose();
+                ProductoPrecioVenta nuevo = new ProductoPrecioVenta();
+                CentrarVentana(nuevo);
+            } 
+            catch (SQLException ex) 
+            {
+                Logger.getLogger(ProductoPrecioVenta.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
     }//GEN-LAST:event_btnActualizarActionPerformed
 
+    
+    void CentrarVentana(JInternalFrame frame) {
+        panelEscritorio.add(frame);
+        Dimension dim = panelEscritorio.getSize();
+        Dimension framesise = frame.getSize();
+        frame.setLocation((dim.width - framesise.width) / 2, (dim.height - framesise.height) / 2);
+        frame.show();
+    }
     
     
     

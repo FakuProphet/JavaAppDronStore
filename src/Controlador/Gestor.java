@@ -618,7 +618,7 @@ public class Gestor {
     }
     
     
-     public String setPreciosVenta(int codigoProducto, double nuevoPrecio) throws SQLException  {
+     public String setPreciosVenta(int codigo,double precio) throws SQLException  {
 
         String mensaje ="No se pudo realizar la operación.";
         Connection conectar = null;
@@ -631,8 +631,8 @@ public class Gestor {
                 conectar.setAutoCommit(false);
                 CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call SP_PRECIOS_DE_VENTA(?,?)}");
                 
-                prcProcedimientoAlmacenado.setInt(1,codigoProducto);
-                prcProcedimientoAlmacenado.setDouble(2,nuevoPrecio);
+                prcProcedimientoAlmacenado.setInt(1,codigo);
+                prcProcedimientoAlmacenado.setDouble(2,precio);
                 
                 prcProcedimientoAlmacenado.execute();
                 mensaje ="Operación realizada con exito!!!";

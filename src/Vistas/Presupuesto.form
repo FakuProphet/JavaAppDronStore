@@ -280,6 +280,9 @@
           </SubComponents>
         </Container>
         <Component class="javax.swing.JTextField" name="txtFiltro">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFiltroKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
@@ -396,6 +399,7 @@
     <Component class="javax.swing.JButton" name="btnGenerarPresupuesto">
       <Properties>
         <Property name="text" type="java.lang.String" value="Generar y emitir"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGenerarPresupuestoActionPerformed"/>

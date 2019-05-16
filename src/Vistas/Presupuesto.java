@@ -10,12 +10,16 @@ import Modelo.Cliente;
 import Modelo.Producto;
 import static Vistas.Main.panelEscritorio;
 import java.awt.Dimension;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -25,10 +29,21 @@ public class Presupuesto extends javax.swing.JInternalFrame {
 
     Gestor gestor;
     ArrayList<Producto> lProductos;
+    private TableRowSorter trsfiltro;
+    String filtro;
     public Presupuesto() {
         initComponents();
         gestor = new Gestor();
         cargarTabla();
+        txtFiltro.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(final KeyEvent e) {
+                String cadena = (txtFiltro.getText().toUpperCase());
+                txtFiltro.setText(cadena);
+                repaint();
+                filtro();
+            }
+        });
     }
 
     /**
@@ -168,6 +183,12 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tablaDetallePresupuesto);
 
+        txtFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtFiltroKeyTyped(evt);
+            }
+        });
+
         jLabel7.setForeground(new java.awt.Color(255, 153, 153));
         jLabel7.setText("Filtrado:");
 
@@ -257,6 +278,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         );
 
         btnGenerarPresupuesto.setText("Generar y emitir");
+        btnGenerarPresupuesto.setEnabled(false);
         btnGenerarPresupuesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGenerarPresupuestoActionPerformed(evt);
@@ -313,6 +335,13 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    public void filtro() 
+    {
+        filtro = txtFiltro.getText();
+        trsfiltro.setRowFilter(RowFilter.regexFilter(txtFiltro.getText(), 0));
+    }
+    
     private void btnNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoClienteActionPerformed
         // Abrir ABM clientes
         MantenimientoClientes nuevo = new MantenimientoClientes();
@@ -332,12 +361,14 @@ public class Presupuesto extends javax.swing.JInternalFrame {
                 {
                     JOptionPane.showMessageDialog(null, "El cliente dni nro: " +dni+ " no se encuentra en nuestros registros");
                     limpiarCampos();
+                    btnGenerarPresupuesto.setEnabled(false);
                 }
                 else
                 {
                     lblEmail.setText(c.getEmail());
                     lblNombreCliente.setText(c.getApellido().toUpperCase()+" "+c.getNombre());
                     lblNroDni.setText(String.valueOf(c.getClienteDni()));
+                    btnGenerarPresupuesto.setEnabled(true);
                 }
             }
             catch(Exception e)
@@ -351,6 +382,13 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         
         
     }//GEN-LAST:event_btnGenerarPresupuestoActionPerformed
+
+    private void txtFiltroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroKeyTyped
+        // filtro
+        
+        trsfiltro = new TableRowSorter(tablaListadoProductos.getModel());
+        tablaListadoProductos.setRowSorter(trsfiltro);
+    }//GEN-LAST:event_txtFiltroKeyTyped
 
     private void filasNoEditables(JTable tabla)
     {
@@ -384,10 +422,13 @@ public class Presupuesto extends javax.swing.JInternalFrame {
             lProductos = gestor.getListadoProductosSimple();
             modelo.setColumnIdentifiers(new String[]{"Descripción producto","Precio unitario"});
             for (Producto p : lProductos ) {
-                Vector v = new Vector();
-                v.add(p.getDescripcion().toUpperCase());
-                v.add(p.getPrecioUnitario());
-                modelo.addRow(v);
+                if(p.getPrecioUnitario()>0)
+                {
+                    Vector v = new Vector();
+                    v.add(p.getDescripcion().toUpperCase());
+                    v.add(p.getPrecioUnitario());
+                    modelo.addRow(v);
+                }
             }
             tablaListadoProductos.setModel(modelo);
             filasNoEditables(tablaListadoProductos);

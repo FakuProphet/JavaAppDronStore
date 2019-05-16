@@ -19,6 +19,13 @@ public class CarritoDTO {
     
     public CarritoDTO() {
     }
+    
+     public CarritoDTO(String descripcionProducto,int cantidad,double costo) {
+       
+        this.descripcionProducto = descripcionProducto;
+        this.cantidad = cantidad;
+        this.costo = costo;
+    }
 
     public CarritoDTO(int codigoProducto, String descripcionProducto, int cantidad, double costo, int codigoProveedor) {
         this.codigoProducto = codigoProducto;

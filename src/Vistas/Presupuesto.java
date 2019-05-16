@@ -6,12 +6,20 @@
 package Vistas;
 
 import Controlador.Gestor;
+import Dto.CarritoDTO;
+import Modelo.CellRenderer;
 import Modelo.Cliente;
+import Modelo.HeaderCellRenderer;
 import Modelo.Producto;
 import static Vistas.Main.panelEscritorio;
 import java.awt.Dimension;
+import java.awt.HeadlessException;
+import java.awt.Point;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JInternalFrame;
@@ -19,6 +27,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
 
 /**
@@ -31,10 +40,16 @@ public class Presupuesto extends javax.swing.JInternalFrame {
     ArrayList<Producto> lProductos;
     private TableRowSorter trsfiltro;
     String filtro;
+    private ArrayList<CarritoDTO> carrito;
+    private CarritoDTO pr;
+
     public Presupuesto() {
         initComponents();
         gestor = new Gestor();
         cargarTabla();
+        
+        eliminarSeleccionTabla();
+        seleccionProductos();
         txtFiltro.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(final KeyEvent e) {
@@ -44,6 +59,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
                 filtro();
             }
         });
+        cargarTablaDetalle(carrito);
     }
 
     /**
@@ -69,6 +85,14 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         tablaDetallePresupuesto = new javax.swing.JTable();
         txtFiltro = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        lblSubtotal = new javax.swing.JLabel();
+        lblDescuento = new javax.swing.JLabel();
+        lblIvaDiscriminado = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        lblMontoTotal = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -192,23 +216,66 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         jLabel7.setForeground(new java.awt.Color(255, 153, 153));
         jLabel7.setText("Filtrado:");
 
+        jLabel8.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel8.setText("SUBTOTAL:");
+
+        jLabel9.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel9.setText("DESCUENTO:");
+
+        lblSubtotal.setForeground(new java.awt.Color(255, 51, 51));
+        lblSubtotal.setText("...");
+
+        lblDescuento.setForeground(new java.awt.Color(255, 51, 51));
+        lblDescuento.setText("...");
+
+        lblIvaDiscriminado.setForeground(new java.awt.Color(255, 51, 51));
+        lblIvaDiscriminado.setText("...");
+
+        jLabel10.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel10.setText("IVA 21%");
+
+        jLabel11.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel11.setText("MONTO TOTAL:");
+
+        lblMontoTotal.setForeground(new java.awt.Color(0, 0, 204));
+        lblMontoTotal.setText("...");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+                .addContainerGap(29, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(188, 188, 188))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
                             .addComponent(jScrollPane2))
-                        .addGap(23, 23, 23))))
+                        .addGap(30, 30, 30))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblDescuento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(48, 48, 48)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblIvaDiscriminado, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblMontoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,11 +284,23 @@ public class Presupuesto extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(lblSubtotal)
+                    .addComponent(lblIvaDiscriminado)
+                    .addComponent(jLabel10))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDescuento)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel11)
+                    .addComponent(lblMontoTotal))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Datos del cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(102, 102, 255))); // NOI18N
@@ -292,44 +371,44 @@ public class Presupuesto extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnGenerarPresupuesto)
-                        .addGap(0, 455, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel2)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnGenerarPresupuesto)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(37, 37, 37)))
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(77, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnGenerarPresupuesto)
-                .addGap(28, 28, 28))
+                .addGap(16, 16, 16))
         );
 
         pack();
@@ -379,6 +458,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnGenerarPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPresupuestoActionPerformed
+        
         
         
     }//GEN-LAST:event_btnGenerarPresupuestoActionPerformed
@@ -432,8 +512,195 @@ public class Presupuesto extends javax.swing.JInternalFrame {
             }
             tablaListadoProductos.setModel(modelo);
             filasNoEditables(tablaListadoProductos);
-            filasNoEditables(tablaDetallePresupuesto);
+           // filasNoEditables(tablaDetallePresupuesto);
     }
+    
+    private void eliminarSeleccionTabla()
+    {
+        tablaDetallePresupuesto.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mousePressed(MouseEvent Mouse_evt) {
+        JTable table =(JTable) Mouse_evt.getSource();
+        Point point = Mouse_evt.getPoint();
+        int row = table.rowAtPoint(point);
+        if (Mouse_evt.getClickCount() == 2) 
+        {
+            if(tablaDetallePresupuesto.getRowCount()>0)
+            {   
+           
+            if (JOptionPane.showConfirmDialog(rootPane, "Va a eliminar la selección, ¿desea continuar?",
+            "Eliminar", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+            {
+                removeSelectedRows(tablaDetallePresupuesto);
+                TotalizarPresupuesto();
+            }
+            
+            }
+        }
+        
+        
+        }
+        });
+    }
+    
+    
+     public void removeSelectedRows(JTable table)
+    {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        int[] rows = table.getSelectedRows();
+        
+            for(int i=0;i<rows.length;i++)
+            {
+                model.removeRow(rows[i]-i);    
+                carrito.remove(rows[i]);
+            }
+       
+        
+    }
+    
+    private void seleccionProductos()
+    {
+        carrito = new ArrayList<>();
+        tablaListadoProductos.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mousePressed(MouseEvent Mouse_evt) {
+        JTable table =(JTable) Mouse_evt.getSource();
+        Point point = Mouse_evt.getPoint();
+        int row = table.rowAtPoint(point);
+        if (Mouse_evt.getClickCount() == 2) 
+        {
+              
+           try 
+           {   
+                pr = new CarritoDTO();
+                pr.setDescripcionProducto(tablaListadoProductos.getValueAt(tablaListadoProductos.getSelectedRow(), 0).toString());
+                pr.setCosto(Double.valueOf(tablaListadoProductos.getValueAt(tablaListadoProductos.getSelectedRow(), 1).toString()));
+                pr.setCantidad(Integer.valueOf(JOptionPane.showInputDialog("INGRESE LA CANTIDAD...")));
+                
+                
+                if(validarDatosTabla(pr.getDescripcionProducto()))
+                {
+                    carrito.add(pr);     
+                    cargarTablaDetalle(carrito); 
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "El producto ya se encuentra cargado", "Información", JOptionPane.INFORMATION_MESSAGE);
+                }
+           } 
+           catch (HeadlessException | NumberFormatException e) 
+           {
+                JOptionPane.showMessageDialog(null, "Debe ingresar un valor numérico", "Información", JOptionPane.INFORMATION_MESSAGE);            
+           }
+            
+        }
+        
+        
+        }
+        });
+    }
+    
+    private boolean validarDatosTabla(String miProducto)
+    {
+        boolean bandera = true;
+        if(tablaDetallePresupuesto.getRowCount()>0)
+        {
+            for (int i = 0; i < tablaDetallePresupuesto.getRowCount(); i++) 
+            {
+                //el cero indica la columna la cual se evalua
+                //en este caso es el codigo del producto
+                if(tablaDetallePresupuesto.getValueAt(i, 0)!=null)
+                {
+                    String producto =  (tablaDetallePresupuesto.getValueAt(i, 0).toString());
+                    if(producto.equals(miProducto))
+                    {
+                        bandera = false;
+                    }
+                }
+            }
+        }
+        
+        return bandera;
+    }
+    
+    
+    private void cargarTablaDetalle(ArrayList<CarritoDTO> lista) {
+
+        try {
+
+            DefaultTableModel modelo = new DefaultTableModel();
+            modelo.setColumnIdentifiers(new String[]{"Descripción","Cantidad","Precio"});
+            
+            for (CarritoDTO o : lista) 
+            {
+               Vector v = new Vector();
+               v.add(o.getDescripcionProducto());
+               v.add(o.getCantidad());
+               v.add(o.getCosto());
+               
+               modelo.addRow(v);
+            }
+
+            tablaDetallePresupuesto.setModel(modelo);
+            TotalizarPresupuesto();
+            //color de los bordes de las celdas
+            tablaDetallePresupuesto.setGridColor(new java.awt.Color(214, 213, 208));
+            //tamaño de columnas
+            tablaDetallePresupuesto.getColumnModel().getColumn(0).setPreferredWidth(250);
+            tablaDetallePresupuesto.getColumnModel().getColumn(1).setPreferredWidth(70);
+            tablaDetallePresupuesto.getColumnModel().getColumn(2).setPreferredWidth(70);
+            //altura de filas
+            tablaDetallePresupuesto.setRowHeight(24);
+            //se asigna el nuevo CellRenderer a cada columna segun su contenido
+            tablaDetallePresupuesto.getColumnModel().getColumn(0).setCellRenderer(new CellRenderer("text"));
+            tablaDetallePresupuesto.getColumnModel().getColumn(1).setCellRenderer(new CellRenderer("num"));
+            tablaDetallePresupuesto.getColumnModel().getColumn(2).setCellRenderer(new CellRenderer("num"));
+            //Se asigna nuevo header a la tabla
+            JTableHeader jtableHeader = tablaDetallePresupuesto.getTableHeader();
+            jtableHeader.setDefaultRenderer(new HeaderCellRenderer());
+            tablaDetallePresupuesto.setTableHeader(jtableHeader);
+            filasNoEditables(tablaDetallePresupuesto);
+            
+        } catch (Exception e) {
+
+        }
+    }
+    
+    
+    
+    private void TotalizarPresupuesto()
+    {
+        double SubTotal = 0.0;
+        double IvaDiscriminado=0.0;
+        double total =0.0;
+        int cantidad = 0;
+        double costo=0.0;
+        int iva = 21;
+        if(tablaDetallePresupuesto.getRowCount()>=0)
+        {
+            //descripcion, cantidad, precio. Orden en tabla
+            for (int i = 0; i < tablaDetallePresupuesto.getRowCount(); i++) 
+            {
+                cantidad = Integer.valueOf(tablaDetallePresupuesto.getValueAt(i, 1).toString());
+                costo = Double.valueOf(tablaDetallePresupuesto.getValueAt(i, 2).toString());
+                SubTotal+=cantidad*costo;
+                IvaDiscriminado = (SubTotal * iva ) /100;
+                total = SubTotal + IvaDiscriminado;
+            }
+            DecimalFormat f = new DecimalFormat("###,###.##");
+            lblSubtotal.setText(String.valueOf(f.format(SubTotal)));
+            lblIvaDiscriminado.setText(String.valueOf(f.format(IvaDiscriminado)));
+            lblMontoTotal.setText(String.valueOf(f.format(total)));
+        }
+        else
+        {
+            //Sin Acciones
+        }
+        
+       
+    }
+    
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -441,20 +708,28 @@ public class Presupuesto extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnGenerarPresupuesto;
     private javax.swing.JButton btnNuevoCliente;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblDescuento;
     private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblIvaDiscriminado;
+    private javax.swing.JLabel lblMontoTotal;
     private javax.swing.JLabel lblNombreCliente;
     private javax.swing.JLabel lblNroDni;
+    private javax.swing.JLabel lblSubtotal;
     private javax.swing.JTable tablaDetallePresupuesto;
     private javax.swing.JTable tablaListadoProductos;
     private javax.swing.JTextField txtFiltro;

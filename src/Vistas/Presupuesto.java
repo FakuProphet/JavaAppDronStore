@@ -468,10 +468,12 @@ public class Presupuesto extends javax.swing.JInternalFrame {
             "Comfirmación generación presupuesto", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
            {
                 String mensaje = gestor.encabezadoPresupuesto(c);
+                
                 for (CarritoDTO p : carrito) 
                 {
                     gestor.detallePresupuesto(p);
                 }
+              
                 
                 JOptionPane.showMessageDialog(this,mensaje,"Presupuesto",JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
@@ -524,11 +526,12 @@ public class Presupuesto extends javax.swing.JInternalFrame {
          
             DefaultTableModel modelo = new DefaultTableModel();
             lProductos = gestor.getListadoProductosSimple();
-            modelo.setColumnIdentifiers(new String[]{"Descripción producto","Precio unitario"});
+            modelo.setColumnIdentifiers(new String[]{"Cod producto","Descripción producto","Precio unitario"});
             for (Producto p : lProductos ) {
                 if(p.getPrecioUnitario()>0)
                 {
                     Vector v = new Vector();
+                    v.add(p.getCodigo());
                     v.add(p.getDescripcion().toUpperCase());
                     v.add(p.getPrecioUnitario());
                     modelo.addRow(v);
@@ -597,8 +600,9 @@ public class Presupuesto extends javax.swing.JInternalFrame {
            try 
            {   
                 pr = new CarritoDTO();
-                pr.setDescripcionProducto(tablaListadoProductos.getValueAt(tablaListadoProductos.getSelectedRow(), 0).toString());
-                pr.setCosto(Double.valueOf(tablaListadoProductos.getValueAt(tablaListadoProductos.getSelectedRow(), 1).toString()));
+                pr.setCodigoProducto(Integer.valueOf(tablaListadoProductos.getValueAt(tablaListadoProductos.getSelectedRow(), 0).toString()));
+                pr.setDescripcionProducto(tablaListadoProductos.getValueAt(tablaListadoProductos.getSelectedRow(), 1).toString());
+                pr.setCosto(Double.valueOf(tablaListadoProductos.getValueAt(tablaListadoProductos.getSelectedRow(), 2).toString()));
                 pr.setCantidad(Integer.valueOf(JOptionPane.showInputDialog("INGRESE LA CANTIDAD...")));
                 
                 

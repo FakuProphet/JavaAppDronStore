@@ -5,8 +5,11 @@ import Controlador.Gestor;
 import Modelo.CellRenderer;
 import Modelo.HeaderCellRenderer;
 import Modelo.Producto;
+import static Vistas.Main.panelEscritorio;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.JInternalFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -32,7 +35,7 @@ public class ProductosNoVinculados extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
 
         setClosable(true);
-        setTitle("Precios de productos por proveedor");
+        setTitle("Listado de productos no vinculados");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -80,7 +83,7 @@ public class ProductosNoVinculados extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -124,6 +127,10 @@ public class ProductosNoVinculados extends javax.swing.JInternalFrame {
 
         }
     }
+    
+    
+   
+    
     
     private void filasNoEditables(JTable tabla)
     {

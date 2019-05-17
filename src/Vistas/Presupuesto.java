@@ -19,7 +19,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -462,24 +461,17 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         
         //generar registrar y emitir presupuesto
         
-        try 
+       try 
        {
            // Se procede a generar el presupuesto , y su registro en bbdd.
            if (JOptionPane.showConfirmDialog(rootPane, "Se va a registrar y emitir el presupuesto, ¿desea continuar?",
             "Comfirmación generación presupuesto", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
            {
-//                CarritoDTO c = carrito.get(0);
-//                String mensaje = g.setCompraEncabezado(c);
-//           
-//                for (CarritoDTO cto : carrito) 
-//                {
-//                    g.setCompraDetalle(cto);
-//                }
-//                
-//                JOptionPane.showMessageDialog(this, mensaje,"Aviso",JOptionPane.INFORMATION_MESSAGE);
-//                this.dispose();
-//                PedidoProveedor nuevo = new PedidoProveedor();
-//                CentrarVentana(nuevo);
+                String mensaje = gestor.encabezadoPresupuesto(c);
+                for (CarritoDTO p : carrito) 
+                {
+                    
+                }
            }
        } 
        catch (Exception ex) 

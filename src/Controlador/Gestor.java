@@ -652,6 +652,42 @@ public class Gestor {
     
     
     
+    
+    public String detallePresupuesto(CarritoDTO c) throws SQLException  {
+
+        String mensaje ="No se pudo realizar la operación.";
+        Connection conectar = null;
+       
+        
+        
+        try{
+                
+                conectar = Conexion.conectar();    
+                conectar.setAutoCommit(false);
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call SP_DETALLE_PRESUPUESTO(?,?)}");
+                prcProcedimientoAlmacenado.setInt(1,c.getCodigoProducto());
+                prcProcedimientoAlmacenado.setInt(2,c.getCantidad());
+                prcProcedimientoAlmacenado.execute();
+                mensaje ="Operación realizada con exito!!!";
+                conectar.commit();
+               
+                
+        } catch (Exception e) {
+                conectar.rollback();
+                
+        } finally {
+                // cerrar la Conexion
+                conectar.close();
+        }
+        
+        
+
+        return mensaje;
+
+    }
+    
+    
+    
     public String setPreciosVenta(int codigo,double precio) throws SQLException  {
 
         String mensaje ="No se pudo realizar la operación.";

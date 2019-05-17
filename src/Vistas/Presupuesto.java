@@ -470,8 +470,13 @@ public class Presupuesto extends javax.swing.JInternalFrame {
                 String mensaje = gestor.encabezadoPresupuesto(c);
                 for (CarritoDTO p : carrito) 
                 {
-                    
+                    gestor.detallePresupuesto(p);
                 }
+                
+                JOptionPane.showMessageDialog(this,mensaje,"Presupuesto",JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+                Presupuesto nuevo = new Presupuesto();
+                CentrarVentana(nuevo);
            }
        } 
        catch (Exception ex) 

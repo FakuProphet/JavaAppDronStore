@@ -19,6 +19,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -42,7 +43,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
     String filtro;
     private ArrayList<CarritoDTO> carrito;
     private CarritoDTO pr;
-
+    Cliente c;
     public Presupuesto() {
         initComponents();
         gestor = new Gestor();
@@ -102,6 +103,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         lblEmail = new javax.swing.JLabel();
         btnGenerarPresupuesto = new javax.swing.JButton();
 
+        setClosable(true);
         setTitle("Generar y emitir presupuesto");
         setPreferredSize(new java.awt.Dimension(1100, 600));
 
@@ -288,7 +290,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(lblSubtotal)
@@ -300,7 +302,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
                     .addComponent(jLabel9)
                     .addComponent(jLabel11)
                     .addComponent(lblMontoTotal))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Datos del cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(102, 102, 255))); // NOI18N
@@ -390,23 +392,22 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(11, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)))
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(btnGenerarPresupuesto)
                 .addGap(16, 16, 16))
         );
@@ -434,7 +435,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
            
             try
             { 
-                Cliente c = gestor.obtenerCliente(dni);
+                c = gestor.obtenerCliente(dni);
                 
                 if(c == null)
                 {
@@ -459,6 +460,32 @@ public class Presupuesto extends javax.swing.JInternalFrame {
 
     private void btnGenerarPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPresupuestoActionPerformed
         
+        //generar registrar y emitir presupuesto
+        
+        try 
+       {
+           // Se procede a generar el presupuesto , y su registro en bbdd.
+           if (JOptionPane.showConfirmDialog(rootPane, "Se va a registrar y emitir el presupuesto, ¿desea continuar?",
+            "Comfirmación generación presupuesto", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+           {
+//                CarritoDTO c = carrito.get(0);
+//                String mensaje = g.setCompraEncabezado(c);
+//           
+//                for (CarritoDTO cto : carrito) 
+//                {
+//                    g.setCompraDetalle(cto);
+//                }
+//                
+//                JOptionPane.showMessageDialog(this, mensaje,"Aviso",JOptionPane.INFORMATION_MESSAGE);
+//                this.dispose();
+//                PedidoProveedor nuevo = new PedidoProveedor();
+//                CentrarVentana(nuevo);
+           }
+       } 
+       catch (Exception ex) 
+       {
+           JOptionPane.showMessageDialog(this, ex.toString(),"Error",JOptionPane.INFORMATION_MESSAGE);
+       }
         
         
     }//GEN-LAST:event_btnGenerarPresupuestoActionPerformed
@@ -528,12 +555,12 @@ public class Presupuesto extends javax.swing.JInternalFrame {
             if(tablaDetallePresupuesto.getRowCount()>0)
             {   
            
-            if (JOptionPane.showConfirmDialog(rootPane, "Va a eliminar la selección, ¿desea continuar?",
-            "Eliminar", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-            {
-                removeSelectedRows(tablaDetallePresupuesto);
-                TotalizarPresupuesto();
-            }
+                if (JOptionPane.showConfirmDialog(rootPane, "Va a eliminar la selección, ¿desea continuar?",
+                "Eliminar", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+                {
+                    removeSelectedRows(tablaDetallePresupuesto);
+                    TotalizarPresupuesto();
+                }
             
             }
         }
@@ -688,13 +715,15 @@ public class Presupuesto extends javax.swing.JInternalFrame {
                 total = SubTotal + IvaDiscriminado;
             }
             DecimalFormat f = new DecimalFormat("###,###.##");
-            lblSubtotal.setText(String.valueOf(f.format(SubTotal)));
-            lblIvaDiscriminado.setText(String.valueOf(f.format(IvaDiscriminado)));
-            lblMontoTotal.setText(String.valueOf(f.format(total)));
+            lblSubtotal.setText("$"+String.valueOf(f.format(SubTotal)));
+            lblIvaDiscriminado.setText("$"+String.valueOf(f.format(IvaDiscriminado)));
+            lblMontoTotal.setText("$"+String.valueOf(f.format(total)));
+            
         }
         else
         {
             //Sin Acciones
+            
         }
         
        

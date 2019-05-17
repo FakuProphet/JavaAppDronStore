@@ -503,7 +503,47 @@ public class Gestor {
     
     
     
-     public ArrayList<ProductoExistencia> getListadoProductosEnExistencia() throws SQLException  {
+    public ArrayList<Producto> getListadoProductosNoVinculados() throws SQLException  {
+
+        ArrayList<Producto> listado = new ArrayList<>();
+        Connection conectar = null;
+       
+        
+        
+        try{
+                
+                conectar = Conexion.conectar();    
+                conectar.setAutoCommit(false);
+         
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call SP_PRODUCTOS_NO_ASOCIADOS()}");
+                ResultSet rs = prcProcedimientoAlmacenado.executeQuery();
+                while(rs.next())
+                {
+                        Producto p = new Producto();
+                        p.setCodigo(rs.getInt(1));
+                        p.setDescripcion(rs.getString(2));
+                        listado.add(p);
+                }
+                conectar.commit();
+               
+                
+        } catch (Exception e) {
+                conectar.rollback();
+                
+        } finally {
+                // cerrar la Conexion
+                conectar.close();
+        }
+        
+        
+
+        return listado;
+
+    }
+    
+    
+    
+    public ArrayList<ProductoExistencia> getListadoProductosEnExistencia() throws SQLException  {
 
         ArrayList<ProductoExistencia> listado = new ArrayList<>();
         Connection conectar = null;

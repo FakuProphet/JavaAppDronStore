@@ -418,7 +418,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
     public void filtro() 
     {
         filtro = txtFiltro.getText();
-        trsfiltro.setRowFilter(RowFilter.regexFilter(txtFiltro.getText(), 0));
+        trsfiltro.setRowFilter(RowFilter.regexFilter(txtFiltro.getText(), 1));
     }
     
     private void btnNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoClienteActionPerformed
@@ -701,7 +701,9 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         double SubTotal = 0.0;
         double IvaDiscriminado=0.0;
         double total =0.0;
+        double totalConDescuento=0.0;
         int cantidad = 0;
+        int cantidadAcumulada=0;
         double costo=0.0;
         int iva = 21;
         if(tablaDetallePresupuesto.getRowCount()>=0)
@@ -710,15 +712,23 @@ public class Presupuesto extends javax.swing.JInternalFrame {
             for (int i = 0; i < tablaDetallePresupuesto.getRowCount(); i++) 
             {
                 cantidad = Integer.valueOf(tablaDetallePresupuesto.getValueAt(i, 1).toString());
+                cantidadAcumulada+=cantidad;
                 costo = Double.valueOf(tablaDetallePresupuesto.getValueAt(i, 2).toString());
+                
                 SubTotal+=cantidad*costo;
                 IvaDiscriminado = (SubTotal * iva ) /100;
                 total = SubTotal + IvaDiscriminado;
+                
+                if(cantidadAcumulada>=10)
+                {
+                    totalConDescuento=total * 10 /100;
+                }
             }
             DecimalFormat f = new DecimalFormat("###,###.##");
             lblSubtotal.setText("$"+String.valueOf(f.format(SubTotal)));
             lblIvaDiscriminado.setText("$"+String.valueOf(f.format(IvaDiscriminado)));
             lblMontoTotal.setText("$"+String.valueOf(f.format(total)));
+            lblDescuento.setText("$"+String.valueOf(f.format(totalConDescuento)));
             
         }
         else

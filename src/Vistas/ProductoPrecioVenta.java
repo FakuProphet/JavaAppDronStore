@@ -54,7 +54,7 @@ public class ProductoPrecioVenta extends javax.swing.JInternalFrame {
               
            try 
            {   
-                double nuevoPrecio = Double.valueOf(JOptionPane.showInputDialog("INGRESE La CANTIDAD..."));
+                double nuevoPrecio = Double.valueOf(JOptionPane.showInputDialog("INGRESE EL PRECIO DEL PRODUCTO..."));
                 jTable2.setValueAt(nuevoPrecio, jTable2.getSelectedRow(),2);
            } 
            catch (HeadlessException | NumberFormatException e) 
@@ -127,7 +127,7 @@ public class ProductoPrecioVenta extends javax.swing.JInternalFrame {
 
         }
     }
-    
+    /*
     public void setColumnEditable(int columnIndex,boolean editable){
     ArrayList<Integer>columnsEditable=new ArrayList<Integer>();
     if(editable)
@@ -145,7 +145,7 @@ public class ProductoPrecioVenta extends javax.swing.JInternalFrame {
         }
     }
     }
-   
+   */
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -233,7 +233,7 @@ public class ProductoPrecioVenta extends javax.swing.JInternalFrame {
                     double precio = (Double.valueOf(jTable2.getValueAt(i,2).toString()));
                     gestor.setPreciosVenta(codigo,precio);
                 }
-                JOptionPane.showMessageDialog(null, "Operación exitosa!", "Información", JOptionPane.INFORMATION_MESSAGE);  
+               // JOptionPane.showMessageDialog(null, "Operación exitosa!", "Información", JOptionPane.INFORMATION_MESSAGE);  
                 this.dispose();
                 ProductoPrecioVenta nuevo = new ProductoPrecioVenta();
                 CentrarVentana(nuevo);

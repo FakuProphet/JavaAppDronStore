@@ -131,7 +131,7 @@ public class LoginSistema extends javax.swing.JFrame {
         Operador o = (Operador) cboOperadores.getSelectedItem();
         pass = txtContrasenia.getPassword();
         String passVentas = "1234";
-        
+        String passCompras = "5678";
         
         if(pass.length<=0)
         {
@@ -157,17 +157,21 @@ public class LoginSistema extends javax.swing.JFrame {
             }
             else
             {
-                this.dispose();
-                Main m=new Main(o);
-                m.jMenuBar1.getMenu(2).setEnabled(false);
-                m.jMenuBar1.getMenu(3).setEnabled(false);   
-            }
+                String valor = new String (txtContrasenia.getPassword());
+                if(passCompras.equals(valor))
+                {
+                    this.dispose();
+                    Main m=new Main(o);
+                    m.jMenuBar1.getMenu(2).setEnabled(false);
+                    m.jMenuBar1.getMenu(3).setEnabled(false);   
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this,"Contraseña incorrecta para el usuario","Aviso",JOptionPane.INFORMATION_MESSAGE);
+                }
             
-        }
-        
-        
-        
-        
+            }
+        }    
     }//GEN-LAST:event_jButton1ActionPerformed
 
     

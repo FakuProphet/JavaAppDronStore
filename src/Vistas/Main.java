@@ -1,6 +1,7 @@
 
 package Vistas;
 
+import Modelo.Operador;
 import java.awt.Dimension;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -14,11 +15,12 @@ public class Main extends javax.swing.JFrame {
     
     
     @SuppressWarnings("OverridableMethodCallInConstructor")
-    public Main(String mensaje) {
+    public Main(Operador op) {
         initComponents();
         inicioMain();
         setDefaultCloseOperation(0);
-        JOptionPane.showMessageDialog(this, mensaje,"Aviso",JOptionPane.INFORMATION_MESSAGE);
+       // JOptionPane.showMessageDialog(this, op.getApellido(),"Aviso",JOptionPane.INFORMATION_MESSAGE);
+        
     }
 
     /**
@@ -350,7 +352,7 @@ public class Main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main("Hola").setVisible(true);
+               // new Main().setVisible(true);
             }
         });
     }

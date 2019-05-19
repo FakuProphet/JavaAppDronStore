@@ -10,6 +10,7 @@ import Modelo.Operador;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 
 public class LoginSistema extends javax.swing.JFrame {
@@ -18,6 +19,7 @@ public class LoginSistema extends javax.swing.JFrame {
     String mensaje;
     ArrayList<Operador> lOperadores;
     Gestor gestor;
+    char [] pass;
     public LoginSistema() {
         initComponents();
         gestor = new Gestor();
@@ -113,7 +115,7 @@ public class LoginSistema extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(31, 31, 31))
         );
@@ -125,11 +127,47 @@ public class LoginSistema extends javax.swing.JFrame {
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Acceder a main
-        this.dispose();
-        mensaje=txtContrasenia.getSelectedText();
-        Main m = new Main(mensaje);
-        //m.jMenuBar1.getMenu(1).setEnabled(false);
-        m.setVisible(true);
+        
+        Operador o = (Operador) cboOperadores.getSelectedItem();
+        pass = txtContrasenia.getPassword();
+        String passVentas = "1234";
+        
+        
+        if(pass.length<=0)
+        {
+            JOptionPane.showMessageDialog(this,"El campo esta vacio","Aviso",JOptionPane.INFORMATION_MESSAGE);
+            txtContrasenia.grabFocus();
+        }
+        else
+        {
+            if(o.getId()==1)
+            {
+                String valor = new String (txtContrasenia.getPassword());
+               
+                if(passVentas.equals(valor))
+                {
+                    this.dispose();
+                    Main m=new Main(o);
+                    m.jMenuBar1.getMenu(1).setEnabled(false);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this,"Contraseña incorrecta para el usuario","Aviso",JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            else
+            {
+                this.dispose();
+                Main m=new Main(o);
+                m.jMenuBar1.getMenu(2).setEnabled(false);
+                m.jMenuBar1.getMenu(3).setEnabled(false);   
+            }
+            
+        }
+        
+        
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     

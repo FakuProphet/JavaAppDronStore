@@ -34,6 +34,7 @@ public class Main extends javax.swing.JFrame {
 
         jDialog1 = new javax.swing.JDialog();
         panelEscritorio = new javax.swing.JDesktopPane();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -75,15 +76,25 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Bienvenido: ");
+
+        panelEscritorio.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout panelEscritorioLayout = new javax.swing.GroupLayout(panelEscritorio);
         panelEscritorio.setLayout(panelEscritorioLayout);
         panelEscritorioLayout.setHorizontalGroup(
             panelEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 636, Short.MAX_VALUE)
+            .addGroup(panelEscritorioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(562, Short.MAX_VALUE))
         );
         panelEscritorioLayout.setVerticalGroup(
             panelEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 324, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEscritorioLayout.createSequentialGroup()
+                .addContainerGap(302, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap())
         );
 
         jMenuBar1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -382,6 +393,7 @@ public class Main extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog jDialog1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

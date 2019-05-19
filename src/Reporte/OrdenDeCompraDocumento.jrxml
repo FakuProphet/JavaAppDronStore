@@ -20,7 +20,7 @@ WHERE O.nro_Orden = (SELECT MAX(nro_Orden) FROM OrdenesDeCompra)]]>
 			<staticText>
 				<reportElement x="148" y="25" width="249" height="33" uuid="2c024305-e354-4d07-b90c-529d136c84f8"/>
 				<textElement>
-					<font fontName="Century Gothic" size="24"/>
+					<font fontName="Century Gothic" size="24" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ORDEN DE COMPRA]]></text>
 			</staticText>
@@ -42,11 +42,17 @@ WHERE O.nro_Orden = (SELECT MAX(nro_Orden) FROM OrdenesDeCompra)]]>
 		<band height="67" splitType="Stretch">
 			<staticText>
 				<reportElement x="36" y="41" width="100" height="20" uuid="e8f4427d-cec9-45d2-bc59-5086047fcfdc"/>
-				<text><![CDATA[descripcion]]></text>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripción]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="169" y="41" width="100" height="20" uuid="73701c46-693e-4fbf-b1ca-b13865df6beb"/>
-				<text><![CDATA[cantidad]]></text>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
 			</staticText>
 		</band>
 	</columnHeader>

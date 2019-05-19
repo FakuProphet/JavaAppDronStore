@@ -150,6 +150,7 @@ public class LoginSistema extends javax.swing.JFrame {
                     Main m=new Main(o);
                     m.jMenuBar1.getMenu(1).setEnabled(false);
                 }
+                
                 else
                 {
                     JOptionPane.showMessageDialog(this,"Contraseña incorrecta para el usuario","Aviso",JOptionPane.INFORMATION_MESSAGE);
@@ -158,6 +159,7 @@ public class LoginSistema extends javax.swing.JFrame {
             else
             {
                 String valor = new String (txtContrasenia.getPassword());
+                
                 if(passCompras.equals(valor))
                 {
                     this.dispose();
@@ -165,11 +167,11 @@ public class LoginSistema extends javax.swing.JFrame {
                     m.jMenuBar1.getMenu(2).setEnabled(false);
                     m.jMenuBar1.getMenu(3).setEnabled(false);   
                 }
+                
                 else
                 {
                     JOptionPane.showMessageDialog(this,"Contraseña incorrecta para el usuario","Aviso",JOptionPane.INFORMATION_MESSAGE);
                 }
-            
             }
         }    
     }//GEN-LAST:event_jButton1ActionPerformed

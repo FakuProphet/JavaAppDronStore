@@ -10,6 +10,7 @@ import Modelo.Empresa;
 import Modelo.FormaPago;
 import Modelo.Localidad;
 import Modelo.Marca;
+import Modelo.Operador;
 import Modelo.Pais;
 import Modelo.Pedido;
 import Modelo.Producto;
@@ -32,6 +33,41 @@ public class Gestor {
     private Connection con;
    
 
+    
+    public ArrayList<Operador> getListadoOperadores()  {
+
+        ArrayList<Operador> listado = new ArrayList<>();
+
+        try {
+            con = Conexion.conectar();
+            ResultSet rs;
+            Statement consulta;
+            String sql = "select * from Operadores";
+            consulta = con.createStatement();
+            rs = consulta.executeQuery(sql);
+
+            while (rs.next()) {
+                int id = rs.getInt("id_operador");
+                String nombre = rs.getString("nombre");
+                String apellido = rs.getString("apellido");
+                Operador nuevo = new Operador(id, nombre,apellido);
+                listado.add(nuevo);
+            }
+
+            con.close();
+            consulta.close();
+            rs.close();
+
+        } catch (Exception e) {
+            System.out.println("Error al obtener datos de los operadores: " + e.toString());
+        }
+
+        return listado;
+
+    }
+    
+    
+    
 
     public ArrayList<Localidad> getListadoLocalidades()  {
 

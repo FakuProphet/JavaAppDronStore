@@ -14,10 +14,11 @@ public class Main extends javax.swing.JFrame {
     
     
     @SuppressWarnings("OverridableMethodCallInConstructor")
-    public Main() {
+    public Main(String mensaje) {
         initComponents();
         inicioMain();
         setDefaultCloseOperation(0);
+        JOptionPane.showMessageDialog(this, mensaje,"Aviso",JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
@@ -349,7 +350,7 @@ public class Main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                new Main("Hola").setVisible(true);
             }
         });
     }

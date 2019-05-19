@@ -121,7 +121,8 @@ public class LoginSistema extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Acceder a main
         this.dispose();
-        Main m = new Main();
+        String mensaje="Hola desde login";
+        Main m = new Main(mensaje);
         m.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 

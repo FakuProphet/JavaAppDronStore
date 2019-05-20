@@ -462,6 +462,7 @@ public class Gestor {
                         p.setNroOrden(rs.getInt(8));
                         p.setCodigoEstado(rs.getString(9));
                         p.setOperador(rs.getString(10));
+                        p.setCodigoProveedor(rs.getInt(11));
                         listado.add(p);
                 }
                 

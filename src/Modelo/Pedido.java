@@ -22,11 +22,15 @@ public class Pedido {
     private int nroOrden;
     private String codigoEstado;
     private String operador;
+    private int codigoProveedor;
+    
     
     public Pedido() {
     }
 
-    public Pedido(String producto, int cantidad, int codigo, String fecha, String Proveedor, String estado, String observaciones, int nroOrden, String codigoEstado, String operador) {
+   
+
+    public Pedido(String producto, int cantidad, int codigo, String fecha, String Proveedor, String estado, String observaciones, int nroOrden, String codigoEstado, String operador, int codigoProveedor) {
         this.producto = producto;
         this.cantidad = cantidad;
         this.codigo = codigo;
@@ -37,43 +41,11 @@ public class Pedido {
         this.nroOrden = nroOrden;
         this.codigoEstado = codigoEstado;
         this.operador = operador;
+        this.codigoProveedor = codigoProveedor;
     }
     
     
-
-    public Pedido(String producto, int cantidad, int codigo, String fecha, String Proveedor, String estado, String observaciones, int nroOrden) {
-        this.producto = producto;
-        this.cantidad = cantidad;
-        this.codigo = codigo;
-        this.fecha = fecha;
-        this.Proveedor = Proveedor;
-        this.estado = estado;
-        this.observaciones = observaciones;
-        this.nroOrden = nroOrden;
-    }
-
     
-    
-    public Pedido(String producto, int cantidad, int codigo, String fecha, String Proveedor, String estado) {
-        this.producto = producto;
-        this.cantidad = cantidad;
-        this.codigo = codigo;
-        this.fecha = fecha;
-        this.Proveedor = Proveedor;
-        this.estado = estado;
-    }
-
-    public Pedido(String producto, int cantidad, int codigo, String fecha, String Proveedor, String estado, String observaciones, int nroOrden, String codigoEstado) {
-        this.producto = producto;
-        this.cantidad = cantidad;
-        this.codigo = codigo;
-        this.fecha = fecha;
-        this.Proveedor = Proveedor;
-        this.estado = estado;
-        this.observaciones = observaciones;
-        this.nroOrden = nroOrden;
-        this.codigoEstado = codigoEstado;
-    }
 
     public String getOperador() {
         return operador;
@@ -93,6 +65,14 @@ public class Pedido {
 
     public void setCodigoEstado(String codigoEstado) {
         this.codigoEstado = codigoEstado;
+    }
+
+    public int getCodigoProveedor() {
+        return codigoProveedor;
+    }
+
+    public void setCodigoProveedor(int codigoProveedor) {
+        this.codigoProveedor = codigoProveedor;
     }
 
     

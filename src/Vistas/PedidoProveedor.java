@@ -890,7 +890,7 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
                 miDato = g.getDatosUltimaOrdenCompra();
                 Reporte r = new Reporte();
                 r.getOrdenCompraInforme(miDato.getNroOrden(),miDato.getProveedor());
-                JOptionPane.showMessageDialog(this,miDato.getNroOrden()+miDato.getProveedor(),"Objeto",JOptionPane.INFORMATION_MESSAGE);
+               // JOptionPane.showMessageDialog(this,miDato.getNroOrden()+miDato.getProveedor(),"Objeto",JOptionPane.INFORMATION_MESSAGE);
            }
        } 
        catch (SQLException ex) 

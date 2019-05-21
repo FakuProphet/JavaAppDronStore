@@ -11,11 +11,14 @@ import Modelo.CellRenderer;
 import Modelo.Cliente;
 import Modelo.FormaPago;
 import Modelo.HeaderCellRenderer;
+import Modelo.Operador;
 import Modelo.Producto;
+import Reporte.Reporte;
 import java.awt.HeadlessException;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -37,6 +40,7 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
     private ArrayList<Producto>lProductos;
     private ArrayList<FormaPago>lFormasDePago;
     private ArrayList<CarritoDTO> carrito;
+    private FormaPago miFormaPago;
     private CarritoDTO pr;
     public NuevaVenta() {
         initComponents();
@@ -45,6 +49,7 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         carrito = new ArrayList<>();
         pr = new CarritoDTO();
         lFormasDePago = new ArrayList<>();
+        
         cargarTabla();
         cargarTablaDetalle(carrito);
         inicio();
@@ -224,6 +229,11 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         });
 
         cboFormaPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboFormaPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboFormaPagoActionPerformed(evt);
+            }
+        });
 
         jLabel11.setText("Forma de pago");
 
@@ -336,11 +346,28 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
     private void btnGenerarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarVentaActionPerformed
         //Generar venta
         
-        if (JOptionPane.showConfirmDialog(rootPane, "Se va a generar la transacción, ¿desea continuar?",
-        "Venta de productos", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-        {
-            
-        }
+      try 
+       {
+           // Se procede a generar el pedido , y su registro en bbdd.
+           if (JOptionPane.showConfirmDialog(rootPane, "Se va a generar la transacción venta, ¿desea continuar?",
+            "Comfirmación registrar venta", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+           {
+                Operador operador = new Operador();
+                String mensaje = g.setVenta(c.getClienteDni(),miFormaPago.getId_formaPago(),operador.getId());
+           
+                for (CarritoDTO cto : carrito) 
+                {
+                    g.setVentaDetalle(cto.getCodigoProducto(),cto.getCantidad());
+                }
+                
+                JOptionPane.showMessageDialog(this, mensaje,"Aviso",JOptionPane.INFORMATION_MESSAGE);
+              
+           }
+       } 
+       catch (SQLException ex) 
+       {
+           JOptionPane.showMessageDialog(this, ex.toString(),"Error",JOptionPane.INFORMATION_MESSAGE);
+       }
         
         
     }//GEN-LAST:event_btnGenerarVentaActionPerformed
@@ -656,6 +683,11 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
             this.dispose();
         }
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void cboFormaPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboFormaPagoActionPerformed
+        miFormaPago = new FormaPago();
+        miFormaPago = (FormaPago) cboFormaPago.getSelectedItem();
+    }//GEN-LAST:event_cboFormaPagoActionPerformed
 
     
      void limpiarCampos()

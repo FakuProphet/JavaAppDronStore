@@ -1141,8 +1141,8 @@ public class Gestor {
         
     }
     
-    
-    public String setVenta(Pedido p) throws SQLException
+    /*SE INGRESAN DATOS BASICOS, LOS DEMAS SE GENERAN POR VALORES DEFAULT*/
+    public String setVenta(int clienteDni,int formaPagoID,int operador) throws SQLException
     {
         Connection conectar = null;
         String mensaje = "Falla";
@@ -1153,12 +1153,12 @@ public class Gestor {
                 conectar = Conexion.conectar();    
                 conectar.setAutoCommit(false);
          
-                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call SP_ActualizarStock(?,?)}");
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call SP_ENCABEZADO_VENTA(?,?,?)}");
         
-                prcProcedimientoAlmacenado.setInt(1,p.getCodigo());
-                prcProcedimientoAlmacenado.setInt(2,p.getCantidad());
+                prcProcedimientoAlmacenado.setInt(1,formaPagoID);
+                prcProcedimientoAlmacenado.setInt(2,clienteDni);
+                prcProcedimientoAlmacenado.setInt(3,operador);
               
-                
                 prcProcedimientoAlmacenado.execute();
         
                 conectar.commit();
@@ -1176,7 +1176,38 @@ public class Gestor {
         
     }
     
-    
+    public String setVentaDetalle(int productoID,int cantidad) throws SQLException
+    {
+        Connection conectar = null;
+        String mensaje = "Falla";
+        
+        
+        try{
+                
+                conectar = Conexion.conectar();    
+                conectar.setAutoCommit(false);
+         
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call SP_DETALLE_VENTA(?,?)}");
+        
+                prcProcedimientoAlmacenado.setInt(1,productoID);
+                prcProcedimientoAlmacenado.setInt(2,cantidad);
+
+                prcProcedimientoAlmacenado.execute();
+        
+                conectar.commit();
+                mensaje = "OK!";
+                
+        } catch (Exception e) {
+                conectar.rollback();
+                
+        } finally {
+                // cerrar la Conexion
+                conectar.close();
+        }
+        
+        return mensaje;
+        
+    }
     
     
     public String setCompraEncabezado(CarritoDTO c) throws SQLException

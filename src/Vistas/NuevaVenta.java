@@ -334,7 +334,15 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGenerarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarVentaActionPerformed
-       
+        //Generar venta
+        
+        if (JOptionPane.showConfirmDialog(rootPane, "Se va a generar la transacción, ¿desea continuar?",
+        "Venta de productos", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+        {
+            
+        }
+        
+        
     }//GEN-LAST:event_btnGenerarVentaActionPerformed
 
     private void txtFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFiltroActionPerformed
@@ -642,7 +650,7 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // Abandonar pantalla
         
-         if (JOptionPane.showConfirmDialog(rootPane, "Va a salir de la venta de productos, ¿desea continuar?",
+        if (JOptionPane.showConfirmDialog(rootPane, "Va a salir de la venta de productos, ¿desea continuar?",
         "Abandonar", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
         {
             this.dispose();

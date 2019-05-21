@@ -5,10 +5,7 @@
  */
 package Dto;
 
-/**
- *
- * @author Prophet
- */
+
 public class CarritoDTO {
     
     private int codigoProducto;
@@ -52,10 +49,6 @@ public class CarritoDTO {
         this.codigoProveedor = codigoProveedor;
     }
 
-    
-    
-    
-    
     public int getCodigoProducto() {
         return codigoProducto;
     }

@@ -1142,6 +1142,43 @@ public class Gestor {
     }
     
     
+    public String setVenta(Pedido p) throws SQLException
+    {
+        Connection conectar = null;
+        String mensaje = "Falla";
+        
+        
+        try{
+                
+                conectar = Conexion.conectar();    
+                conectar.setAutoCommit(false);
+         
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call SP_ActualizarStock(?,?)}");
+        
+                prcProcedimientoAlmacenado.setInt(1,p.getCodigo());
+                prcProcedimientoAlmacenado.setInt(2,p.getCantidad());
+              
+                
+                prcProcedimientoAlmacenado.execute();
+        
+                conectar.commit();
+                mensaje = "OK!";
+                
+        } catch (Exception e) {
+                conectar.rollback();
+                
+        } finally {
+                // cerrar la Conexion
+                conectar.close();
+        }
+        
+        return mensaje;
+        
+    }
+    
+    
+    
+    
     public String setCompraEncabezado(CarritoDTO c) throws SQLException
     {
         Connection conectar = null;

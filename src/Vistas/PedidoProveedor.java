@@ -10,8 +10,10 @@ import Dto.CarritoDTO;
 import Dto.ProductoDTO;
 import Dto.ProductoExistencia;
 import Modelo.CellRenderer;
+import Modelo.Dato;
 import Modelo.HeaderCellRenderer;
 import Modelo.Proveedor;
+import Reporte.Reporte;
 import static Vistas.Main.panelEscritorio;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
@@ -52,9 +54,12 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
     Gestor g;
     private TableRowSorter trsfiltro;
     String filtro;
+    private Dato miDato;
+    
     
     public PedidoProveedor() {
         initComponents();
+        miDato = new Dato();
         inicio();
         txtFiltroTablaDos.addKeyListener(new KeyAdapter() {
             @Override
@@ -882,6 +887,10 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
                 this.dispose();
                 PedidoProveedor nuevo = new PedidoProveedor();
                 CentrarVentana(nuevo);
+                miDato = g.getDatosUltimaOrdenCompra();
+                Reporte r = new Reporte();
+                r.getOrdenCompraInforme(miDato.getNroOrden(),miDato.getProveedor());
+                JOptionPane.showMessageDialog(this,miDato.getNroOrden()+miDato.getProveedor(),"Objeto",JOptionPane.INFORMATION_MESSAGE);
            }
        } 
        catch (SQLException ex) 
@@ -975,6 +984,7 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
     
     private void inicio()
     {
+       
         g = new Gestor();
         carrito = new ArrayList<>();
         this.setTitle("Realizar pedido");

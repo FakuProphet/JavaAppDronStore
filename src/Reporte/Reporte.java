@@ -27,21 +27,12 @@ public void getOrdenCompraInforme(int nroOrden,int codigoProveedor)
     {
         JasperReport miReporte = (JasperReport)JRLoader.loadObject("src/Reporte/OrdenDeCompra.jasper");
         Map parametros = new HashMap();
-        
         parametros.put("proveedor", codigoProveedor);
         parametros.put("nroOrden", nroOrden);
-        
         JasperPrint j = JasperFillManager.fillReport(miReporte, parametros, Conexion.conectar());
-        
         JasperViewer jv = new JasperViewer(j,false);
         jv.setTitle("OrdenDeCompra");
-        jv.setVisible(true);
-        
-      
-        
-        
-        
-        
+        jv.setVisible(true);   
     }
     catch(Exception error)
     {

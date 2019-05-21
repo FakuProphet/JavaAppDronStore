@@ -6,6 +6,7 @@ import Dto.ProductoDTO;
 import Dto.ProductoExistencia;
 import Modelo.Cliente;
 import Modelo.Conexion;
+import Modelo.Dato;
 import Modelo.Empresa;
 import Modelo.FormaPago;
 import Modelo.Localidad;
@@ -380,6 +381,49 @@ public class Gestor {
     
     
    
+    public Dato getDatosUltimaOrdenCompra() throws SQLException  {
+
+        Dato d = null;
+        Connection conectar = null;
+        
+        
+        
+        try{
+                
+                conectar = Conexion.conectar();    
+                conectar.setAutoCommit(false);
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call SP_ORDEN_PEDIDO_ULTIMA()}");
+                ResultSet rs = prcProcedimientoAlmacenado.executeQuery();
+                
+                
+                if(rs.next())
+                {
+                    d = new Dato();
+                    d.setProveedor(rs.getInt(1));
+                    d.setNroOrden(rs.getInt(2));
+                }
+                
+        
+                conectar.commit();
+               
+                
+        } catch (Exception e) {
+                conectar.rollback();
+                
+        } finally {
+                // cerrar la Conexion
+                conectar.close();
+        }
+        
+        
+
+        return d;
+
+    }
+    
+    
+    
+    
     
     
     

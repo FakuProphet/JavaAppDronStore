@@ -373,9 +373,7 @@ public class DetallePedido extends javax.swing.JInternalFrame {
 
     private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
         // ver documento
-        
         Reporte nuevo = new Reporte();
-        
         nuevo.getOrdenCompraInforme(nroOrden, proveedor);
     }//GEN-LAST:event_btnReporteActionPerformed
 

@@ -150,6 +150,7 @@ public class Gestor {
                 Producto nuevo = new Producto();
                 nuevo.setCodigo(rs.getInt(1));
                 nuevo.setDescripcion(rs.getString(2));
+                nuevo.setStock(rs.getInt(4));
                 nuevo.setTipoProducto(rs.getInt(10));
                 nuevo.setPrecioUnitario(rs.getDouble(11));
                 

@@ -15,7 +15,7 @@ public class Producto {
     private int origen;
     private int marca;
     private int tipoDron;
-    private int stockIngreso;
+    private int stock;
     private int alerta;
     private double precioUnitario;
     private int proveedor;
@@ -30,12 +30,12 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(String descripcion, int origen, int marca, int tipoDron, int stockIngreso, int alerta, double precioUnitario, int proveedor, int formaPago, int plazoEntrega, int tipoProducto, int unidadMedida) {
+    public Producto(String descripcion, int origen, int marca, int tipoDron, int stock, int alerta, double precioUnitario, int proveedor, int formaPago, int plazoEntrega, int tipoProducto, int unidadMedida) {
         this.descripcion = descripcion;
         this.origen = origen;
         this.marca = marca;
         this.tipoDron = tipoDron;
-        this.stockIngreso = stockIngreso;
+        this.stock = stock;
         this.alerta = alerta;
         this.precioUnitario = precioUnitario;
         this.proveedor = proveedor;
@@ -105,12 +105,12 @@ public class Producto {
         this.tipoDron = tipoDron;
     }
 
-    public int getStockIngreso() {
-        return stockIngreso;
+    public int getStock() {
+        return stock;
     }
 
-    public void setStockIngreso(int stock) {
-        this.stockIngreso = stock;
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     public int getAlerta() {

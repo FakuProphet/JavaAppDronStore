@@ -761,7 +761,7 @@ public class PedidoProveedor extends javax.swing.JInternalFrame {
     }
     
      
-     private void cargarTablaTres(ArrayList<CarritoDTO> lista) {
+    private void cargarTablaTres(ArrayList<CarritoDTO> lista) {
 
             DefaultTableModel modelo = new DefaultTableModel();
             modelo.setColumnIdentifiers(new String[]{"Código","Descripción", "Cantidad","Precio"});

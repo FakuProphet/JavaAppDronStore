@@ -13,6 +13,12 @@
 			<style backcolor="#E6DAC3"/>
 		</conditionalStyle>
 	</style>
+	<parameter name="dni" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nroVenta" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT upper(c.apellido)+' '+c.nombre as Cliente,v.nro_venta as 'Nro Venta', 
 	   p.descripcion as Producto,p.precioUnitario as 'Precio unitario',dv.cantidad as Cantidad,
@@ -23,7 +29,7 @@ FROM   Ventas v join DetalleVentas dv on v.nro_venta=dv.nro_venta
 	   join Productos p on dv.id_producto=p.id_producto
 	   join TiposDePago tp on v.id_formaPago=tp.id_formaPago
 	   join Operadores op on v.id_operador=op.id_operador
-WHERE  v.nro_venta = 4 and c.clienteDni=28426587]]>
+WHERE  v.nro_venta = $P{nroVenta} and c.clienteDni=$P{dni}]]>
 	</queryString>
 	<field name="Cliente" class="java.lang.String"/>
 	<field name="Nro Venta" class="java.lang.Integer"/>

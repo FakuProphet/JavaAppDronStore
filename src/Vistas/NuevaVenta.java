@@ -9,6 +9,7 @@ import Controlador.Gestor;
 import Dto.CarritoDTO;
 import Modelo.CellRenderer;
 import Modelo.Cliente;
+import Modelo.Dato;
 import Modelo.FormaPago;
 import Modelo.HeaderCellRenderer;
 import Modelo.Operador;
@@ -44,6 +45,7 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
     private ArrayList<CarritoDTO> carrito;
     private FormaPago miFormaPago;
     private CarritoDTO pr;
+    private Dato miDato;
     public NuevaVenta() {
         initComponents();
         c= new Cliente();
@@ -51,7 +53,7 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         carrito = new ArrayList<>();
         pr = new CarritoDTO();
         lFormasDePago = new ArrayList<>();
-        
+        miDato = new Dato();
         cargarTabla();
         cargarTablaDetalle(carrito);
         inicio();
@@ -334,7 +336,12 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
                        g.setVentaDetalle(cto.getCodigoProducto(),cto.getCantidad());
                    }
                    
+                   
                    JOptionPane.showMessageDialog(this, mensaje,"Aviso",JOptionPane.INFORMATION_MESSAGE);
+                   this.dispose();
+                   miDato = g.getDatosUltimaVenta();
+                   Reporte nuevo = new Reporte();
+                   nuevo.getComprobanteVenta(miDato.getNroOrden(), miDato.getCliente());
                }
                
      

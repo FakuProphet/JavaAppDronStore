@@ -31,7 +31,7 @@ public void getOrdenCompraInforme(int nroOrden,int codigoProveedor)
         parametros.put("nroOrden", nroOrden);
         JasperPrint j = JasperFillManager.fillReport(miReporte, parametros, Conexion.conectar());
         JasperViewer jv = new JasperViewer(j,false);
-        jv.setTitle("OrdenDeCompra");
+        jv.setTitle("Orden De Compra");
         jv.setVisible(true);   
     }
     catch(Exception error)
@@ -40,4 +40,26 @@ public void getOrdenCompraInforme(int nroOrden,int codigoProveedor)
     }
 }           
     
+public void getComprobanteVenta(int nroVenta,int dni)
+{        
+    try
+    {
+        JasperReport miReporte = (JasperReport)JRLoader.loadObject("src/Reporte/Venta.jasper");
+        Map parametros = new HashMap();
+        parametros.put("dni", dni);
+        parametros.put("nroVenta", nroVenta);
+        JasperPrint j = JasperFillManager.fillReport(miReporte, parametros, Conexion.conectar());
+        JasperViewer jv = new JasperViewer(j,false);
+        jv.setTitle("Comprobante de venta");
+        jv.setVisible(true);   
+    }
+    catch(Exception error)
+    {
+        JOptionPane.showMessageDialog(null,"Error al generar el documento de orden de compra. "+error);
+    }
+}     
+
+
+
+
 }

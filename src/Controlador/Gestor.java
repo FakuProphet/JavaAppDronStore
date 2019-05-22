@@ -423,7 +423,45 @@ public class Gestor {
     }
     
     
-    
+     public Dato getDatosUltimaVenta() throws SQLException  {
+
+        Dato d = null;
+        Connection conectar = null;
+        
+        
+        
+        try{
+                
+                conectar = Conexion.conectar();    
+                conectar.setAutoCommit(false);
+                CallableStatement prcProcedimientoAlmacenado = conectar.prepareCall("{call SP_GET_ULTIMA_VENTA()}");
+                ResultSet rs = prcProcedimientoAlmacenado.executeQuery();
+                
+                
+                if(rs.next())
+                {
+                    d = new Dato();
+                    d.setCliente(rs.getInt(1));
+                    d.setNroOrden(rs.getInt(2));
+                }
+                
+        
+                conectar.commit();
+               
+                
+        } catch (Exception e) {
+                conectar.rollback();
+                
+        } finally {
+                // cerrar la Conexion
+                conectar.close();
+        }
+        
+        
+
+        return d;
+
+    }
     
     
     

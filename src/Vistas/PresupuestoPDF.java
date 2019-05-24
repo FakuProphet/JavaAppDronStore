@@ -2,10 +2,9 @@ package Vistas;
 
 import Dto.CarritoDTO;
 import Modelo.Cliente;
+import Modelo.FormaPago;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 
@@ -15,36 +14,40 @@ import javax.swing.JOptionPane;
 public class PresupuestoPDF extends javax.swing.JInternalFrame {
 
     
-    public PresupuestoPDF(ArrayList<CarritoDTO> carrito,Cliente c) {
+    public PresupuestoPDF(ArrayList<CarritoDTO> carrito,Cliente c,FormaPago fp) {
         initComponents();
         JOptionPane.showMessageDialog(null, c.getApellido());
     }
 
     
     
-    private void TotalizarPresupuesto(ArrayList<CarritoDTO> listado)
+    private void TotalizarPresupuesto(ArrayList<CarritoDTO> listado, FormaPago miFormaDePago)
     {
-        double SubTotal = 0.0;
+        
         double IvaDiscriminado=0.0;
         double total =0.0;
         double totalConDescuento=0.0;
-        int cantidad = 0;
         int cantidadAcumulada=0;
-        double costo=0.0;
         int iva = 21;
         if(!listado.isEmpty())
         {
-            cantidad = listado.size();
-            for (int i = 0; i < listado.size(); i++) 
+            
+            for (CarritoDTO o : listado) 
             {
-                SubTotal+=cantidad*costo;
-                IvaDiscriminado = (SubTotal * iva ) /100;
-                total = SubTotal + IvaDiscriminado;
+                cantidadAcumulada+=o.getCantidad();
+                total+=o.getCosto()*o.getCantidad();
                 
-                if(cantidadAcumulada>=10)
+                if(cantidadAcumulada>10)
                 {
-                    totalConDescuento=total * 10 /100;
+                    totalConDescuento = total*10/100;
                 }
+                
+                if(miFormaDePago.getId_formaPago()==1)
+                {
+                    
+                }
+                
+                IvaDiscriminado = total * iva /100;
             }
             
             DecimalFormat f = new DecimalFormat("###,###.##");

@@ -47,9 +47,11 @@ public class Presupuesto extends javax.swing.JInternalFrame {
     private CarritoDTO pr;
     Cliente c;
     private ArrayList<FormaPago> lFormasPago;
+    private FormaPago formaPago;
     public Presupuesto() {
         initComponents();
         gestor = new Gestor();
+        formaPago = new FormaPago();
         lFormasPago = new ArrayList<>();
         lFormasPago= gestor.getListadoFormasDePago();
         cargarTabla();
@@ -144,6 +146,11 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         jLabel12.setText("Formas de pago");
 
         cboFormasPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboFormasPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboFormasPagoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -538,9 +545,13 @@ public class Presupuesto extends javax.swing.JInternalFrame {
     
     private void btnPresupuestoPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPresupuestoPDFActionPerformed
         // Abre interfaz para generar pdf
-        PresupuestoPDF nuevo = new PresupuestoPDF(carrito,c);
+        PresupuestoPDF nuevo = new PresupuestoPDF(carrito,c,formaPago);
         CentrarVentana(nuevo);
     }//GEN-LAST:event_btnPresupuestoPDFActionPerformed
+
+    private void cboFormasPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboFormasPagoActionPerformed
+        formaPago = (FormaPago) cboFormasPago.getSelectedItem();
+    }//GEN-LAST:event_cboFormasPagoActionPerformed
 
     private void filasNoEditables(JTable tabla)
     {

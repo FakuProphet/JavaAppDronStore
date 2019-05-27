@@ -36,6 +36,7 @@ import javax.swing.JOptionPane;
 public class PresupuestoPDF extends javax.swing.JInternalFrame {
 
     ArrayList<CarritoDTO> car;
+    Cliente miCliente;
     public PresupuestoPDF(ArrayList<CarritoDTO> carrito,Cliente c,FormaPago fp) {
         initComponents();
         TotalizarPresupuesto(carrito, fp);
@@ -43,6 +44,7 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
         fecha();
         datos(c);
         car=carrito;
+        miCliente = c;
     }
 
     
@@ -350,6 +352,17 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
             
             doc.add(titulo);
             
+            doc.add(new Paragraph(Chunk.NEWLINE));
+            doc.add(new Paragraph(Chunk.NEWLINE));
+            
+            Paragraph cliente = new Paragraph();
+            cliente.setAlignment(Paragraph.ALIGN_CENTER);
+            cliente.setFont(FontFactory.getFont("Times New Roman", 12, Font.BOLD, BaseColor.GREEN));
+            cliente.add("CLIENTE:"+miCliente.getApellido().toUpperCase()+" "+miCliente.getNombre());
+            doc.add(cliente);
+            
+            
+            
             //para agregar espacios vacios
             doc.add(new Paragraph(Chunk.NEWLINE));
             doc.add(new Paragraph(Chunk.NEWLINE));
@@ -386,7 +399,7 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
                 CarritoDTO mc = (CarritoDTO)o;
                 PdfPCell cellOne = new PdfPCell(new Phrase(mc.getDescripcionProducto()));
                 PdfPCell cellTwo = new PdfPCell(new Phrase(String.valueOf(mc.getCantidad())));
-                PdfPCell cellTree = new PdfPCell(new Phrase(String.valueOf(mc.getCosto())));
+                PdfPCell cellTree = new PdfPCell(new Phrase(String.valueOf("$"+mc.getCosto())));
                 cellOne.setBorder(Rectangle.NO_BORDER);
                 cellTwo.setBorder(Rectangle.NO_BORDER);
                 cellTree.setBorder(Rectangle.NO_BORDER);
@@ -404,11 +417,38 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
             doc.add(new Paragraph(Chunk.NEWLINE));
             doc.add(new Paragraph(Chunk.NEWLINE));
             
-            doc.add(new Paragraph("SUBTOTAL:"+lblSubTotal.getText()));
-            doc.add(new Paragraph("MONTO IVA 21%:"+lblIva.getText()));
-            doc.add(new Paragraph("MONTO DESCUENTO POR CANTIDAD:"+lblDescuentoPorCant.getText()));
-            doc.add(new Paragraph("MONTO PAGO EN EFECTIVO:"+lblFDescuentoEfectivo.getText()));
-            doc.add(new Paragraph("MONTO FINAL:"+lblMontoFinal.getText()));
+            
+            Paragraph subtotal = new Paragraph();
+            subtotal.setAlignment(Paragraph.ALIGN_CENTER);
+            subtotal.setFont(FontFactory.getFont("Times New Roman", 12, Font.BOLD, BaseColor.BLUE));
+            subtotal.add("SUBTOTAL:"+lblSubTotal.getText());
+            
+            Paragraph montoIva = new Paragraph();
+            montoIva.setAlignment(Paragraph.ALIGN_CENTER);
+            montoIva.setFont(FontFactory.getFont("Times New Roman", 12, Font.BOLD, BaseColor.BLUE));
+            montoIva.add("MONTO IVA 21%:"+lblIva.getText());
+            
+            Paragraph montoDescCantidad = new Paragraph();
+            montoDescCantidad.setAlignment(Paragraph.ALIGN_CENTER);
+            montoDescCantidad.setFont(FontFactory.getFont("Times New Roman", 12, Font.BOLD, BaseColor.BLUE));
+            montoDescCantidad.add("MONTO DESCUENTO POR CANTIDAD:"+lblDescuentoPorCant.getText());
+            
+            
+            Paragraph montoPagoEfectivo = new Paragraph();
+            montoPagoEfectivo.setAlignment(Paragraph.ALIGN_CENTER);
+            montoPagoEfectivo.setFont(FontFactory.getFont("Times New Roman", 12, Font.BOLD, BaseColor.BLUE));
+            montoPagoEfectivo.add("MONTO PAGO EN EFECTIVO:"+lblFDescuentoEfectivo.getText());
+            
+            Paragraph montoFinal = new Paragraph();
+            montoFinal.setAlignment(Paragraph.ALIGN_CENTER);
+            montoFinal.setFont(FontFactory.getFont("Times New Roman", 12, Font.BOLD, BaseColor.BLUE));
+            montoFinal.add("MONTO FINAL:"+lblMontoFinal.getText());
+            
+            doc.add(new Paragraph(subtotal));
+            doc.add(new Paragraph(montoIva));
+            doc.add(new Paragraph(montoDescCantidad));
+            doc.add(new Paragraph(montoPagoEfectivo));
+            doc.add(new Paragraph(montoFinal));
             
               
             doc.close();

@@ -3,15 +3,18 @@ package Vistas;
 import Dto.CarritoDTO;
 import Modelo.Cliente;
 import Modelo.FormaPago;
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Font;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -338,19 +341,41 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
             PdfWriter.getInstance(doc, archivo);
             doc.open();
             
-            doc.add(new Paragraph("PRESUPUESTO DRONE STORE."));
+            
+            Paragraph titulo = new Paragraph();
+            titulo.setAlignment(Paragraph.ALIGN_CENTER);
+            titulo.setFont(FontFactory.getFont("Times New Roman", 24, Font.BOLD, BaseColor.RED));
+            titulo.add("***PRESUPUESTO DRONE STORE***");
+
+            
+            doc.add(titulo);
             
             //para agregar espacios vacios
             doc.add(new Paragraph(Chunk.NEWLINE));
             doc.add(new Paragraph(Chunk.NEWLINE));
             doc.add(new Paragraph(Chunk.NEWLINE));
             doc.add(new Paragraph(Chunk.NEWLINE));
-            doc.add(new Paragraph("---------------------------------------------------------------"));
+         
             
             
             // Este codigo genera una tabla de 3 columnas
             PdfPTable table = new PdfPTable(3);                
             
+             //Añadimos los títulos a la tabla. 
+            Paragraph columna1 = new Paragraph("PRODUCTO");
+            columna1.getFont().setStyle(Font.ITALIC);
+            columna1.getFont().setSize(10);
+            table.addCell(columna1);
+
+            Paragraph columna2 = new Paragraph("CANTIDAD");
+            columna2.getFont().setStyle(Font.ITALIC);
+            columna2.getFont().setSize(10);
+            table.addCell(columna2);
+
+            Paragraph columna3 = new Paragraph("PRECIO UNITARIO");
+            columna3.getFont().setStyle(Font.ITALIC);
+            columna3.getFont().setSize(10);
+            table.addCell(columna3);
            
             // addCell() agrega una celda a la tabla, el cambio de fila
             // ocurre automaticamente al llenar la fila
@@ -370,10 +395,21 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
                 table.addCell(cellTree);
             }
             
-            doc.add(new Paragraph("---------------------------------------------------------------"));
+            
             // Agregamos la tabla al documento            
             doc.add(table);
-                
+            
+            doc.add(new Paragraph(Chunk.NEWLINE));
+            doc.add(new Paragraph(Chunk.NEWLINE));
+            doc.add(new Paragraph(Chunk.NEWLINE));
+            doc.add(new Paragraph(Chunk.NEWLINE));
+            
+            doc.add(new Paragraph("SUBTOTAL:"+lblSubTotal.getText()));
+            doc.add(new Paragraph("MONTO IVA 21%:"+lblIva.getText()));
+            doc.add(new Paragraph("MONTO DESCUENTO POR CANTIDAD:"+lblDescuentoPorCant.getText()));
+            doc.add(new Paragraph("MONTO PAGO EN EFECTIVO:"+lblFDescuentoEfectivo.getText()));
+            doc.add(new Paragraph("MONTO FINAL:"+lblMontoFinal.getText()));
+            
               
             doc.close();
             JOptionPane.showMessageDialog(null, "Documento creado con exito!.", "Información", JOptionPane.INFORMATION_MESSAGE); 

@@ -146,6 +146,7 @@ public class LoginSistema extends javax.swing.JFrame {
                
                 if(passVentas.equals(valor))
                 {
+                    JOptionPane.showMessageDialog(this,"Ingreso permitido del operador:"+ o.toString()+" al sistema DroneStore","Aviso de login",JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
                     Main m=new Main(o);
                     m.jMenuBar1.getMenu(1).setEnabled(false);

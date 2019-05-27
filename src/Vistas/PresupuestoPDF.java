@@ -3,10 +3,23 @@ package Vistas;
 import Dto.CarritoDTO;
 import Modelo.Cliente;
 import Modelo.FormaPago;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
 
 
 
@@ -14,11 +27,13 @@ import java.util.Date;
 
 public class PresupuestoPDF extends javax.swing.JInternalFrame {
 
-    
+    ArrayList<CarritoDTO> car;
     public PresupuestoPDF(ArrayList<CarritoDTO> carrito,Cliente c,FormaPago fp) {
         initComponents();
         TotalizarPresupuesto(carrito, fp);
+        cargarLista(carrito);
         fecha();
+        car=carrito;
     }
 
     
@@ -26,6 +41,21 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
     {
         Date fecha = new Date();
         lblFecha.setText(new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+    }
+    
+    private void cargarLista(ArrayList<CarritoDTO> arrayList)
+    {
+        //Crear un objeto DefaultListModel
+        DefaultListModel modelo = new DefaultListModel();
+        //Recorrer el contenido del ArrayList
+        for(int i=0; i<arrayList.size(); i++) 
+        {
+            CarritoDTO item =(CarritoDTO) arrayList.get(i);
+            //Añadir cada elemento del ArrayList en el modelo de la lista
+            modelo.add(i, item.toString());
+        }
+        //Asociar el modelo de lista al JList
+        jList1.setModel(modelo);
     }
     
     
@@ -97,6 +127,8 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
         jList1 = new javax.swing.JList<>();
         jLabel6 = new javax.swing.JLabel();
         lblMontoFinal = new javax.swing.JLabel();
+        btnDireccionPdf = new javax.swing.JButton();
+        lblUrlPDF = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Presupuesto a PDF");
@@ -125,10 +157,15 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
         jLabel5.setText("Fecha");
 
         btnGuardarPdf.setText("EMITIR PDF");
+        btnGuardarPdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarPdfActionPerformed(evt);
+            }
+        });
 
         lblFecha.setText("...");
 
-        jList1.setForeground(new java.awt.Color(255, 102, 51));
+        jList1.setForeground(new java.awt.Color(102, 102, 0));
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -143,40 +180,50 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
         lblMontoFinal.setForeground(new java.awt.Color(0, 0, 255));
         lblMontoFinal.setText("...");
 
+        btnDireccionPdf.setText("SELECCIONAR DIRECCION ARCHIVO");
+        btnDireccionPdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDireccionPdfActionPerformed(evt);
+            }
+        });
+
+        lblUrlPDF.setForeground(new java.awt.Color(0, 0, 255));
+        lblUrlPDF.setText("...");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(74, 74, 74)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(35, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(73, 73, 73)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel6))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblSubTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblIva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblDescuento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblFDescuentoEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblMontoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(30, 30, 30)
+                            .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
+                        .addComponent(lblUrlPDF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel6))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lblSubTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblIva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblDescuento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblFDescuentoEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblMontoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(38, 38, 38)
-                                .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnGuardarPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 74, Short.MAX_VALUE))))
+                        .addComponent(btnDireccionPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addComponent(btnGuardarPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,9 +232,11 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(lblFecha))
-                .addGap(90, 90, 90)
+                .addGap(38, 38, 38)
+                .addComponent(lblUrlPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(lblSubTotal))
@@ -207,16 +256,61 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblMontoFinal)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addComponent(btnGuardarPdf)
-                .addGap(35, 35, 35))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDireccionPdf)
+                    .addComponent(btnGuardarPdf))
+                .addGap(33, 33, 33))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnDireccionPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDireccionPdfActionPerformed
+        // generar y mostrar la dirección del archivo PDF
+        
+        JFileChooser dlg = new JFileChooser();
+        int opcion = dlg.showSaveDialog(this);
+        if(opcion==JFileChooser.APPROVE_OPTION)
+        {
+            File f = dlg.getSelectedFile();
+            String url = f.toString();
+            lblUrlPDF.setText(url);
+        }
+    }//GEN-LAST:event_btnDireccionPdfActionPerformed
+
+    private void btnGuardarPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPdfActionPerformed
+        // Guardar y mostrar datos en pdf
+        try
+        {
+            String url = lblUrlPDF.getText();
+           
+                FileOutputStream archivo = new FileOutputStream(url+".pdf");
+                Document doc = new Document();
+                PdfWriter.getInstance(doc, archivo);
+                doc.open();
+                for (Object o : car) 
+                {
+                    CarritoDTO mc = (CarritoDTO)o;
+                    doc.add(new Paragraph(mc.toString()));
+                }
+                doc.close();
+            
+          
+        }
+        catch(FileNotFoundException error)
+        {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una ruta para el archivo.", "Información", JOptionPane.INFORMATION_MESSAGE); 
+        } 
+        catch (DocumentException ex) 
+        {
+            Logger.getLogger(PresupuestoPDF.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnGuardarPdfActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDireccionPdf;
     private javax.swing.JButton btnGuardarPdf;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -232,5 +326,6 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblIva;
     private javax.swing.JLabel lblMontoFinal;
     private javax.swing.JLabel lblSubTotal;
+    private javax.swing.JLabel lblUrlPDF;
     // End of variables declaration//GEN-END:variables
 }

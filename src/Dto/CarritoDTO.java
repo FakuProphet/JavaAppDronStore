@@ -80,6 +80,11 @@ public class CarritoDTO {
     public void setCosto(double costo) {
         this.costo = costo;
     }
+
+    @Override
+    public String toString() {
+        return  "Código Producto=" + codigoProducto + ", Producto=" + descripcionProducto.toUpperCase() + ", Cantidad=" + cantidad + ", Precio Unitario=" + costo ;
+    }
     
     
     

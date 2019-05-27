@@ -13,10 +13,11 @@ import javax.swing.JOptionPane;
 public class Main extends javax.swing.JFrame {
 
     
-    
+    Operador miOperador;
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public Main(Operador op) {
         initComponents();
+        miOperador = op;
         inicioMain();
         setDefaultCloseOperation(0);
        // JOptionPane.showMessageDialog(this, op.getApellido(),"Aviso",JOptionPane.INFORMATION_MESSAGE);
@@ -35,6 +36,7 @@ public class Main extends javax.swing.JFrame {
         jDialog1 = new javax.swing.JDialog();
         panelEscritorio = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
+        lblUsuarioActivo = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -76,9 +78,13 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Bienvenido: ");
+        jLabel1.setText("USUARIO ACTIVO:");
+
+        lblUsuarioActivo.setForeground(new java.awt.Color(255, 51, 51));
+        lblUsuarioActivo.setText("...");
 
         panelEscritorio.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelEscritorio.setLayer(lblUsuarioActivo, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout panelEscritorioLayout = new javax.swing.GroupLayout(panelEscritorio);
         panelEscritorio.setLayout(panelEscritorioLayout);
@@ -87,13 +93,17 @@ public class Main extends javax.swing.JFrame {
             .addGroup(panelEscritorioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(562, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblUsuarioActivo, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(298, Short.MAX_VALUE))
         );
         panelEscritorioLayout.setVerticalGroup(
             panelEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEscritorioLayout.createSequentialGroup()
                 .addContainerGap(302, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addGroup(panelEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblUsuarioActivo))
                 .addContainerGap())
         );
 
@@ -215,10 +225,10 @@ public class Main extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
-        jMenu8.setIcon(new javax.swing.ImageIcon("C:\\Users\\Prophet\\Desktop\\DronesJava\\Crown_52px.png")); // NOI18N
+        jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Crown_52px.png"))); // NOI18N
         jMenu8.setText("Administrador");
 
-        jMenuItem2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Prophet\\Desktop\\DronesJava\\icons8_Price_Tag_32.png")); // NOI18N
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Create Order_50px_1.png"))); // NOI18N
         jMenuItem2.setText("Gestión precios de venta");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -378,6 +388,7 @@ public class Main extends javax.swing.JFrame {
         Image Image = ImageIcon.getImage();
         this.setIconImage(Image);
         this.setVisible(true);
+        lblUsuarioActivo.setText(miOperador.toString());
     }
     
     
@@ -414,6 +425,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JLabel lblUsuarioActivo;
     private javax.swing.JMenuItem menuMantClientes;
     public static javax.swing.JDesktopPane panelEscritorio;
     // End of variables declaration//GEN-END:variables

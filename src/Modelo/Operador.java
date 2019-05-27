@@ -57,7 +57,7 @@ public class Operador {
         return apellido.toUpperCase() +" "+ nombre ;
     }
     
-    
+   
     
     
 }

@@ -404,7 +404,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
             }
         });
 
-        btnPresupuestoPDF.setText("Emitir PDF");
+        btnPresupuestoPDF.setText("Emitir PDF y ver detalles del presupuesto");
         btnPresupuestoPDF.setEnabled(false);
         btnPresupuestoPDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

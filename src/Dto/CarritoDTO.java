@@ -81,6 +81,12 @@ public class CarritoDTO {
         this.costo = costo;
     }
 
+    
+    public String listado() {
+        return  codigoProducto + " " + descripcionProducto.toUpperCase() + " " + cantidad + " " + costo ;
+    }
+    
+    
     @Override
     public String toString() {
         return  "Código Producto=" + codigoProducto + ", Producto=" + descripcionProducto.toUpperCase() + ", Cantidad=" + cantidad + ", Precio Unitario=" + costo ;

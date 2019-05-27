@@ -3,9 +3,14 @@ package Vistas;
 import Dto.CarritoDTO;
 import Modelo.Cliente;
 import Modelo.FormaPago;
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,9 +38,18 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
         TotalizarPresupuesto(carrito, fp);
         cargarLista(carrito);
         fecha();
+        datos(c);
         car=carrito;
     }
 
+    
+    private void datos(Cliente c)
+    {
+        if(c!=null)
+        {
+            lblCliente.setText(c.getApellido().toUpperCase()+" "+c.getNombre());
+        }
+    }
     
     private void fecha()
     {
@@ -65,7 +79,8 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
         double IvaDiscriminado=0.0;
         double descEfectivo=0.0;
         double total =0.0;
-        double totalConDescuento=0.0;
+        double descuentoPorCantidad=0.0;
+        double montoFinal=0.0;
         int cantidadAcumulada=0;
         int iva = 21;
         if(!listado.isEmpty())
@@ -78,7 +93,8 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
                 
                 if(cantidadAcumulada>=10)
                 {
-                    totalConDescuento = total*10/100;
+                    //a la cantidad
+                    descuentoPorCantidad = total*10/100;
                 }
                 
                 if(miFormaDePago.getDescripcion().contains("Efectivo"))
@@ -87,14 +103,16 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
                 }
                 
                 IvaDiscriminado = total * iva /100;
+                montoFinal=total+IvaDiscriminado+descuentoPorCantidad+descEfectivo;
             }
             
             DecimalFormat f = new DecimalFormat("###,###.##");
             
             lblSubTotal.setText("$"+String.valueOf(f.format(total)));
             lblIva.setText("$"+String.valueOf(f.format(IvaDiscriminado)));
-            lblDescuento.setText("$"+String.valueOf(f.format(totalConDescuento)));
+            lblDescuentoPorCant.setText("$"+String.valueOf(f.format(descuentoPorCantidad)));
             lblFDescuentoEfectivo.setText("$"+String.valueOf(f.format(descEfectivo)));
+            lblMontoFinal.setText("$"+String.valueOf(f.format(montoFinal)));
         }
         else
         {
@@ -118,7 +136,7 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         lblSubTotal = new javax.swing.JLabel();
         lblIva = new javax.swing.JLabel();
-        lblDescuento = new javax.swing.JLabel();
+        lblDescuentoPorCant = new javax.swing.JLabel();
         lblFDescuentoEfectivo = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         btnGuardarPdf = new javax.swing.JButton();
@@ -129,6 +147,10 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
         lblMontoFinal = new javax.swing.JLabel();
         btnDireccionPdf = new javax.swing.JButton();
         lblUrlPDF = new javax.swing.JLabel();
+        lblCliente = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        lblOperador = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Presupuesto a PDF");
@@ -137,19 +159,19 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
         jLabel1.setText("Subtotal");
 
         jLabel2.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
-        jLabel2.setText("IVA Discrimnado");
+        jLabel2.setText("IVA Discriminado");
 
         jLabel3.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
-        jLabel3.setText("Descuento llevando 10 art. o mas");
+        jLabel3.setText("10% descuento llevando 10 art. o mas");
 
         jLabel4.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
-        jLabel4.setText("Descuento efectivo");
+        jLabel4.setText("5 % descuento pago efectivo");
 
         lblSubTotal.setText("...");
 
         lblIva.setText("...");
 
-        lblDescuento.setText("...");
+        lblDescuentoPorCant.setText("...");
 
         lblFDescuentoEfectivo.setText("...");
 
@@ -190,39 +212,58 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
         lblUrlPDF.setForeground(new java.awt.Color(0, 0, 255));
         lblUrlPDF.setText("...");
 
+        lblCliente.setText("...");
+
+        jLabel7.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
+        jLabel7.setText("Cliente");
+
+        jLabel8.setText("Emitido por:");
+
+        lblOperador.setForeground(new java.awt.Color(255, 102, 204));
+        lblOperador.setText("...");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(35, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
+                            .addComponent(lblUrlPDF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(73, 73, 73)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel6))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblSubTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblIva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblDescuentoPorCant, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblFDescuentoEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblMontoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(73, 73, 73)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel6))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lblSubTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblIva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblDescuento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblFDescuentoEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblMontoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(30, 30, 30)
-                            .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
-                        .addComponent(lblUrlPDF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnDireccionPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(43, 43, 43)
+                            .addComponent(btnGuardarPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnDireccionPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addComponent(btnGuardarPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(99, 99, 99)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblOperador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -231,8 +272,14 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
                 .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(lblFecha))
-                .addGap(38, 38, 38)
+                    .addComponent(lblFecha)
+                    .addComponent(jLabel8)
+                    .addComponent(lblOperador))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCliente)
+                    .addComponent(jLabel7))
+                .addGap(18, 18, 18)
                 .addComponent(lblUrlPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -247,7 +294,7 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(lblDescuento))
+                    .addComponent(lblDescuentoPorCant))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -256,7 +303,7 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblMontoFinal)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDireccionPdf)
                     .addComponent(btnGuardarPdf))
@@ -283,24 +330,58 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
         // Guardar y mostrar datos en pdf
         try
         {
+            /*url o direccion de donde se guarda el pdf*/
             String url = lblUrlPDF.getText();
            
-                FileOutputStream archivo = new FileOutputStream(url+".pdf");
-                Document doc = new Document();
-                PdfWriter.getInstance(doc, archivo);
-                doc.open();
-                for (Object o : car) 
-                {
-                    CarritoDTO mc = (CarritoDTO)o;
-                    doc.add(new Paragraph(mc.toString()));
-                }
-                doc.close();
+            FileOutputStream archivo = new FileOutputStream(url+".pdf");
+            Document doc = new Document();
+            PdfWriter.getInstance(doc, archivo);
+            doc.open();
             
+            doc.add(new Paragraph("PRESUPUESTO DRONE STORE."));
+            
+            //para agregar espacios vacios
+            doc.add(new Paragraph(Chunk.NEWLINE));
+            doc.add(new Paragraph(Chunk.NEWLINE));
+            doc.add(new Paragraph(Chunk.NEWLINE));
+            doc.add(new Paragraph(Chunk.NEWLINE));
+            doc.add(new Paragraph("---------------------------------------------------------------"));
+            
+            
+            // Este codigo genera una tabla de 3 columnas
+            PdfPTable table = new PdfPTable(3);                
+            
+           
+            // addCell() agrega una celda a la tabla, el cambio de fila
+            // ocurre automaticamente al llenar la fila
+            
+              
+            for (Object o : car) 
+            {
+                CarritoDTO mc = (CarritoDTO)o;
+                PdfPCell cellOne = new PdfPCell(new Phrase(mc.getDescripcionProducto()));
+                PdfPCell cellTwo = new PdfPCell(new Phrase(String.valueOf(mc.getCantidad())));
+                PdfPCell cellTree = new PdfPCell(new Phrase(String.valueOf(mc.getCosto())));
+                cellOne.setBorder(Rectangle.NO_BORDER);
+                cellTwo.setBorder(Rectangle.NO_BORDER);
+                cellTree.setBorder(Rectangle.NO_BORDER);
+                table.addCell(cellOne);
+                table.addCell(cellTwo);
+                table.addCell(cellTree);
+            }
+            
+            doc.add(new Paragraph("---------------------------------------------------------------"));
+            // Agregamos la tabla al documento            
+            doc.add(table);
+                
+              
+            doc.close();
+            JOptionPane.showMessageDialog(null, "Documento creado con exito!.", "Información", JOptionPane.INFORMATION_MESSAGE); 
           
         }
         catch(FileNotFoundException error)
         {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una ruta para el archivo.", "Información", JOptionPane.INFORMATION_MESSAGE); 
+            JOptionPane.showMessageDialog(null, error.toString(), "Información de error", JOptionPane.INFORMATION_MESSAGE); 
         } 
         catch (DocumentException ex) 
         {
@@ -318,13 +399,17 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblDescuento;
+    private javax.swing.JLabel lblCliente;
+    private javax.swing.JLabel lblDescuentoPorCant;
     private javax.swing.JLabel lblFDescuentoEfectivo;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblIva;
     private javax.swing.JLabel lblMontoFinal;
+    private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblSubTotal;
     private javax.swing.JLabel lblUrlPDF;
     // End of variables declaration//GEN-END:variables

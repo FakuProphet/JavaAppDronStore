@@ -227,16 +227,22 @@ public class ProductoPrecioVenta extends javax.swing.JInternalFrame {
         {
             try 
             {
+             if (JOptionPane.showConfirmDialog(rootPane, "Desea actualizar los precios de venta que hayan sido modificados?",
+            "Establecer y actualizar precios de venta", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+            {
                 for (int i = 0; i < jTable2.getRowCount(); i++) 
                 {
                     int codigo = (Integer.valueOf(jTable2.getValueAt(i,0).toString()));
                     double precio = (Double.valueOf(jTable2.getValueAt(i,2).toString()));
                     gestor.setPreciosVenta(codigo,precio);
-                }
-               // JOptionPane.showMessageDialog(null, "Operación exitosa!", "Información", JOptionPane.INFORMATION_MESSAGE);  
+                } 
+                JOptionPane.showMessageDialog(null, "Operación exitosa!", "Información", JOptionPane.INFORMATION_MESSAGE);  
                 this.dispose();
                 ProductoPrecioVenta nuevo = new ProductoPrecioVenta();
                 CentrarVentana(nuevo);
+            }
+               
+              
             } 
             catch (SQLException ex) 
             {

@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 public class Main extends javax.swing.JFrame {
 
     
-    Operador miOperador;
+    Operador miOperador = new Operador();
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public Main(Operador op) {
         initComponents();
@@ -332,7 +332,7 @@ public class Main extends javax.swing.JFrame {
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // generar y emitir presupuesto
-        Presupuesto nuevo = new Presupuesto();
+        Presupuesto nuevo = new Presupuesto(miOperador);
         CentrarVentana(nuevo);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 

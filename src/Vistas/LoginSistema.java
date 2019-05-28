@@ -26,6 +26,7 @@ public class LoginSistema extends javax.swing.JFrame {
         lOperadores = gestor.getListadoOperadores();
         this.setLocationRelativeTo(null);
         cargarCombo(lOperadores, cboOperadores);
+        
     }
 
    
@@ -129,6 +130,7 @@ public class LoginSistema extends javax.swing.JFrame {
         // Acceder a main
         
         Operador o = (Operador) cboOperadores.getSelectedItem();
+
         pass = txtContrasenia.getPassword();
         String passVentas = "1234";
         String passCompras = "5678";

@@ -11,6 +11,7 @@ import Modelo.CellRenderer;
 import Modelo.Cliente;
 import Modelo.FormaPago;
 import Modelo.HeaderCellRenderer;
+import Modelo.Operador;
 import Modelo.Producto;
 import static Vistas.Main.panelEscritorio;
 import java.awt.Dimension;
@@ -48,10 +49,11 @@ public class Presupuesto extends javax.swing.JInternalFrame {
     Cliente c;
     private ArrayList<FormaPago> lFormasPago;
     private FormaPago formaPago;
-    public Presupuesto() {
+    Operador miOperador;
+    public Presupuesto(Operador op) {
         initComponents();
         gestor = new Gestor();
-        
+        miOperador = op;
         lFormasPago = new ArrayList<>();
         lFormasPago= gestor.getListadoFormasDePago();
         cargarTabla();
@@ -59,6 +61,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         formaPago = (FormaPago) cboFormasPago.getSelectedItem();
         eliminarSeleccionTabla();
         seleccionProductos();
+       
         txtFiltro.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(final KeyEvent e) {
@@ -532,7 +535,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
                 
                 JOptionPane.showMessageDialog(this,mensaje,"Presupuesto",JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
-                Presupuesto nuevo = new Presupuesto();
+                Presupuesto nuevo = new Presupuesto(miOperador);
                 CentrarVentana(nuevo);
            }
        } 
@@ -554,7 +557,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
     
     private void btnPresupuestoPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPresupuestoPDFActionPerformed
         // Abre interfaz para generar pdf
-        PresupuestoPDF nuevo = new PresupuestoPDF(carrito,c,formaPago);
+        PresupuestoPDF nuevo = new PresupuestoPDF(carrito,c,formaPago,miOperador);
         CentrarVentana(nuevo);
     }//GEN-LAST:event_btnPresupuestoPDFActionPerformed
 

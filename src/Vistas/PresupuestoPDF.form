@@ -28,8 +28,7 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jScrollPane1" alignment="0" pref="599" max="32767" attributes="0"/>
-                          <Component id="lblUrlPDF" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="0" min="-2" pref="599" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
@@ -52,6 +51,11 @@
                               <Component id="jLabel7" min="-2" pref="45" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="lblCliente" min="-2" pref="260" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="lblUrlPDF" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
@@ -90,7 +94,10 @@
                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Component id="lblUrlPDF" min="-2" pref="26" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblUrlPDF" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                  <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
@@ -192,6 +199,7 @@
     <Component class="javax.swing.JButton" name="btnGuardarPdf">
       <Properties>
         <Property name="text" type="java.lang.String" value="EMITIR PDF"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarPdfActionPerformed"/>
@@ -289,6 +297,14 @@
           <Color blue="cc" green="66" red="ff" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="..."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel9">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Dialog" size="12" style="2"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Ubicaci&#xf3;n archivo"/>
       </Properties>
     </Component>
   </SubComponents>

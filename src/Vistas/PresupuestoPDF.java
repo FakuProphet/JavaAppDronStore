@@ -3,6 +3,7 @@ package Vistas;
 import Dto.CarritoDTO;
 import Modelo.Cliente;
 import Modelo.FormaPago;
+import Modelo.Operador;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -37,7 +38,8 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
 
     ArrayList<CarritoDTO> car;
     Cliente miCliente;
-    public PresupuestoPDF(ArrayList<CarritoDTO> carrito,Cliente c,FormaPago fp) {
+    Operador operador;
+    public PresupuestoPDF(ArrayList<CarritoDTO> carrito,Cliente c,FormaPago fp,Operador miOperador) {
         initComponents();
         TotalizarPresupuesto(carrito, fp);
         cargarLista(carrito);
@@ -45,6 +47,8 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
         datos(c);
         car=carrito;
         miCliente = c;
+        operador =miOperador;
+        lblOperador.setText(operador.toString());
     }
 
     
@@ -54,12 +58,14 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
         {
             lblCliente.setText(c.getApellido().toUpperCase()+" "+c.getNombre());
         }
+       
     }
     
     private void fecha()
     {
         Date fecha = new Date();
         lblFecha.setText(new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+       
     }
     
     private void cargarLista(ArrayList<CarritoDTO> arrayList)
@@ -156,6 +162,7 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         lblOperador = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Presupuesto a PDF");
@@ -184,6 +191,7 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
         jLabel5.setText("Fecha");
 
         btnGuardarPdf.setText("EMITIR PDF");
+        btnGuardarPdf.setEnabled(false);
         btnGuardarPdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarPdfActionPerformed(evt);
@@ -227,6 +235,9 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
         lblOperador.setForeground(new java.awt.Color(255, 102, 204));
         lblOperador.setText("...");
 
+        jLabel9.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jLabel9.setText("Ubicación archivo");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -236,8 +247,7 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
-                            .addComponent(lblUrlPDF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(73, 73, 73)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -256,7 +266,11 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30)
-                                .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblUrlPDF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(btnDireccionPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(43, 43, 43)
@@ -285,7 +299,9 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
                     .addComponent(lblCliente)
                     .addComponent(jLabel7))
                 .addGap(18, 18, 18)
-                .addComponent(lblUrlPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUrlPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
@@ -328,6 +344,7 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
             File f = dlg.getSelectedFile();
             String url = f.toString();
             lblUrlPDF.setText(url);
+            btnGuardarPdf.setEnabled(true);
         }
     }//GEN-LAST:event_btnDireccionPdfActionPerformed
 
@@ -338,10 +355,12 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
             /*url o direccion de donde se guarda el pdf*/
             String url = lblUrlPDF.getText();
            
+           
             FileOutputStream archivo = new FileOutputStream(url+".pdf");
             Document doc = new Document();
             PdfWriter.getInstance(doc, archivo);
             doc.open();
+            
             
             
             Paragraph titulo = new Paragraph();
@@ -361,7 +380,17 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
             cliente.add("CLIENTE:"+miCliente.getApellido().toUpperCase()+" "+miCliente.getNombre());
             doc.add(cliente);
             
+            Paragraph operador = new Paragraph();
+            operador.setAlignment(Paragraph.ALIGN_CENTER);
+            operador.setFont(FontFactory.getFont("Times New Roman", 12, Font.BOLD, BaseColor.PINK));
+            operador.add("PRESUPUESTO EMITIDO POR:"+lblOperador.getText());
+            doc.add(operador);
             
+            Paragraph fecha = new Paragraph();
+            fecha.setAlignment(Paragraph.ALIGN_CENTER);
+            fecha.setFont(FontFactory.getFont("Consolas", 12, Font.BOLD, BaseColor.MAGENTA));
+            fecha.add("EMITIDO EL:"+lblFecha.getText());
+            doc.add(fecha);
             
             //para agregar espacios vacios
             doc.add(new Paragraph(Chunk.NEWLINE));
@@ -450,10 +479,25 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
             doc.add(new Paragraph(montoPagoEfectivo));
             doc.add(new Paragraph(montoFinal));
             
-              
+            doc.add(new Paragraph(Chunk.NEWLINE));
+            doc.add(new Paragraph(Chunk.NEWLINE));
+            doc.add(new Paragraph(Chunk.NEWLINE));
+            doc.add(new Paragraph(Chunk.NEWLINE));
+            doc.add(new Paragraph(Chunk.NEWLINE));
+            doc.add(new Paragraph(Chunk.NEWLINE));
+            doc.add(new Paragraph(Chunk.NEWLINE));
+            doc.add(new Paragraph(Chunk.NEWLINE));
+            
+            Paragraph valides = new Paragraph();
+            valides.setAlignment(Paragraph.ALIGN_CENTER);
+            valides.setFont(FontFactory.getFont("Times New Roman", 12, Font.BOLD, BaseColor.GREEN));
+            valides.add("Presupuesto valido por: 3 días");
+            doc.add(valides);
+ 
             doc.close();
             JOptionPane.showMessageDialog(null, "Documento creado con exito!.", "Información", JOptionPane.INFORMATION_MESSAGE); 
-          
+            
+            
         }
         catch(FileNotFoundException error)
         {
@@ -477,6 +521,7 @@ public class PresupuestoPDF extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCliente;

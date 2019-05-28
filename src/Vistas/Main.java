@@ -266,7 +266,9 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        // TODO add your handling code here:
+        // Muestra ventana de informes de venta
+        InformesDeVenta n = new InformesDeVenta();
+        CentrarVentana(n);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     

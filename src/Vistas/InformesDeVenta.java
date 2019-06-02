@@ -41,6 +41,9 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
         anioElegido = new com.toedter.calendar.JYearChooser();
         lblTotalFacturadoPorParam = new javax.swing.JLabel();
         lblMes = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaTopTres = new javax.swing.JTable();
 
         setTitle("Informe de ventas");
 
@@ -65,6 +68,21 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
 
         lblMes.setText("Monto facturado");
 
+        jLabel2.setText("TOP 3 de productos mas vendidos");
+
+        tablaTopTres.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tablaTopTres);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -88,7 +106,12 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
                             .addComponent(lblTotalFacturadoPorParam, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32))))
+                        .addGap(32, 32, 32))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,7 +133,11 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTotalFacturadoPorParam)
                     .addComponent(lblMes))
-                .addContainerGap(321, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addComponent(jLabel2)
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(118, Short.MAX_VALUE))
         );
 
         pack();
@@ -158,8 +185,11 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnFiltroFactMesAnio;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblMes;
     private javax.swing.JLabel lblTotalFacturadoPorParam;
     private com.toedter.calendar.JMonthChooser mesElegido;
+    private javax.swing.JTable tablaTopTres;
     // End of variables declaration//GEN-END:variables
 }

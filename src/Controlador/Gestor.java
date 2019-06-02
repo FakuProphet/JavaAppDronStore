@@ -1566,5 +1566,46 @@ public class Gestor {
     }
     
     
+     
+    public ArrayList<Producto> getTopTresVentasAnioActual() throws SQLException {
+        
+        Producto p = null;
+        ArrayList <Producto> listado= new ArrayList<>();
+        ResultSet rs;
+        try {
+            // creamos la Conexion
+            // como la clase conexion es estatica no se instancia
+            con = Conexion.conectar();
+            con.setAutoCommit(false);
+
+            /*
+             *  instanciamos el objeto callable donde 
+             *  ingresamos el nombre del sp, junto con los parametros, si los tuviera
+             */
+            CallableStatement prcProcedimientoAlmacenado = con.prepareCall("{call sp_cantidad_ventas_filtro(?)}");
+            //si posee parametros se los indicamos, y le indicamos de que tipo
+            
+            rs = prcProcedimientoAlmacenado.executeQuery();
+
+            while (rs.next()) {
+              
+                p = new Producto();
+                p.setDescripcion(rs.getString(1));
+                p.setStock(rs.getInt(3));
+                listado.add(p);
+            }
+
+            con.commit(); 
+            con.close();
+
+        } catch (Exception e) {
+            con.rollback();        
+        } 
+
+        return listado;
+    }
+     
+     
+     
     
 }

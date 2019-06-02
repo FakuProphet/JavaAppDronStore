@@ -9,6 +9,7 @@ import Controlador.Gestor;
 import Modelo.CVD;
 import Modelo.CellRenderer;
 import Modelo.HeaderCellRenderer;
+import Modelo.InfoVentaUno;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
@@ -23,6 +24,7 @@ public class InformeTres extends javax.swing.JInternalFrame {
     public InformeTres() {
         initComponents();
         g = new Gestor();
+        cargarTabla();
     }
 
     /**
@@ -74,19 +76,21 @@ public class InformeTres extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    private void cargarTabla(int anio) {
+    private void cargarTabla() {
 
         try {
 
-            ArrayList<CVD> listado = new ArrayList();
+            ArrayList<InfoVentaUno> listado = new ArrayList();
             
             DefaultTableModel modelo = new DefaultTableModel();
-            listado = g.cantidadVentas(anio);
-            modelo.setColumnIdentifiers(new String[]{"Cantidad de ventas","Mes"});
-            for (CVD p : listado) {
+            listado = g.getInfoVentasUno();
+            modelo.setColumnIdentifiers(new String[]{"Monto total facturado","Nro de venta","Fecha","Apellido operador"});
+            for (InfoVentaUno p : listado) {
                 Vector v = new Vector();
-                v.add(p.getCantidad());
-                v.add(p.getMes());
+                v.add(p.getMonto());
+                v.add(p.getNroVenta());
+                v.add(p.getFecha());
+                v.add(p.getVendedor());
                
                 modelo.addRow(v);
             }
@@ -97,14 +101,18 @@ public class InformeTres extends javax.swing.JInternalFrame {
             //tamaño de columnas
             jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
             jTable1.getColumnModel().getColumn(0).setPreferredWidth(50);
-           
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(50);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(60);
+            
             //altura de filas
             jTable1.setRowHeight(24);
             //se asigna el nuevo CellRenderer a cada columna segun su contenido
           
             jTable1.getColumnModel().getColumn(1).setCellRenderer(new CellRenderer("num"));
             jTable1.getColumnModel().getColumn(0).setCellRenderer(new CellRenderer("num"));
-           
+            jTable1.getColumnModel().getColumn(2).setCellRenderer(new CellRenderer("text center"));
+            jTable1.getColumnModel().getColumn(3).setCellRenderer(new CellRenderer("text center"));
+            
             //Se asigna nuevo header a la tabla
             JTableHeader jtableHeader = jTable1.getTableHeader();
             jtableHeader.setDefaultRenderer(new HeaderCellRenderer());

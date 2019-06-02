@@ -10,6 +10,7 @@ import Modelo.Conexion;
 import Modelo.Dato;
 import Modelo.Empresa;
 import Modelo.FormaPago;
+import Modelo.InfoVentaUno;
 import Modelo.Localidad;
 import Modelo.Marca;
 import Modelo.Operador;
@@ -1605,7 +1606,47 @@ public class Gestor {
         return listado;
     }
      
-     
+    
+    
+    public ArrayList<InfoVentaUno> getInfoVentasUno() throws SQLException {
+        
+        InfoVentaUno v = null;
+        ArrayList <InfoVentaUno> listado= new ArrayList<>();
+        ResultSet rs;
+        try {
+            // creamos la Conexion
+            // como la clase conexion es estatica no se instancia
+            con = Conexion.conectar();
+            con.setAutoCommit(false);
+
+            /*
+             *  instanciamos el objeto callable donde 
+             *  ingresamos el nombre del sp, junto con los parametros, si los tuviera
+             */
+            CallableStatement prcProcedimientoAlmacenado = con.prepareCall("{call sp_info_venta_mayor_facturacion_anio_actual()}");
+            //si posee parametros se los indicamos, y le indicamos de que tipo
+            
+            rs = prcProcedimientoAlmacenado.executeQuery();
+
+            while (rs.next()) {
+              
+                v = new InfoVentaUno();
+                v.setMonto(rs.getDouble(1));
+                v.setNroVenta(rs.getInt(2));
+                v.setFecha(rs.getString(3));
+                v.setVendedor(rs.getString(4));
+                listado.add(v);
+            }
+
+            con.commit(); 
+            con.close();
+
+        } catch (Exception e) {
+            con.rollback();        
+        } 
+
+        return listado;
+    }
      
     
 }

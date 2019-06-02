@@ -5,8 +5,12 @@
  */
 package Vistas;
 
+import Controlador.Gestor;
 import static Vistas.Main.panelEscritorio;
 import java.awt.Dimension;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
 
 /**
@@ -15,12 +19,10 @@ import javax.swing.JInternalFrame;
  */
 public class InformesDeVenta extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form InformesDeVenta
-     */
+    Gestor g;
     public InformesDeVenta() {
         initComponents();
-        
+        g = new Gestor();
     }
 
     /**
@@ -33,6 +35,12 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        btnFiltroFactMesAnio = new javax.swing.JButton();
+        mesElegido = new com.toedter.calendar.JMonthChooser();
+        anioElegido = new com.toedter.calendar.JYearChooser();
+        lblTotalFacturadoPorParam = new javax.swing.JLabel();
+        lblMes = new javax.swing.JLabel();
 
         setTitle("Informe de ventas");
 
@@ -43,21 +51,66 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel1.setText("Seleccionar mes y año para obtener el total facturado");
+
+        btnFiltroFactMesAnio.setText("Filtro");
+        btnFiltroFactMesAnio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltroFactMesAnioActionPerformed(evt);
+            }
+        });
+
+        lblTotalFacturadoPorParam.setForeground(new java.awt.Color(0, 102, 255));
+        lblTotalFacturadoPorParam.setText("...");
+
+        lblMes.setText("Monto facturado");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(636, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lblMes, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                            .addComponent(btnFiltroFactMesAnio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(mesElegido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(anioElegido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblTotalFacturadoPorParam, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(414, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(23, 23, 23))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(54, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(anioElegido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnFiltroFactMesAnio))))
+                    .addComponent(mesElegido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTotalFacturadoPorParam)
+                    .addComponent(lblMes))
+                .addContainerGap(321, Short.MAX_VALUE))
         );
 
         pack();
@@ -71,6 +124,25 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnFiltroFactMesAnioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltroFactMesAnioActionPerformed
+        try 
+        {
+            // filtrar facturación por mes y anio.
+            int mes = mesElegido.getMonth() + 1;
+            int anio = anioElegido.getValue();
+            
+            double total = g.get_total_facturado_por_mes_y_anio(mes, anio);
+            
+           
+            lblTotalFacturadoPorParam.setText("$"+String.valueOf(total));
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(InformesDeVenta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnFiltroFactMesAnioActionPerformed
+
     
     void CentrarVentana(JInternalFrame frame) {
         panelEscritorio.add(frame);
@@ -82,6 +154,12 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JYearChooser anioElegido;
+    private javax.swing.JButton btnFiltroFactMesAnio;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblMes;
+    private javax.swing.JLabel lblTotalFacturadoPorParam;
+    private com.toedter.calendar.JMonthChooser mesElegido;
     // End of variables declaration//GEN-END:variables
 }

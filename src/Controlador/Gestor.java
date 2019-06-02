@@ -1552,7 +1552,7 @@ public class Gestor {
 
             while (rs.next()) {
               
-               monto = rs.getDouble(1);
+               monto = rs.getDouble(2);
             }
 
             con.commit(); 

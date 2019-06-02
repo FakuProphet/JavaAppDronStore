@@ -6,12 +6,20 @@
 package Vistas;
 
 import Controlador.Gestor;
+import Modelo.CVD;
+import Modelo.CellRenderer;
+import Modelo.HeaderCellRenderer;
+import Modelo.Producto;
 import static Vistas.Main.panelEscritorio;
 import java.awt.Dimension;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -23,6 +31,7 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
     public InformesDeVenta() {
         initComponents();
         g = new Gestor();
+        cargarTablaTopTres();
     }
 
     /**
@@ -45,6 +54,7 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaTopTres = new javax.swing.JTable();
 
+        setClosable(true);
         setTitle("Informe de ventas");
 
         jButton1.setText("Cantidad de ventas mensuales");
@@ -68,7 +78,7 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
 
         lblMes.setText("Monto facturado");
 
-        jLabel2.setText("TOP 3 de productos mas vendidos");
+        jLabel2.setText("TOP 3 de productos mas vendidos en lo que va del año");
 
         tablaTopTres.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -108,9 +118,9 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -170,6 +180,50 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnFiltroFactMesAnioActionPerformed
 
+    
+    private void cargarTablaTopTres() {
+
+        try {
+
+            ArrayList<Producto> listado = new ArrayList();
+            
+            DefaultTableModel modelo = new DefaultTableModel();
+            listado = g.getTopTresVentasAnioActual();
+            modelo.setColumnIdentifiers(new String[]{"Nombre producto","Cantidad de ventas"});
+            for (Producto p : listado) {
+                Vector v = new Vector();
+                v.add(p.getDescripcion());
+                v.add(p.getStock());
+               
+                modelo.addRow(v);
+            }
+
+            tablaTopTres.setModel(modelo);
+            //color de los bordes de las celdas
+            tablaTopTres.setGridColor(new java.awt.Color(214, 213, 208));
+            //tamaño de columnas
+            tablaTopTres.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tablaTopTres.getColumnModel().getColumn(0).setPreferredWidth(150);
+           
+            //altura de filas
+            tablaTopTres.setRowHeight(24);
+            //se asigna el nuevo CellRenderer a cada columna segun su contenido
+          
+            tablaTopTres.getColumnModel().getColumn(0).setCellRenderer(new CellRenderer("text"));
+            tablaTopTres.getColumnModel().getColumn(1).setCellRenderer(new CellRenderer("num"));
+           
+            //Se asigna nuevo header a la tabla
+            JTableHeader jtableHeader = tablaTopTres.getTableHeader();
+            jtableHeader.setDefaultRenderer(new HeaderCellRenderer());
+            tablaTopTres.setTableHeader(jtableHeader);
+           
+        } catch (Exception e) {
+
+        }
+    }
+    
+    
+    
     
     void CentrarVentana(JInternalFrame frame) {
         panelEscritorio.add(frame);

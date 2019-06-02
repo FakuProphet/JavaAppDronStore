@@ -110,7 +110,7 @@ public class InformeUno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     
-     private void cargarTabla(int anio) {
+    private void cargarTabla(int anio) {
 
         try {
 

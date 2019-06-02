@@ -1582,7 +1582,7 @@ public class Gestor {
              *  instanciamos el objeto callable donde 
              *  ingresamos el nombre del sp, junto con los parametros, si los tuviera
              */
-            CallableStatement prcProcedimientoAlmacenado = con.prepareCall("{call sp_cantidad_ventas_filtro(?)}");
+            CallableStatement prcProcedimientoAlmacenado = con.prepareCall("{call sp_top_tres_en_ventas()}");
             //si posee parametros se los indicamos, y le indicamos de que tipo
             
             rs = prcProcedimientoAlmacenado.executeQuery();

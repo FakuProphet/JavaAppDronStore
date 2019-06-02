@@ -4,6 +4,7 @@ package Controlador;
 import Dto.CarritoDTO;
 import Dto.ProductoDTO;
 import Dto.ProductoExistencia;
+import Modelo.CVD;
 import Modelo.Cliente;
 import Modelo.Conexion;
 import Modelo.Dato;
@@ -1487,4 +1488,46 @@ public class Gestor {
         return c;
     }
 
+    
+     public ArrayList<CVD> cantidadVentas(int anio) throws SQLException {
+        
+        CVD c = null;
+        ArrayList <CVD> listado= new ArrayList<>();
+        ResultSet rs;
+        try {
+            // creamos la Conexion
+            // como la clase conexion es estatica no se instancia
+            con = Conexion.conectar();
+            con.setAutoCommit(false);
+
+            /*
+             *  instanciamos el objeto callable donde 
+             *  ingresamos el nombre del sp, junto con los parametros, si los tuviera
+             */
+            CallableStatement prcProcedimientoAlmacenado = con.prepareCall("{call sp_cantidad_ventas_filtro(?)}");
+            //si posee parametros se los indicamos, y le indicamos de que tipo
+            prcProcedimientoAlmacenado.setInt(1, anio);
+            rs = prcProcedimientoAlmacenado.executeQuery();
+
+            while (rs.next()) {
+              
+                c = new CVD();
+                c.setCantidad(rs.getInt(1));
+                c.setMes(rs.getInt(2));
+                listado.add(c);
+            }
+
+            con.commit(); 
+            con.close();
+
+        } catch (Exception e) {
+            con.rollback();        
+        } 
+
+        return listado;
+    }
+
+    
+    
+    
 }

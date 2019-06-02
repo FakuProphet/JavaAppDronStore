@@ -6,10 +6,10 @@
 package Vistas;
 
 import Controlador.Gestor;
-import Modelo.CVD;
 import Modelo.CellRenderer;
 import Modelo.HeaderCellRenderer;
 import Modelo.InfoVentaUno;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
@@ -87,7 +87,8 @@ public class InformeTres extends javax.swing.JInternalFrame {
             modelo.setColumnIdentifiers(new String[]{"Monto total facturado","Nro de venta","Fecha","Apellido operador"});
             for (InfoVentaUno p : listado) {
                 Vector v = new Vector();
-                v.add(p.getMonto());
+                DecimalFormat f = new DecimalFormat("###,###.##");
+                v.add("$"+f.format(p.getMonto()));
                 v.add(p.getNroVenta());
                 v.add(p.getFecha());
                 v.add(p.getVendedor());

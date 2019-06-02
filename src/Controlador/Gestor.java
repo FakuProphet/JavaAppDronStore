@@ -1489,7 +1489,7 @@ public class Gestor {
     }
 
     
-     public ArrayList<CVD> cantidadVentas(int anio) throws SQLException {
+    public ArrayList<CVD> cantidadVentas(int anio) throws SQLException {
         
         CVD c = null;
         ArrayList <CVD> listado= new ArrayList<>();
@@ -1527,6 +1527,43 @@ public class Gestor {
         return listado;
     }
 
+    
+    
+     public double get_total_facturado_por_mes_y_anio(int mes,int anio) throws SQLException {
+        
+        double  monto = 0.0;
+        
+        ResultSet rs;
+        try {
+            // creamos la Conexion
+            // como la clase conexion es estatica no se instancia
+            con = Conexion.conectar();
+            con.setAutoCommit(false);
+
+            /*
+             *  instanciamos el objeto callable donde 
+             *  ingresamos el nombre del sp, junto con los parametros, si los tuviera
+             */
+            CallableStatement prcProcedimientoAlmacenado = con.prepareCall("{call sp_total_facturado_por_mes(?,?)}");
+            //si posee parametros se los indicamos, y le indicamos de que tipo
+            prcProcedimientoAlmacenado.setInt(1, mes);
+            prcProcedimientoAlmacenado.setInt(2, anio);
+            rs = prcProcedimientoAlmacenado.executeQuery();
+
+            while (rs.next()) {
+              
+               monto = rs.getDouble(1);
+            }
+
+            con.commit(); 
+            con.close();
+
+        } catch (Exception e) {
+            con.rollback();        
+        } 
+
+        return monto;
+    }
     
     
     

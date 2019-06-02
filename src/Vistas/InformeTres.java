@@ -5,17 +5,24 @@
  */
 package Vistas;
 
-/**
- *
- * @author Prophet
- */
+import Controlador.Gestor;
+import Modelo.CVD;
+import Modelo.CellRenderer;
+import Modelo.HeaderCellRenderer;
+import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+
+
 public class InformeTres extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form InformeTres
-     */
+    
+    
+    Gestor g;
     public InformeTres() {
         initComponents();
+        g = new Gestor();
     }
 
     /**
@@ -66,6 +73,50 @@ public class InformeTres extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private void cargarTabla(int anio) {
+
+        try {
+
+            ArrayList<CVD> listado = new ArrayList();
+            
+            DefaultTableModel modelo = new DefaultTableModel();
+            listado = g.cantidadVentas(anio);
+            modelo.setColumnIdentifiers(new String[]{"Cantidad de ventas","Mes"});
+            for (CVD p : listado) {
+                Vector v = new Vector();
+                v.add(p.getCantidad());
+                v.add(p.getMes());
+               
+                modelo.addRow(v);
+            }
+
+            jTable1.setModel(modelo);
+            //color de los bordes de las celdas
+            jTable1.setGridColor(new java.awt.Color(214, 213, 208));
+            //tamaño de columnas
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(50);
+           
+            //altura de filas
+            jTable1.setRowHeight(24);
+            //se asigna el nuevo CellRenderer a cada columna segun su contenido
+          
+            jTable1.getColumnModel().getColumn(1).setCellRenderer(new CellRenderer("num"));
+            jTable1.getColumnModel().getColumn(0).setCellRenderer(new CellRenderer("num"));
+           
+            //Se asigna nuevo header a la tabla
+            JTableHeader jtableHeader = jTable1.getTableHeader();
+            jtableHeader.setDefaultRenderer(new HeaderCellRenderer());
+            jTable1.setTableHeader(jtableHeader);
+           
+        } catch (Exception e) {
+
+        }
+    }
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;

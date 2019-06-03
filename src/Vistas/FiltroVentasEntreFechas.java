@@ -20,6 +20,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+
+
 public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
 
     Gestor g;
@@ -167,14 +169,17 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
             //tamaño de columnas
             
             tablaVentas.getColumnModel().getColumn(0).setPreferredWidth(60);
-           
+            tablaVentas.getColumnModel().getColumn(4).setPreferredWidth(70);
+            tablaVentas.getColumnModel().getColumn(0).setPreferredWidth(60);
             //altura de filas
             tablaVentas.setRowHeight(24);
             //se asigna el nuevo CellRenderer a cada columna segun su contenido
-          
             tablaVentas.getColumnModel().getColumn(0).setCellRenderer(new CellRenderer("minimo"));
-          
-           
+            tablaVentas.getColumnModel().getColumn(5).setCellRenderer(new CellRenderer("minimo"));
+            tablaVentas.getColumnModel().getColumn(2).setCellRenderer(new CellRenderer("hour"));
+            tablaVentas.getColumnModel().getColumn(3).setCellRenderer(new CellRenderer("text"));
+            tablaVentas.getColumnModel().getColumn(4).setCellRenderer(new CellRenderer("text"));
+            tablaVentas.getColumnModel().getColumn(6).setCellRenderer(new CellRenderer("num"));
             //Se asigna nuevo header a la tabla
             JTableHeader jtableHeader = tablaVentas.getTableHeader();
             jtableHeader.setDefaultRenderer(new HeaderCellRenderer());

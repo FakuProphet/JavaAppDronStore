@@ -52,7 +52,11 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
 
         jLabel1.setText("FILTRAR VENTAS POR FECHA DESDE:");
 
+        fechaDesde.setDateFormatString("dd/MM/yyyy");
+
         jLabel2.setText("HASTA:");
+
+        fechaHasta.setDateFormatString("dd/MM/yyyy");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

@@ -1681,6 +1681,7 @@ public class Gestor {
                 v.setOperador(rs.getString(5));
                 v.setDni(rs.getInt(6));
                 v.setCantVendida(rs.getInt(7));
+                v.setMontoTotal(rs.getDouble(8));
                 listado.add(v);
             }
 

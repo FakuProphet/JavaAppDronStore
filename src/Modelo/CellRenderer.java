@@ -98,7 +98,15 @@ public class CellRenderer extends DefaultTableCellRenderer {
             this.setForeground((selected)?new Color(255,255,255):new Color(0,255,0));            
             this.setFont(bold);            
             return this;   
-        }      
+        }
+        if( tipo.equals("moneda"))
+        {           
+            this.setHorizontalAlignment( JLabel.RIGHT );
+            this.setText( value.toString() );            
+            this.setForeground((selected)?new Color(255,255,255):new Color(0,255,0));            
+            this.setFont(bold);            
+            return this;   
+        }    
         /*
         if( tipo.equals("icon"))
         {

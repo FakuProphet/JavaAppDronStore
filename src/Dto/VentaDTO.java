@@ -12,11 +12,12 @@ public class VentaDTO {
     private String operador;
     private int dni;
     private int cantVendida;
+    private double montoTotal;
 
     public VentaDTO() {
     }
 
-    public VentaDTO(int nroVenta, String fecha, String hora, String formaPago, String operador, int dni, int cantVendida) {
+    public VentaDTO(int nroVenta, String fecha, String hora, String formaPago, String operador, int dni, int cantVendida, double montoTotal) {
         this.nroVenta = nroVenta;
         this.fecha = fecha;
         this.hora = hora;
@@ -24,7 +25,18 @@ public class VentaDTO {
         this.operador = operador;
         this.dni = dni;
         this.cantVendida = cantVendida;
+        this.montoTotal = montoTotal;
     }
+
+    public double getMontoTotal() {
+        return montoTotal;
+    }
+
+    public void setMontoTotal(double montoTotal) {
+        this.montoTotal = montoTotal;
+    }
+
+   
 
     public int getNroVenta() {
         return nroVenta;

@@ -67,7 +67,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tablaVentas);
 
-        jLabel1.setText("FILTRAR VENTAS POR FECHA DESDE:");
+        jLabel1.setText("FILTRAR VENTAS POR FECHA     DESDE:");
 
         fechaDesde.setDateFormatString("dd/MM/yyyy");
 
@@ -84,6 +84,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
 
         lblCantidadFilas.setText("...");
 
+        jLabel4.setForeground(new java.awt.Color(0, 0, 255));
         jLabel4.setText("CANTIDAD:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -91,25 +92,30 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblCantidadFilas, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(fechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(32, 32, 32)
-                            .addComponent(jLabel2)
-                            .addGap(35, 35, 35)
-                            .addComponent(fechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(fechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(fechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel4)
+                                .addGap(12, 12, 12)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(lblCantidadFilas, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 871, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,7 +171,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
             
             DefaultTableModel modelo = new DefaultTableModel();
             listado = g.getVentasFilroFechas(fechaInicio,fechaFinal);
-            modelo.setColumnIdentifiers(new String[]{"Nro venta","Fecha","Hora","Forma de pago","Vendedor","Cliente Nro","Cant. art. vendida"});
+            modelo.setColumnIdentifiers(new String[]{"Nro venta","Fecha","Hora","Forma de pago","Vendedor","Cliente Nro","Cant. art. vendida","Monto"});
             for (VentaDTO vta : listado) {
                 Vector v = new Vector();
                 v.add(vta.getNroVenta());
@@ -175,6 +181,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
                 v.add(vta.getOperador());
                 v.add(vta.getDni());
                 v.add(vta.getCantVendida());
+                v.add("$"+vta.getMontoTotal());
                 modelo.addRow(v);
             }
 
@@ -186,7 +193,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
             //tamaño de columnas
             
             tablaVentas.getColumnModel().getColumn(0).setPreferredWidth(60);
-            tablaVentas.getColumnModel().getColumn(4).setPreferredWidth(70);
+            tablaVentas.getColumnModel().getColumn(4).setPreferredWidth(90);
             tablaVentas.getColumnModel().getColumn(0).setPreferredWidth(60);
             //altura de filas
             tablaVentas.setRowHeight(24);
@@ -197,6 +204,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
             tablaVentas.getColumnModel().getColumn(3).setCellRenderer(new CellRenderer("text"));
             tablaVentas.getColumnModel().getColumn(4).setCellRenderer(new CellRenderer("text"));
             tablaVentas.getColumnModel().getColumn(6).setCellRenderer(new CellRenderer("num"));
+            tablaVentas.getColumnModel().getColumn(7).setCellRenderer(new CellRenderer("moneda"));
             //Se asigna nuevo header a la tabla
             JTableHeader jtableHeader = tablaVentas.getTableHeader();
             jtableHeader.setDefaultRenderer(new HeaderCellRenderer());

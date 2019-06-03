@@ -4,6 +4,7 @@ package Controlador;
 import Dto.CarritoDTO;
 import Dto.ProductoDTO;
 import Dto.ProductoExistencia;
+import Dto.VentaDTO;
 import Modelo.CVD;
 import Modelo.Cliente;
 import Modelo.Conexion;
@@ -1648,5 +1649,49 @@ public class Gestor {
         return listado;
     }
      
+    
+    public ArrayList<VentaDTO> getVentasFilroFechas(String fechaInicio, String fechaFinal) throws SQLException {
+        
+        VentaDTO v = null;
+        ArrayList <VentaDTO> listado= new ArrayList<>();
+        ResultSet rs;
+        try {
+            // creamos la Conexion
+            // como la clase conexion es estatica no se instancia
+            con = Conexion.conectar();
+            con.setAutoCommit(false);
+
+            /*
+             *  instanciamos el objeto callable donde 
+             *  ingresamos el nombre del sp, junto con los parametros, si los tuviera
+             */
+            CallableStatement prcProcedimientoAlmacenado = con.prepareCall("{call sp_ventas_por_filtro(?,?)}");
+            //si posee parametros se los indicamos, y le indicamos de que tipo
+            prcProcedimientoAlmacenado.setString(1, fechaInicio);
+            prcProcedimientoAlmacenado.setString(2, fechaFinal);
+            rs = prcProcedimientoAlmacenado.executeQuery();
+
+            while (rs.next()) {
+              
+                v = new VentaDTO();
+                v.setNroVenta(rs.getInt(1));
+                v.setFecha(rs.getString(2));
+                v.setHora(rs.getString(3));
+                v.setFormaPago(rs.getString(4));
+                v.setOperador(rs.getString(5));
+                v.setDni(rs.getInt(6));
+                v.setCantVendida(rs.getInt(7));
+                listado.add(v);
+            }
+
+            con.commit(); 
+            con.close();
+
+        } catch (Exception e) {
+            con.rollback();        
+        } 
+
+        return listado;
+    }
     
 }

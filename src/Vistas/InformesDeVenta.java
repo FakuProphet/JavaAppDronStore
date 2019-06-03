@@ -6,6 +6,7 @@
 package Vistas;
 
 import Controlador.Gestor;
+import Dto.ProductoDTO;
 import Modelo.CellRenderer;
 import Modelo.HeaderCellRenderer;
 import Modelo.Producto;
@@ -17,6 +18,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
@@ -27,6 +29,7 @@ import javax.swing.table.JTableHeader;
 public class InformesDeVenta extends javax.swing.JInternalFrame {
 
     Gestor g;
+    ArrayList <ProductoDTO> listado;
     public InformesDeVenta() {
         initComponents();
         g = new Gestor();
@@ -232,7 +235,16 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        try 
+        {
+            // mostrar el producto mas caro
+ 
+            Producto miProductoMasCaro= g.getProductoMasCaro();        
+            JOptionPane.showMessageDialog(this,"El producto mas caro registrado es:"+miProductoMasCaro.getDescripcion().toUpperCase()+" precio unitario:"+"$"+miProductoMasCaro.getPrecioUnitario(),"Producto mas caro",JOptionPane.INFORMATION_MESSAGE);
+       
+        } catch (SQLException ex) {
+            Logger.getLogger(InformesDeVenta.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

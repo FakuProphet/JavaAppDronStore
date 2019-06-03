@@ -1694,4 +1694,46 @@ public class Gestor {
         return listado;
     }
     
+    
+    
+    public Producto getProductoMasCaro() throws SQLException {
+        
+        Producto p = null;
+       
+        ResultSet rs;
+        try {
+            // creamos la Conexion
+            // como la clase conexion es estatica no se instancia
+            con = Conexion.conectar();
+            con.setAutoCommit(false);
+
+            /*
+             *  instanciamos el objeto callable donde 
+             *  ingresamos el nombre del sp, junto con los parametros, si los tuviera
+             */
+            CallableStatement prcProcedimientoAlmacenado = con.prepareCall("{call sp_producto_mas_caro()}");
+            //si posee parametros se los indicamos, y le indicamos de que tipo
+          
+            rs = prcProcedimientoAlmacenado.executeQuery();
+
+            if (rs.next()) {
+              
+                p = new Producto();
+                p.setDescripcion(rs.getString(1));
+                p.setPrecioUnitario(rs.getDouble(2));
+                
+              
+            }
+
+            con.commit(); 
+            con.close();
+
+        } catch (Exception e) {
+            con.rollback();        
+        } 
+
+        return p;
+    }
+    
+    
 }

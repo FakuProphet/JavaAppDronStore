@@ -48,6 +48,8 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         fechaHasta = new com.toedter.calendar.JDateChooser();
         btnFiltro = new javax.swing.JButton();
+        lblCantidadFilas = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Filtrar  ventas realizadas entre fechas");
@@ -80,24 +82,33 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
             }
         });
 
+        lblCantidadFilas.setText("...");
+
+        jLabel4.setText("CANTIDAD:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(fechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel2)
-                        .addGap(35, 35, 35)
-                        .addComponent(fechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
+                        .addComponent(lblCantidadFilas, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(fechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(32, 32, 32)
+                            .addComponent(jLabel2)
+                            .addGap(35, 35, 35)
+                            .addComponent(fechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1)))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -112,8 +123,12 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
                         .addComponent(fechaHasta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnFiltro))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCantidadFilas)
+                    .addComponent(jLabel4))
+                .addGap(30, 30, 30))
         );
 
         pack();
@@ -128,13 +143,13 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         fechaInicio = f.format(fechaIni);
         fechaFinal = f.format(fechaFin);
         
-        if(!fechaInicio.isEmpty() && !fechaFinal.isEmpty())
+        try
         {
-             cargarTabla();
+            cargarTabla();
         }
-        else
+        catch(Exception e)
         {
-            JOptionPane.showMessageDialog(this,"Campos vacios","Aviso",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this,e.getMessage(),"Aviso",JOptionPane.INFORMATION_MESSAGE);
         }
         
     }//GEN-LAST:event_btnFiltroActionPerformed
@@ -165,6 +180,8 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
 
             tablaVentas.setModel(modelo);
             //color de los bordes de las celdas
+            int c =tablaVentas.getRowCount();
+            lblCantidadFilas.setText(String.valueOf(c));
             tablaVentas.setGridColor(new java.awt.Color(214, 213, 208));
             //tamaño de columnas
             
@@ -198,7 +215,9 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser fechaHasta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCantidadFilas;
     private javax.swing.JTable tablaVentas;
     // End of variables declaration//GEN-END:variables
 }

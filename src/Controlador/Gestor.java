@@ -1757,10 +1757,9 @@ public class Gestor {
             prcProcedimientoAlmacenado.setString(1, fecha);
             rs = prcProcedimientoAlmacenado.executeQuery();
 
-            if (rs.next()) {
-              
+            if (rs.next()) 
+            { 
                 montoTotal=rs.getDouble(2);
-   
             }
 
             con.commit(); 

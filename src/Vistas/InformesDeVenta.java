@@ -13,7 +13,9 @@ import Modelo.Producto;
 import static Vistas.Main.panelEscritorio;
 import java.awt.Dimension;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -255,9 +257,33 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        try {
+            // monto en ventas de la fecha
+            double monto = g.getMontoEnVentasDelDia(fechaActual());
+            if(Double.valueOf(monto).equals(0.0))
+            {
+                JOptionPane.showMessageDialog(this,"Todavia no se registran ventas en el dia de la fecha","Aviso",JOptionPane.INFORMATION_MESSAGE);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this,"Total en ventas en la fecha: "+fechaActual() +" con un monto de: $"+monto,"Aviso",JOptionPane.INFORMATION_MESSAGE);
+            }
+           
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(InformesDeVenta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    
+    private String fechaActual()
+    {
+        Date miFecha = new Date();
+        String fecha = new SimpleDateFormat("dd/MM/yyyy").format(miFecha);
+        return fecha;
+    }
+    
     
     private void cargarTablaTopTres() {
 

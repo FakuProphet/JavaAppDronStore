@@ -118,11 +118,11 @@ public class InformeUno extends javax.swing.JInternalFrame {
             
             DefaultTableModel modelo = new DefaultTableModel();
             listado = g.cantidadVentas(anio);
-            modelo.setColumnIdentifiers(new String[]{"Cantidad de ventas","Mes"});
+            modelo.setColumnIdentifiers(new String[]{"Mes","Cantidad"});
             for (CVD p : listado) {
                 Vector v = new Vector();
-                v.add(p.getCantidad());
                 v.add(p.getMes());
+                v.add(p.getCantidad());
                
                 modelo.addRow(v);
             }
@@ -139,7 +139,7 @@ public class InformeUno extends javax.swing.JInternalFrame {
             //se asigna el nuevo CellRenderer a cada columna segun su contenido
           
             jTable1.getColumnModel().getColumn(1).setCellRenderer(new CellRenderer("num"));
-            jTable1.getColumnModel().getColumn(0).setCellRenderer(new CellRenderer("num"));
+            jTable1.getColumnModel().getColumn(0).setCellRenderer(new CellRenderer("minimo"));
            
             //Se asigna nuevo header a la tabla
             JTableHeader jtableHeader = jTable1.getTableHeader();

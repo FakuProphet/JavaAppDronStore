@@ -1737,4 +1737,40 @@ public class Gestor {
     }
     
     
+     public double getMontoEnVentasDelDia(String fecha) throws SQLException {
+        
+        double montoTotal = 0.0;
+       
+        ResultSet rs;
+        try {
+            // creamos la Conexion
+            // como la clase conexion es estatica no se instancia
+            con = Conexion.conectar();
+            con.setAutoCommit(false);
+
+            /*
+             *  instanciamos el objeto callable donde 
+             *  ingresamos el nombre del sp, junto con los parametros, si los tuviera
+             */
+            CallableStatement prcProcedimientoAlmacenado = con.prepareCall("{call sp_monto_ventas_del_dia(?)}");
+            //si posee parametros se los indicamos, y le indicamos de que tipo
+            prcProcedimientoAlmacenado.setString(1, fecha);
+            rs = prcProcedimientoAlmacenado.executeQuery();
+
+            if (rs.next()) {
+              
+                montoTotal=rs.getDouble(2);
+   
+            }
+
+            con.commit(); 
+            con.close();
+
+        } catch (Exception e) {
+            con.rollback();        
+        } 
+
+        return montoTotal;
+    }
+    
 }

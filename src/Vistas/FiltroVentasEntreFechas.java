@@ -12,11 +12,13 @@ import Dto.VentaDTO;
 import Modelo.CellRenderer;
 import Modelo.HeaderCellRenderer;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
@@ -50,6 +52,14 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         btnFiltro = new javax.swing.JButton();
         lblCantidadFilas = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblCantArtVendidos = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        lblMonto = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        lblPorcTarjeta = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        lblPorcEfectivo = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Filtrar  ventas realizadas entre fechas");
@@ -85,7 +95,27 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         lblCantidadFilas.setText("...");
 
         jLabel4.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel4.setText("CANTIDAD:");
+        jLabel4.setText("CANTIDAD DE VENTAS:");
+
+        jLabel5.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel5.setText("TOTAL DE ARTICULOS VENDIDOS:");
+
+        lblCantArtVendidos.setText("...");
+
+        jLabel6.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel6.setText("MONTO TOTAL:");
+
+        lblMonto.setText("...");
+
+        jLabel7.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel7.setText("PORCENTAJE COMPRAS CON TARJETA:");
+
+        lblPorcTarjeta.setText("...");
+
+        jLabel8.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel8.setText("PORCENTAJE COMPRAS EFECTIVO:");
+
+        lblPorcEfectivo.setText("...");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -97,23 +127,38 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(fechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(fechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel4)
-                                .addGap(12, 12, 12)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblPorcTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addComponent(lblCantidadFilas, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jLabel8)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblPorcEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(196, 196, 196)
+                                .addComponent(lblCantidadFilas, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblCantArtVendidos, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(30, 30, 30)
+                                .addComponent(lblMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(37, 37, 37))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(fechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(fechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 871, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
@@ -130,11 +175,23 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
                     .addComponent(btnFiltro))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
                     .addComponent(lblCantidadFilas)
-                    .addComponent(jLabel4))
-                .addGap(30, 30, 30))
+                    .addComponent(jLabel7)
+                    .addComponent(lblPorcTarjeta))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPorcEfectivo)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel5)
+                    .addComponent(lblCantArtVendidos))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(lblMonto))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         pack();
@@ -152,6 +209,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         try
         {
             cargarTabla();
+            calculos();
         }
         catch(Exception e)
         {
@@ -161,7 +219,37 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnFiltroActionPerformed
 
     
-    
+    private void calculos()
+    {
+        int cantidadAcumulada=0;
+        int cantidadTarjeta=0;
+        int cantidadEfectivo=0;
+        double porcTarjeta=0.0;
+        double porcEfectivo=0.0;
+        double monto =0;
+        for (int i = 0; i < tablaVentas.getRowCount(); i++) 
+        {
+            cantidadAcumulada += Integer.valueOf(tablaVentas.getValueAt(i, 6).toString());
+            monto += Double.valueOf(tablaVentas.getValueAt(i, 7).toString().replace("$", "").trim());
+            if(tablaVentas.getValueAt(i, 3).toString().contains("Tarjeta"))
+            {
+                cantidadTarjeta++;
+            }
+            if(tablaVentas.getValueAt(i, 3).toString().contains("Efectivo"))
+            {
+                cantidadEfectivo++;
+            }
+        }
+        //5*100/10  parcial*100/parcial
+        DecimalFormat f = new DecimalFormat("###,###.##");
+        porcTarjeta = cantidadTarjeta * 100 / tablaVentas.getRowCount();
+        porcEfectivo = cantidadEfectivo * 100 / tablaVentas.getRowCount();
+        lblCantArtVendidos.setText(String.valueOf(cantidadAcumulada));
+        lblMonto.setText("$"+String.valueOf(f.format(monto)));
+      //  lblMonto.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblPorcTarjeta.setText(String.valueOf(porcTarjeta)+"%");
+        lblPorcEfectivo.setText(String.valueOf(porcEfectivo)+"%");
+    }
     
     private void cargarTabla() {
 
@@ -224,8 +312,16 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCantArtVendidos;
     private javax.swing.JLabel lblCantidadFilas;
+    private javax.swing.JLabel lblMonto;
+    private javax.swing.JLabel lblPorcEfectivo;
+    private javax.swing.JLabel lblPorcTarjeta;
     private javax.swing.JTable tablaVentas;
     // End of variables declaration//GEN-END:variables
 }

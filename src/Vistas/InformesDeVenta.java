@@ -288,7 +288,9 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+       
+        InformeCuatro n = new InformeCuatro();
+        CentrarVentana(n);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     

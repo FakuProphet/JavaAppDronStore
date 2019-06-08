@@ -12,6 +12,7 @@ import Modelo.Dato;
 import Modelo.Empresa;
 import Modelo.FormaPago;
 import Modelo.InfoVentaUno;
+import Modelo.InformeCuatro;
 import Modelo.Localidad;
 import Modelo.Marca;
 import Modelo.Operador;
@@ -1808,4 +1809,46 @@ public class Gestor {
         return montoTotal;
     }
     
+     
+    public ArrayList<InformeCuatro> getCantProdVendidosPorMesYAnio(int anio) throws SQLException {
+        
+       
+        ArrayList<InformeCuatro> listado = new ArrayList<>();
+        ResultSet rs;
+        try {
+            // creamos la Conexion
+            // como la clase conexion es estatica no se instancia
+            con = Conexion.conectar();
+            con.setAutoCommit(false);
+
+            /*
+             *  instanciamos el objeto callable donde 
+             *  ingresamos el nombre del sp, junto con los parametros, si los tuviera
+             */
+            CallableStatement prcProcedimientoAlmacenado = con.prepareCall("{call sp_cantidad_productos_vendidos_mensual_anio(?)}");
+            //si posee parametros se los indicamos, y le indicamos de que tipo
+            prcProcedimientoAlmacenado.setInt(1, anio);
+            rs = prcProcedimientoAlmacenado.executeQuery();
+
+            while(rs.next()) 
+            { 
+               InformeCuatro n = new InformeCuatro();
+               n.setMes(rs.getInt(1));
+               n.setCantidad(rs.getInt(2));
+               listado.add(n);
+            }
+
+            con.commit(); 
+            con.close();
+
+        } catch (Exception e) {
+            con.rollback();        
+        } 
+
+        return listado;
+    }
+     
+     
+     
+     
 }

@@ -5,17 +5,26 @@
  */
 package Vistas;
 
+import Controlador.Gestor;
+import Modelo.CellRenderer;
+import Modelo.HeaderCellRenderer;
+import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+
+
 /**
  *
  * @author Prophet
  */
 public class InformeCuatro extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form InformeCuatro
-     */
+  
+    Gestor g;
     public InformeCuatro() {
         initComponents();
+        g = new Gestor();
     }
 
     /**
@@ -27,23 +36,126 @@ public class InformeCuatro extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabla = new javax.swing.JTable();
+        jYearChooser1 = new com.toedter.calendar.JYearChooser();
+        jButton1 = new javax.swing.JButton();
+
         setTitle("Cantidad de articulos vendidos mensuales por anio");
+
+        jLabel2.setText("Seleccionar:");
+
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tabla);
+
+        jButton1.setText("Filtrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(204, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jYearChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int anio = jYearChooser1.getYear();
+        cargarTabla(anio);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
+
+    
+     private void cargarTabla(int anio) {
+
+        try {
+
+            ArrayList<Modelo.InformeCuatro> listado = new ArrayList();
+            
+            DefaultTableModel modelo = new DefaultTableModel();
+            listado = g.getCantProdVendidosPorMesYAnio(anio);
+            modelo.setColumnIdentifiers(new String[]{"Mes","Cantidad vendida"});
+            for (Modelo.InformeCuatro i : listado) {
+                Vector v = new Vector();
+                v.add(i.getMes());
+                v.add(i.getCantidad());
+               
+                modelo.addRow(v);
+            }
+
+            tabla.setModel(modelo);
+            //color de los bordes de las celdas
+            tabla.setGridColor(new java.awt.Color(214, 213, 208));
+            //tamaño de columnas
+            tabla.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tabla.getColumnModel().getColumn(0).setPreferredWidth(80);
+           
+            //altura de filas
+            tabla.setRowHeight(24);
+            //se asigna el nuevo CellRenderer a cada columna segun su contenido
+          
+            tabla.getColumnModel().getColumn(0).setCellRenderer(new CellRenderer("minimo"));
+            tabla.getColumnModel().getColumn(1).setCellRenderer(new CellRenderer("num"));
+           
+            //Se asigna nuevo header a la tabla
+            JTableHeader jtableHeader = tabla.getTableHeader();
+            jtableHeader.setDefaultRenderer(new HeaderCellRenderer());
+            tabla.setTableHeader(jtableHeader);
+           
+        } 
+        catch (Exception e) {
+
+        }
+        
+     }
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private com.toedter.calendar.JYearChooser jYearChooser1;
+    private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,6 +7,8 @@ package Vistas;
 
 import Controlador.Gestor;
 import Modelo.Operador;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -26,7 +28,14 @@ public class LoginSistema extends javax.swing.JFrame {
         lOperadores = gestor.getListadoOperadores();
         this.setLocationRelativeTo(null);
         cargarCombo(lOperadores, cboOperadores);
-        
+          // escucha el evento cuando se pulse enter y opera con un click sobre el boton
+        txtContrasenia.addKeyListener(new KeyAdapter() {
+         public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+               jButton1.doClick();
+            }
+         }
+        });
     }
 
    

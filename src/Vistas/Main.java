@@ -335,6 +335,8 @@ public class Main extends javax.swing.JFrame {
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // generar y emitir presupuesto
         Presupuesto nuevo = new Presupuesto(miOperador);
+        nuevo.pack();
+        nuevo.setSize(1140, 600);
         CentrarVentana(nuevo);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 

@@ -39,6 +39,7 @@ public class InformeSeis extends javax.swing.JInternalFrame {
         jMonthChooser1 = new com.toedter.calendar.JMonthChooser();
         jButton1 = new javax.swing.JButton();
 
+        setClosable(true);
         setTitle("Clientes que no realizaron compras en mes seleccionado anio en curso");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(

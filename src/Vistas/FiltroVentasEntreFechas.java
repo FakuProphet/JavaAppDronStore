@@ -11,6 +11,8 @@ import Controlador.Gestor;
 import Dto.VentaDTO;
 import Modelo.CellRenderer;
 import Modelo.HeaderCellRenderer;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -18,8 +20,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableRowSorter;
 
 
 
@@ -28,9 +32,20 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
     Gestor g;
     private String fechaInicio;
     private String fechaFinal;
+    private TableRowSorter trsfiltro;
+    String filtro;
     public FiltroVentasEntreFechas() {
         initComponents();
         g = new Gestor();
+         txtDniCliente.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(final KeyEvent e) {
+                String cadena = (txtDniCliente.getText().toUpperCase());
+                txtDniCliente.setText(cadena);
+                repaint();
+                filtro();
+            }
+        });
     }
 
     /**
@@ -63,6 +78,8 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         lblPorcDebito = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         lblPorcTrans = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtDniCliente = new javax.swing.JTextField();
 
         setClosable(true);
         setTitle("Filtrar  ventas realizadas entre fechas");
@@ -130,6 +147,15 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
 
         lblPorcTrans.setText("...");
 
+        jLabel3.setText("REFINAR POR DNI CLIENTE:");
+
+        txtDniCliente.setEnabled(false);
+        txtDniCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDniClienteKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -163,17 +189,21 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel6)
                                 .addGap(109, 109, 109)
                                 .addComponent(lblMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 871, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
                         .addGap(18, 18, 18)
-                        .addComponent(fechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(fechaDesde, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                            .addComponent(txtDniCliente))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(fechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 871, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -188,8 +218,12 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
                         .addComponent(fechaHasta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnFiltro))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDniCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(lblCantidadFilas)
@@ -211,12 +245,21 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPorcTrans)
                     .addComponent(jLabel10))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    public void filtro() 
+    {
+        filtro = txtDniCliente.getText();
+        trsfiltro.setRowFilter(RowFilter.regexFilter(txtDniCliente.getText(), 5));
+        calculos();
+    }
+    
+    
     private void btnFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltroActionPerformed
         // Aplicar filtro para busqueda de ventas
         
@@ -230,6 +273,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         {
             cargarTabla();
             calculos();
+            txtDniCliente.setEnabled(true);
         }
         catch(Exception e)
         {
@@ -237,6 +281,13 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_btnFiltroActionPerformed
+
+    private void txtDniClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniClienteKeyTyped
+        
+        trsfiltro = new TableRowSorter(tablaVentas.getModel());
+        tablaVentas.setRowSorter(trsfiltro);
+        
+    }//GEN-LAST:event_txtDniClienteKeyTyped
 
     
     private void calculos()
@@ -347,6 +398,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -362,5 +414,6 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblPorcTarjeta;
     private javax.swing.JLabel lblPorcTrans;
     private javax.swing.JTable tablaVentas;
+    private javax.swing.JTextField txtDniCliente;
     // End of variables declaration//GEN-END:variables
 }

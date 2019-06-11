@@ -74,8 +74,8 @@
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="fechaHasta" min="-2" pref="176" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btnFiltro" min="-2" pref="78" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnFiltro" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="40" max="32767" attributes="0"/>
@@ -157,7 +157,7 @@
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="FILTRAR VENTAS POR FECHA     DESDE:"/>
+        <Property name="text" type="java.lang.String" value="FILTRAR VENTAS POR FECHA     ENTRE EL:"/>
       </Properties>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="fechaDesde">
@@ -167,7 +167,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="HASTA:"/>
+        <Property name="text" type="java.lang.String" value="Y EL:"/>
       </Properties>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="fechaHasta">

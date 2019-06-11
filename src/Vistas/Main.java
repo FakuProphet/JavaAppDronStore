@@ -56,6 +56,7 @@ public class Main extends javax.swing.JFrame {
         menuMantClientes = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
@@ -223,6 +224,14 @@ public class Main extends javax.swing.JFrame {
 
         jMenu3.add(jMenu9);
 
+        jMenuItem3.setText("Busqueda y filtro de ventas");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem3);
+
         jMenuBar1.add(jMenu3);
 
         jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Crown_52px.png"))); // NOI18N
@@ -347,6 +356,14 @@ public class Main extends javax.swing.JFrame {
         CentrarVentana(nuevo);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // Abrir filtro ventas entre fechas
+        
+        FiltroVentasEntreFechas n = new FiltroVentasEntreFechas();
+        CentrarVentana(n);
+        
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -424,6 +441,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem7;

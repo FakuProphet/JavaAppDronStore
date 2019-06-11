@@ -97,11 +97,11 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tablaVentas);
 
-        jLabel1.setText("FILTRAR VENTAS POR FECHA     DESDE:");
+        jLabel1.setText("FILTRAR VENTAS POR FECHA     ENTRE EL:");
 
         fechaDesde.setDateFormatString("dd/MM/yyyy");
 
-        jLabel2.setText("HASTA:");
+        jLabel2.setText("Y EL:");
 
         fechaHasta.setDateFormatString("dd/MM/yyyy");
 
@@ -202,8 +202,8 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(fechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -284,9 +284,14 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
 
     private void txtDniClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniClienteKeyTyped
         
-        trsfiltro = new TableRowSorter(tablaVentas.getModel());
-        tablaVentas.setRowSorter(trsfiltro);
-        
+        char c=evt.getKeyChar();
+	if(Character.isLetter(c)) {
+		getToolkit().beep();
+		evt.consume();
+        }
+     
+            trsfiltro = new TableRowSorter(tablaVentas.getModel());
+            tablaVentas.setRowSorter(trsfiltro);   
     }//GEN-LAST:event_txtDniClienteKeyTyped
 
     

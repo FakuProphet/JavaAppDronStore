@@ -99,7 +99,7 @@ public class InformeSeis extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-        seleccionMes = jMonthChooser1.getMonth();
+        seleccionMes = jMonthChooser1.getMonth() + 1;
         cargarTabla(seleccionMes);
         
     }//GEN-LAST:event_jButton1ActionPerformed

@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Vistas;
-
-
 
 import Controlador.Gestor;
 import Dto.VentaDTO;
@@ -40,7 +34,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
     public FiltroVentasEntreFechas() {
         initComponents();
         g = new Gestor();
-         txtDniCliente.addKeyListener(new KeyAdapter() {
+        txtDniCliente.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(final KeyEvent e) {
                 String cadena = (txtDniCliente.getText().toUpperCase());
@@ -300,18 +294,20 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnFiltroActionPerformed
 
+    
     private void txtDniClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniClienteKeyTyped
         
         char c=evt.getKeyChar();
-	if(Character.isLetter(c)) {
+	if(Character.isLetter(c)) 
+        {
 		getToolkit().beep();
 		evt.consume();
         }
-     
-            trsfiltro = new TableRowSorter(tablaVentas.getModel());
-            tablaVentas.setRowSorter(trsfiltro);   
+        trsfiltro = new TableRowSorter(tablaVentas.getModel());
+        tablaVentas.setRowSorter(trsfiltro);   
     }//GEN-LAST:event_txtDniClienteKeyTyped
 
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
         FiltroVentasEntreFechas nuevo = new FiltroVentasEntreFechas();
@@ -326,6 +322,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         frame.setLocation((dim.width - framesise.width) / 2, (dim.height - framesise.height) / 2);
         frame.show();
     }
+    
     
     private void calculos()
     {
@@ -402,7 +399,6 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
             lblCantidadFilas.setText(String.valueOf(c));
             tablaVentas.setGridColor(new java.awt.Color(214, 213, 208));
             //tamaño de columnas
-            
             tablaVentas.getColumnModel().getColumn(0).setPreferredWidth(60);
             tablaVentas.getColumnModel().getColumn(4).setPreferredWidth(90);
             tablaVentas.getColumnModel().getColumn(0).setPreferredWidth(60);

@@ -46,7 +46,7 @@ public class interfaz extends javax.swing.JFrame {
         FOTO_D = new javax.swing.JLabel();
         CMD_NEXT = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 

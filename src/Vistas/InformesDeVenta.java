@@ -13,6 +13,7 @@ import Modelo.Producto;
 import static Vistas.Main.panelEscritorio;
 import java.awt.Dimension;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -266,9 +267,9 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
             int anio = anioElegido.getValue();
             
             double total = g.get_total_facturado_por_mes_y_anio(mes, anio);
-            
+            DecimalFormat f = new DecimalFormat("###,###.##");
            
-            lblTotalFacturadoPorParam.setText("$"+String.valueOf(total));
+            lblTotalFacturadoPorParam.setText("$"+String.valueOf(f.format(total)));
             
             
         } catch (SQLException ex) {

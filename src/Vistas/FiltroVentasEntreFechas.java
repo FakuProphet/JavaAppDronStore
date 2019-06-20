@@ -31,6 +31,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
     private String fechaFinal;
     private TableRowSorter trsfiltro;
     String filtro;
+    int c;
     public FiltroVentasEntreFechas() {
         initComponents();
         g = new Gestor();
@@ -356,13 +357,17 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
             {
                 cantidadDebito++;
             }
+            
+            
+      
+            
         }
         //5*100/10  parcial*100/parcial
         DecimalFormat f = new DecimalFormat("###,###.##");
-        porcTarjeta = cantidadTarjeta * 100 / tablaVentas.getRowCount();
-        porcEfectivo = cantidadEfectivo * 100 / tablaVentas.getRowCount();
-        porcDebito = cantidadDebito * 100 / tablaVentas.getRowCount();
-        porcTrans = cantidadTranf * 100 / tablaVentas.getRowCount();
+        porcTarjeta = (cantidadTarjeta * 100) / c;
+        porcEfectivo = (cantidadEfectivo * 100) / c;
+        porcDebito = (cantidadDebito * 100) / c;
+        porcTrans = (cantidadTranf * 100) / c;
         lblCantArtVendidos.setText(String.valueOf(cantidadAcumulada));
         lblMonto.setText("$"+String.valueOf(f.format(monto)));
         lblPorcTarjeta.setText(String.valueOf(porcTarjeta)+"%");
@@ -395,7 +400,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
 
             tablaVentas.setModel(modelo);
             //color de los bordes de las celdas
-            int c =tablaVentas.getRowCount();
+            c =tablaVentas.getRowCount();
             lblCantidadFilas.setText(String.valueOf(c));
             tablaVentas.setGridColor(new java.awt.Color(214, 213, 208));
             //tamaño de columnas

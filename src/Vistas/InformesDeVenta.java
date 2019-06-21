@@ -10,6 +10,7 @@ import Dto.ProductoDTO;
 import Modelo.CellRenderer;
 import Modelo.HeaderCellRenderer;
 import Modelo.Producto;
+import Reporte.Reporte;
 import static Vistas.Main.panelEscritorio;
 import java.awt.Dimension;
 import java.sql.SQLException;
@@ -66,6 +67,7 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
+        btnInformeMensual = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Informe de ventas");
@@ -163,6 +165,13 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
             }
         });
 
+        btnInformeMensual.setText("Ver informe completo ");
+        btnInformeMensual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInformeMensualActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -171,9 +180,11 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addComponent(btnInformeMensual, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -241,7 +252,9 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblTotalFacturadoPorParam)
                             .addComponent(lblMes))
-                        .addGap(89, 89, 89)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnInformeMensual)
+                        .addGap(39, 39, 39)
                         .addComponent(jLabel2)
                         .addGap(27, 27, 27)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -346,6 +359,11 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
         CentrarVentana(nuevo);
     }//GEN-LAST:event_jButton9ActionPerformed
 
+    private void btnInformeMensualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformeMensualActionPerformed
+        Reporte nuevo = new Reporte();
+        nuevo.getInformeMensualVentasAnioActual();
+    }//GEN-LAST:event_btnInformeMensualActionPerformed
+
     
     private String fechaActual()
     {
@@ -411,6 +429,7 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JYearChooser anioElegido;
     private javax.swing.JButton btnFiltroFactMesAnio;
+    private javax.swing.JButton btnInformeMensual;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

@@ -60,6 +60,24 @@ public void getComprobanteVenta(int nroVenta,int dni)
 }     
 
 
+public void getInformeMensualVentasAnioActual()
+{        
+    try
+    {
+        JasperReport miReporte = (JasperReport)JRLoader.loadObject("src/Reporte/report1.jasper");
+        Map parametros = new HashMap();
+       
+        JasperPrint j = JasperFillManager.fillReport(miReporte, parametros, Conexion.conectar());
+        JasperViewer jv = new JasperViewer(j,false);
+        jv.setTitle("Informe de ventas mensual");
+        jv.setVisible(true);   
+    }
+    catch(Exception error)
+    {
+        JOptionPane.showMessageDialog(null,"Error al generar el documento de informes mensual. "+error);
+    }
+}          
+
 
 
 }

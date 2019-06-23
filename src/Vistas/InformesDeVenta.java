@@ -165,7 +165,7 @@ public class InformesDeVenta extends javax.swing.JInternalFrame {
             }
         });
 
-        btnInformeMensual.setText("Ver informe completo ");
+        btnInformeMensual.setText("Ver informe gráfico completo ");
         btnInformeMensual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInformeMensualActionPerformed(evt);

@@ -7,9 +7,19 @@ import Modelo.CellRenderer;
 import Modelo.HeaderCellRenderer;
 import Modelo.Ventana;
 import static Vistas.Main.panelEscritorio;
+import com.orsonpdf.PDFDocument;
+import com.orsonpdf.PDFGraphics2D;
+import com.orsonpdf.Page;
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GradientPaint;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -22,12 +32,14 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
-
-
-
-
-
-
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.title.TextTitle;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.general.PieDataset;
+import org.jfree.ui.HorizontalAlignment;
+import org.jfree.ui.RectangleEdge;
 
 
 public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
@@ -37,6 +49,12 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
     private String fechaFinal;
     private String fIni;
     private String fFin;
+    private static String f1;
+    private static String f2;
+    private static double pTarjeta;
+    private static double pDebito;
+    private static double pTransf;
+    private static double pEfectivo;
     private TableRowSorter trsfiltro;
     String filtro;
     int c;
@@ -85,6 +103,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         txtDniCliente = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -158,12 +177,19 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton3.setText("PDF");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addContainerGap(41, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
@@ -177,21 +203,25 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
                         .addComponent(jLabel6)
                         .addGap(40, 40, 40)
                         .addComponent(lblMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 871, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(fechaDesde, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                            .addComponent(txtDniCliente))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(fechaHasta, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(fechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(fechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtDniCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -213,14 +243,14 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
                         .addComponent(fechaHasta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnFiltro))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(txtDniCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addComponent(txtDniCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jButton3))
                 .addGap(21, 21, 21)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -229,7 +259,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
                     .addComponent(lblCantArtVendidos)
                     .addComponent(jLabel6)
                     .addComponent(lblMonto))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -252,12 +282,13 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         Date fechaIni = this.fechaDesde.getDate();
         Date fechaFin = this.fechaHasta.getDate();
         DateFormat f = new SimpleDateFormat("yyyyMMdd");
-        DateFormat f2 = new SimpleDateFormat("dd-MM-yyyy");
-        fIni = f2.format(fechaIni);
-        fFin = f2.format(fechaFin);
+        DateFormat ff = new SimpleDateFormat("dd-MM-yyyy");
+        fIni = ff.format(fechaIni);
+        fFin = ff.format(fechaFin);
         fechaInicio = f.format(fechaIni);
         fechaFinal = f.format(fechaFin);
-        
+        f1=fIni;
+        f2=fFin;
         try
         {
             cargarTabla();
@@ -271,12 +302,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_btnFiltroActionPerformed
-
-    
   
-    
-    
-    
     private void txtDniClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniClienteKeyTyped
         
         char c=evt.getKeyChar();
@@ -300,6 +326,12 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         Ventana nueva = new  Ventana(porcEfectivo, porcTrans, porcDebito, porcTarjeta,fIni,fFin);
         nueva.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // emite e documento en pdf en la ubicación especificada
+        
+        emitirArchivoPDF();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     
     void CentrarVentana(JInternalFrame frame) {
@@ -353,7 +385,10 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         porcTrans = (cantidadTranf * 100) / c;
         lblCantArtVendidos.setText(String.valueOf(cantidadAcumulada));
         lblMonto.setText("$"+String.valueOf(f.format(monto)));
-
+        pTarjeta=porcTarjeta;
+        pDebito=porcDebito;
+        pTransf=porcTrans;
+        pEfectivo=porcEfectivo;
     }
     
     private void cargarTabla() {
@@ -408,6 +443,107 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
     }
     
     
+    
+    private void emitirArchivoPDF()
+    {
+        JFreeChart chart = createChart(createDataset());
+        
+        PDFDocument pdfDoc = new PDFDocument();
+        pdfDoc.setTitle("Reporte Drone Store");
+        pdfDoc.setAuthor("lucia de Leonardis");
+        
+        Page page = pdfDoc.createPage(new Rectangle(612, 800));    
+        PDFGraphics2D g2 = page.getGraphics2D();
+
+        chart.draw(g2, new Rectangle(0, 0, 612, 800));       
+        pdfDoc.writeToFile(new File("E:\\JFreeChart-PDF.pdf"));
+        
+        
+        System.out.println("archivo pdf generado correctamente...");
+    }
+    
+    
+    
+    private static PieDataset createDataset() {
+        DefaultPieDataset dataset = new DefaultPieDataset();
+        if(pTarjeta>0.0)
+        {
+            dataset.setValue("Tarjeta de crédito", pTarjeta);
+        }
+        if(pDebito>0.0)
+        {
+            dataset.setValue("Débito", pDebito);
+        }
+        if(pTransf>0.0)
+        {
+            dataset.setValue("Transferencia", pTransf);
+        }
+        if(pEfectivo>0.0)
+        {
+            dataset.setValue("Efectivo", pEfectivo);
+        }
+
+        return dataset;
+    }
+
+    public static JFreeChart createChart(PieDataset dataset) {
+
+        JFreeChart chart = ChartFactory.createPieChart(
+                "INFORME DE VENTAS", dataset, false, false, false);
+
+        chart.setBackgroundPaint(new GradientPaint(new Point(0, 0),
+                new Color(20, 20, 20), new Point(400, 200), Color.DARK_GRAY));
+
+        TextTitle t = chart.getTitle();
+        t.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        t.setPaint(new Color(240, 240, 240));
+        t.setFont(new Font("Arial", Font.BOLD, 26));
+
+        PiePlot plot = (PiePlot) chart.getPlot();
+
+        plot.setBackgroundPaint(null);
+        plot.setInteriorGap(0.04);
+        plot.setOutlineVisible(false);
+        plot.setShadowPaint(null);
+        plot.setLabelShadowPaint(null);
+        plot.setBaseSectionOutlinePaint(Color.WHITE);
+        plot.setSectionOutlinesVisible(true);
+        plot.setBaseSectionOutlineStroke(new BasicStroke(2.0f));
+        plot.setLabelFont(new Font("Courier New", Font.BOLD, 20));
+        plot.setLabelLinkPaint(Color.WHITE);
+        plot.setLabelLinkStroke(new BasicStroke(2.0f));
+        plot.setLabelOutlineStroke(null);
+        plot.setLabelPaint(Color.WHITE);
+        plot.setLabelBackgroundPaint(null);
+
+        TextTitle url = new TextTitle(
+                "Web: http://dronestore.com",
+                new Font("Courier New", Font.PLAIN, 12));
+        url.setPaint(Color.WHITE);
+        url.setPosition(RectangleEdge.BOTTOM);
+        url.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+
+        TextTitle description = new TextTitle(
+                "Reporte de ventas entre las fechas "+f1+ " y el " +f2 ,
+                new Font("Arial", Font.PLAIN, 18));
+        description.setPaint(Color.LIGHT_GRAY);
+        description.setPosition(RectangleEdge.TOP);
+        description.setHorizontalAlignment(HorizontalAlignment.CENTER);
+
+
+        chart.addSubtitle(description);
+        chart.addSubtitle(url);
+
+        return chart;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFiltro;
@@ -415,6 +551,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser fechaHasta;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

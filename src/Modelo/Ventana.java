@@ -19,13 +19,15 @@ public class Ventana extends JFrame {
     
     JPanel panel;
     public Ventana(double efec,double trans, double deb,double cred,String fechaDesde,String fechaHasta){
-        setTitle("Porcentajes formas de pago entre el "+fechaDesde+ " hasta " +fechaHasta);
+        setTitle("Porcentajes formas de pago entre DESDE el "+fechaDesde+ " HASTA " +fechaHasta);
         setSize(800,600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
         init(efec,trans,deb,cred);
     }
+    
+    
     
     private void init(double efec,double trans, double deb,double cred) {
         panel = new JPanel();
@@ -40,6 +42,7 @@ public class Ventana extends JFrame {
         
  
         // Creando el Grafico
+        
         JFreeChart chart = ChartFactory.createPieChart3D("Drone Store", defaultpiedataset, true, true, false); 
         PiePlot3D pieplot3d = (PiePlot3D)chart.getPlot(); 
         pieplot3d.setDepthFactor(0.5); 

@@ -27,6 +27,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,6 +61,9 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
     private static double pDebito;
     private static double pTransf;
     private static double pEfectivo;
+    private static int cantArtVendidos;
+    private static double montoTotalFacturado;
+    private static int cantidadVentasFiltro;
     private TableRowSorter trsfiltro;
     private MasVendido miProductoMasVendido;
     private static String productoMasVendido;
@@ -407,6 +411,9 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         pDebito=porcDebito;
         pTransf=porcTrans;
         pEfectivo=porcEfectivo;
+        cantArtVendidos = cantidadAcumulada;
+        montoTotalFacturado =  monto;
+        
     }
     
     private void cargarTabla() {
@@ -434,6 +441,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
             tablaVentas.setModel(modelo);
             //color de los bordes de las celdas
             c =tablaVentas.getRowCount();
+            cantidadVentasFiltro = c;
             lblCantidadFilas.setText(String.valueOf(c));
             tablaVentas.setGridColor(new java.awt.Color(214, 213, 208));
             //tamaño de columnas
@@ -484,23 +492,14 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
     
     private static PieDataset createDataset() {
         DefaultPieDataset dataset = new DefaultPieDataset();
-        if(pTarjeta>0.0)
-        {
-            dataset.setValue("Tarjeta de crédito", pTarjeta);
-        }
-        if(pDebito>0.0)
-        {
-            dataset.setValue("Débito", pDebito);
-        }
-        if(pTransf>0.0)
-        {
-            dataset.setValue("Transferencia", pTransf);
-        }
-        if(pEfectivo>0.0)
-        {
-            dataset.setValue("Efectivo", pEfectivo);
-        }
 
+       
+        dataset.setValue("Tarjeta de credito", pTarjeta);
+        dataset.setValue("Debito", pDebito);
+        dataset.setValue("Transferencia", pTransf);
+        dataset.setValue("Efectivo", pEfectivo);
+        
+      
         return dataset;
     }
 
@@ -508,6 +507,8 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
 
         JFreeChart chart = ChartFactory.createPieChart(
                 "INFORME DE VENTAS Y FORMAS DE PAGO", dataset, false, false, false);
+        
+        
 
         chart.setBackgroundPaint(new GradientPaint(new Point(0, 0),
                 new Color(20, 20, 20), new Point(400, 200), Color.LIGHT_GRAY));
@@ -528,16 +529,18 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         plot.setBaseSectionOutlinePaint(Color.WHITE);
         plot.setSectionOutlinesVisible(true);
         plot.setBaseSectionOutlineStroke(new BasicStroke(2.0f));
-        plot.setLabelFont(new Font("Courier New", Font.BOLD, 20));
+        plot.setLabelFont(new Font("Courier New", Font.BOLD, 12));
         plot.setLabelLinkPaint(Color.WHITE);
         plot.setLabelLinkStroke(new BasicStroke(2.0f));
         plot.setLabelOutlineStroke(null);
         plot.setLabelPaint(Color.WHITE);
         plot.setLabelBackgroundPaint(null);
-
+        plot.setIgnoreZeroValues(true);
+        
+        
         TextTitle url = new TextTitle(
                 "Web: http://dronestore.com",
-                new Font("Courier New", Font.PLAIN, 12));
+                new Font("Courier New", Font.PLAIN, 15));
         url.setPaint(Color.BLUE);
         url.setPosition(RectangleEdge.BOTTOM);
         url.setHorizontalAlignment(HorizontalAlignment.RIGHT);
@@ -553,15 +556,41 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         TextTitle masVendido = new TextTitle(
                 "El producto mas vendido fue: "+productoMasVendido,
                 new Font("Arial", Font.PLAIN, 18));
-        masVendido.setPaint(Color.GREEN);
+        masVendido.setPaint(Color.RED);
         masVendido.setPosition(RectangleEdge.TOP);
         masVendido.setHorizontalAlignment(HorizontalAlignment.CENTER);
         
         
+        TextTitle totalArt = new TextTitle(
+                "Total de articulos vendidos: "+cantArtVendidos,
+                new Font("Arial", Font.PLAIN, 18));
+        totalArt.setPaint(Color.RED);
+        totalArt.setPosition(RectangleEdge.TOP);
+        totalArt.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        
+        TextTitle cantVentas = new TextTitle(
+                "Cantidad de ventas: "+cantidadVentasFiltro,
+                new Font("Arial", Font.PLAIN, 18));
+        cantVentas.setPaint(Color.RED);
+        cantVentas.setPosition(RectangleEdge.TOP);
+        cantVentas.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        
+        
+        DecimalFormat f = new DecimalFormat("###,###.##");
+        String montoFiltrado = String.valueOf(f.format(montoTotalFacturado));
+        TextTitle montoTotal = new TextTitle(
+                "Monto total facturado: $"+montoFiltrado,
+                new Font("Arial", Font.PLAIN, 18));
+        montoTotal.setPaint(Color.RED);
+        montoTotal.setPosition(RectangleEdge.TOP);
+        montoTotal.setHorizontalAlignment(HorizontalAlignment.CENTER);
         
         
         chart.addSubtitle(description);
         chart.addSubtitle(masVendido);
+        chart.addSubtitle(cantVentas);
+        chart.addSubtitle(totalArt);
+        chart.addSubtitle(montoTotal);
         chart.addSubtitle(url);
 
         return chart;

@@ -22,7 +22,7 @@ public class Ventana extends JFrame {
         setTitle("Porcentajes formas de pago entre el "+fechaDesde+ " hasta " +fechaHasta);
         setSize(800,600);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
         init(efec,trans,deb,cred);
     }

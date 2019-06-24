@@ -35,6 +35,7 @@ import javax.swing.table.TableRowSorter;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.title.LegendTitle;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
@@ -178,6 +179,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         });
 
         jButton3.setText("PDF");
+        jButton3.setEnabled(false);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -295,6 +297,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
             calculos();
             txtDniCliente.setEnabled(true);
             jButton2.setEnabled(true);
+            jButton3.setEnabled(true);
         }
         catch(Exception e)
         {
@@ -456,7 +459,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         PDFGraphics2D g2 = page.getGraphics2D();
 
         chart.draw(g2, new Rectangle(0, 0, 612, 800));       
-        pdfDoc.writeToFile(new File("E:\\JFreeChart-PDF.pdf"));
+        pdfDoc.writeToFile(new File("C:\\InformesDroneStore\\DroneStore.pdf"));
         
         
         System.out.println("archivo pdf generado correctamente...");
@@ -489,10 +492,10 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
     public static JFreeChart createChart(PieDataset dataset) {
 
         JFreeChart chart = ChartFactory.createPieChart(
-                "INFORME DE VENTAS", dataset, false, false, false);
+                "INFORME DE VENTAS Y FORMAS DE PAGO", dataset, false, false, false);
 
         chart.setBackgroundPaint(new GradientPaint(new Point(0, 0),
-                new Color(20, 20, 20), new Point(400, 200), Color.DARK_GRAY));
+                new Color(20, 20, 20), new Point(400, 200), Color.LIGHT_GRAY));
 
         TextTitle t = chart.getTitle();
         t.setHorizontalAlignment(HorizontalAlignment.CENTER);
@@ -501,6 +504,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
 
         PiePlot plot = (PiePlot) chart.getPlot();
 
+        
         plot.setBackgroundPaint(null);
         plot.setInteriorGap(0.04);
         plot.setOutlineVisible(false);
@@ -519,14 +523,14 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         TextTitle url = new TextTitle(
                 "Web: http://dronestore.com",
                 new Font("Courier New", Font.PLAIN, 12));
-        url.setPaint(Color.WHITE);
+        url.setPaint(Color.BLUE);
         url.setPosition(RectangleEdge.BOTTOM);
         url.setHorizontalAlignment(HorizontalAlignment.RIGHT);
 
         TextTitle description = new TextTitle(
                 "Reporte de ventas entre las fechas "+f1+ " y el " +f2 ,
                 new Font("Arial", Font.PLAIN, 18));
-        description.setPaint(Color.LIGHT_GRAY);
+        description.setPaint(Color.DARK_GRAY);
         description.setPosition(RectangleEdge.TOP);
         description.setHorizontalAlignment(HorizontalAlignment.CENTER);
 

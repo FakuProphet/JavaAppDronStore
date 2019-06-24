@@ -2,6 +2,7 @@ package Controlador;
 
 
 import Dto.CarritoDTO;
+import Dto.MasVendido;
 import Dto.ProductoDTO;
 import Dto.ProductoExistencia;
 import Dto.VentaDTO;
@@ -1698,6 +1699,50 @@ public class Gestor {
 
         return listado;
     }
+    
+    
+    public MasVendido getMasVendido(String fechaInicio, String fechaFinal) throws SQLException {
+        
+        MasVendido v = null;
+        
+        ResultSet rs;
+        try {
+            // creamos la Conexion
+            // como la clase conexion es estatica no se instancia
+            con = Conexion.conectar();
+            con.setAutoCommit(false);
+
+            /*
+             *  instanciamos el objeto callable donde 
+             *  ingresamos el nombre del sp, junto con los parametros, si los tuviera
+             */
+            CallableStatement prcProcedimientoAlmacenado = con.prepareCall("{call sp_mas_vendido_entre_fechas(?,?)}");
+            //si posee parametros se los indicamos, y le indicamos de que tipo
+            prcProcedimientoAlmacenado.setString(1, fechaInicio);
+            prcProcedimientoAlmacenado.setString(2, fechaFinal);
+            rs = prcProcedimientoAlmacenado.executeQuery();
+
+            if (rs.next()) {
+              
+                v = new MasVendido();
+                
+                v.setNombre(rs.getString(1));
+                v.setCodigo(rs.getInt(2));
+                v.setCantidad(rs.getInt(3));
+                
+               
+            }
+
+            con.commit(); 
+            con.close();
+
+        } catch (Exception e) {
+            con.rollback();        
+        } 
+
+        return v;
+    }
+    
     
     
     

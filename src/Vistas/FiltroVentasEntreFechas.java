@@ -2,6 +2,7 @@
 package Vistas;
 
 import Controlador.Gestor;
+import Dto.MasVendido;
 import Dto.VentaDTO;
 import Modelo.CellRenderer;
 import Modelo.HeaderCellRenderer;
@@ -20,12 +21,15 @@ import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
@@ -57,6 +61,8 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
     private static double pTransf;
     private static double pEfectivo;
     private TableRowSorter trsfiltro;
+    private MasVendido miProductoMasVendido;
+    private static String productoMasVendido;
     String filtro;
     int c;
     double porcTarjeta=0.0;
@@ -280,7 +286,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
     
     private void btnFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltroActionPerformed
         // Aplicar filtro para busqueda de ventas
-        
+        miProductoMasVendido = new MasVendido();
         Date fechaIni = this.fechaDesde.getDate();
         Date fechaFin = this.fechaHasta.getDate();
         DateFormat f = new SimpleDateFormat("yyyyMMdd");
@@ -291,6 +297,15 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         fechaFinal = f.format(fechaFin);
         f1=fIni;
         f2=fFin;
+        
+        try 
+        {
+            miProductoMasVendido = g.getMasVendido(fechaInicio, fechaFinal);
+            productoMasVendido = miProductoMasVendido.getNombre();
+        } catch (SQLException ex) {
+            Logger.getLogger(FiltroVentasEntreFechas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         try
         {
             cargarTabla();
@@ -535,7 +550,18 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         description.setHorizontalAlignment(HorizontalAlignment.CENTER);
 
 
+        TextTitle masVendido = new TextTitle(
+                "El producto mas vendido fue: "+productoMasVendido,
+                new Font("Arial", Font.PLAIN, 18));
+        masVendido.setPaint(Color.GREEN);
+        masVendido.setPosition(RectangleEdge.TOP);
+        masVendido.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        
+        
+        
+        
         chart.addSubtitle(description);
+        chart.addSubtitle(masVendido);
         chart.addSubtitle(url);
 
         return chart;

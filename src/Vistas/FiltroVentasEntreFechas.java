@@ -28,7 +28,6 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,7 +40,6 @@ import javax.swing.table.TableRowSorter;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot;
-import org.jfree.chart.title.LegendTitle;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
@@ -191,6 +189,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         });
 
         jButton4.setText("Emitir listado ");
+        jButton4.setEnabled(false);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -264,7 +263,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(lblCantidadFilas)
@@ -272,13 +271,19 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
                     .addComponent(lblCantArtVendidos)
                     .addComponent(jLabel6)
                     .addComponent(lblMonto))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+    private String getFecha()
+    {
+        Date fecha = new Date();
+        SimpleDateFormat f = new SimpleDateFormat("dd-MM-YY");
+        String salida = f.format(fecha);
+        return salida;
+    }
      
     
     public void filtro() 
@@ -318,6 +323,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
             txtDni.setEnabled(true);
             jButton2.setEnabled(true);
             jButton3.setEnabled(true);
+            jButton4.setEnabled(true);
         }
         catch(Exception e)
         {
@@ -472,19 +478,15 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
     private void emitirArchivoPDF()
     {
         JFreeChart chart = createChart(createDataset());
-        
         PDFDocument pdfDoc = new PDFDocument();
         pdfDoc.setTitle("Reporte Drone Store");
         pdfDoc.setAuthor("lucia de Leonardis");
-        
         Page page = pdfDoc.createPage(new Rectangle(612, 800));    
         PDFGraphics2D g2 = page.getGraphics2D();
-
         chart.draw(g2, new Rectangle(0, 0, 612, 800));       
-        pdfDoc.writeToFile(new File("C:\\InformesDroneStore\\DroneStore.pdf"));
-        
-        
+        pdfDoc.writeToFile(new File("C:\\InformesDroneStore\\MiInformeDeVentas.pdf"));
         System.out.println("archivo pdf generado correctamente...");
+        JOptionPane.showMessageDialog(this,"El documento ha sido generado con éxito, en la unbicación predeterminada.","Aviso",JOptionPane.INFORMATION_MESSAGE);
     }
     
     

@@ -5,7 +5,6 @@ import Controlador.Gestor;
 import Modelo.Marca;
 import Modelo.Pais;
 import Modelo.Producto;
-import Modelo.Proveedor;
 import Modelo.TipoDron;
 import Modelo.TipoProducto;
 import Modelo.UM;

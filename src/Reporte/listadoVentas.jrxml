@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="10"/>
+	<parameter name="fechaInicio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaFinal" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select v.nro_venta,v.fecha,v.hora,t.descripcion 'Forma de pago',upper(o.apellido)+' '+o.nombre as vendedor,v.id_cliente as 'Cliente',
+	sum(d.cantidad) as 'Cantidad de articulos',sum(p.precioUnitario*d.cantidad) 'Monto total'
+	from Ventas v inner join Operadores o on v.id_operador=o.id_operador
+	inner join TiposDePago t on v.id_formaPago=t.id_formaPago inner join DetalleVentas d on v.nro_venta=d.nro_venta
+	inner join Productos p on d.id_producto=p.id_producto
+	where fechaCompleta BETWEEN $P{fechaInicio}  and $P{fechaFinal}
+	group by v.nro_venta,v.fecha,v.hora,t.descripcion,v.id_cliente,o.apellido,o.nombre]]>
+	</queryString>
+	<field name="nro_venta" class="java.lang.Integer"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="hora" class="java.lang.String"/>
+	<field name="Forma de pago" class="java.lang.String"/>
+	<field name="vendedor" class="java.lang.String"/>
+	<field name="Cliente" class="java.lang.Integer"/>
+	<field name="Cantidad de articulos" class="java.lang.Integer"/>
+	<field name="Monto total" class="java.math.BigDecimal"/>
+	<variable name="Monto total_1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{Monto total}]]></variableExpression>
+	</variable>
+	<variable name="Cantidad de articulos_1" class="java.lang.Integer" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{Cantidad de articulos}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="36" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="76" splitType="Stretch">
+			<staticText>
+				<reportElement x="285" y="26" width="231" height="27"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LISTADO DE VENTAS]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="646" y="33" width="100" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="41" width="52" height="20"/>
+				<textElement/>
+				<text><![CDATA[nro venta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="41" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="175" y="41" width="47" height="20"/>
+				<textElement/>
+				<text><![CDATA[hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="238" y="41" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Forma de pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="349" y="41" width="127" height="20"/>
+				<textElement/>
+				<text><![CDATA[vendedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="476" y="41" width="69" height="20"/>
+				<textElement/>
+				<text><![CDATA[Cliente DNI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="559" y="41" width="114" height="20"/>
+				<textElement/>
+				<text><![CDATA[Cantidad de articulos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="698" y="41" width="93" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto ]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="52" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{nro_venta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="63" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="175" y="0" width="47" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{hora}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="238" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Forma de pago}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="349" y="0" width="127" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{vendedor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="476" y="0" width="69" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{Cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="559" y="0" width="114" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{Cantidad de articulos}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="698" y="1" width="93" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{Monto total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="719" y="1" width="13" height="20"/>
+				<textElement/>
+				<text><![CDATA[$]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="24" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="646" y="0" width="64" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Pagina "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="720" y="0" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="78" splitType="Stretch"/>
+	</summary>
+</jasperReport>

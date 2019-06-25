@@ -78,6 +78,23 @@ public void getInformeMensualVentasAnioActual()
     }
 }          
 
-
+public void emitirListadoVentasFiltradas(String fInicio,String fFinal)
+{        
+    try
+    {
+        JasperReport miReporte = (JasperReport)JRLoader.loadObject("src/Reporte/listadoVentas.jasper");
+        Map parametros = new HashMap();
+        parametros.put("fechaInicio", fInicio);
+        parametros.put("fechaFinal", fFinal);
+        JasperPrint j = JasperFillManager.fillReport(miReporte, parametros, Conexion.conectar());
+        JasperViewer jv = new JasperViewer(j,false);
+        jv.setTitle("Listado de ventas filtrdas");
+        jv.setVisible(true);   
+    }
+    catch(Exception error)
+    {
+        JOptionPane.showMessageDialog(null,"Error al generar el documento. "+error);
+    }
+}          
 
 }

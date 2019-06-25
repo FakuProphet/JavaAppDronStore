@@ -7,6 +7,7 @@ import Dto.VentaDTO;
 import Modelo.CellRenderer;
 import Modelo.HeaderCellRenderer;
 import Modelo.Ventana;
+import Reporte.Reporte;
 import static Vistas.Main.panelEscritorio;
 import com.orsonpdf.PDFDocument;
 import com.orsonpdf.PDFGraphics2D;
@@ -75,12 +76,14 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
     double porcTrans=0.0;
     public FiltroVentasEntreFechas() {
         initComponents();
+        
+        txtDni.setVisible(false);
         g = new Gestor();
-        txtDniCliente.addKeyListener(new KeyAdapter() {
+        txtDni.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(final KeyEvent e) {
-                String cadena = (txtDniCliente.getText().toUpperCase());
-                txtDniCliente.setText(cadena);
+                String cadena = (txtDni.getText().toUpperCase());
+                txtDni.setText(cadena);
                 repaint();
                 filtro();
             }
@@ -110,11 +113,11 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         lblCantArtVendidos = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         lblMonto = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        txtDniCliente = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        txtDni = new javax.swing.JTextField();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -164,15 +167,6 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
 
         lblMonto.setText("...");
 
-        jLabel3.setText("REFINAR POR DNI CLIENTE:");
-
-        txtDniCliente.setEnabled(false);
-        txtDniCliente.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtDniClienteKeyTyped(evt);
-            }
-        });
-
         jButton1.setText("Limpiar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,51 +190,55 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton4.setText("Emitir listado ");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        txtDni.setText("jTextField1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(41, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(31, 31, 31)
-                        .addComponent(lblCantidadFilas, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(jLabel5)
-                        .addGap(30, 30, 30)
-                        .addComponent(lblCantArtVendidos, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6)
-                        .addGap(40, 40, 40)
-                        .addComponent(lblMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addGap(31, 31, 31)
+                            .addComponent(lblCantidadFilas, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(35, 35, 35)
+                            .addComponent(jLabel5)
+                            .addGap(30, 30, 30)
+                            .addComponent(lblCantArtVendidos, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
+                            .addComponent(jLabel6)
+                            .addGap(40, 40, 40)
+                            .addComponent(lblMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(fechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(fechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtDniCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(btnFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(fechaDesde, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(fechaHasta, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -255,15 +253,18 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
                         .addComponent(fechaHasta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnFiltro))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(txtDniCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton2)
+                        .addComponent(jButton3))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1)
+                        .addComponent(jButton4)))
                 .addGap(21, 21, 21)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(lblCantidadFilas)
@@ -271,7 +272,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
                     .addComponent(lblCantArtVendidos)
                     .addComponent(jLabel6)
                     .addComponent(lblMonto))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -282,8 +283,8 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
     
     public void filtro() 
     {
-        filtro = txtDniCliente.getText();
-        trsfiltro.setRowFilter(RowFilter.regexFilter(txtDniCliente.getText(), 5));
+        filtro = txtDni.getText();
+        trsfiltro.setRowFilter(RowFilter.regexFilter(txtDni.getText(), 5));
         calculos();
     }
     
@@ -314,7 +315,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         {
             cargarTabla();
             calculos();
-            txtDniCliente.setEnabled(true);
+            txtDni.setEnabled(true);
             jButton2.setEnabled(true);
             jButton3.setEnabled(true);
         }
@@ -325,18 +326,6 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnFiltroActionPerformed
   
-    private void txtDniClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniClienteKeyTyped
-        
-        char c=evt.getKeyChar();
-	if(Character.isLetter(c)) 
-        {
-		getToolkit().beep();
-		evt.consume();
-        }
-        trsfiltro = new TableRowSorter(tablaVentas.getModel());
-        tablaVentas.setRowSorter(trsfiltro);   
-    }//GEN-LAST:event_txtDniClienteKeyTyped
-
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
@@ -354,6 +343,16 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         
         emitirArchivoPDF();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        Date fechaIni = this.fechaDesde.getDate();
+        Date fechaFin = this.fechaHasta.getDate();
+        DateFormat f = new SimpleDateFormat("yyyyMMdd");
+        String fInicio = f.format(fechaIni);
+        String fFinal = f.format(fechaFin);
+        Reporte nuevo = new Reporte();
+        nuevo.emitirListadoVentasFiltradas(fInicio, fFinal); 
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     
     void CentrarVentana(JInternalFrame frame) {
@@ -533,7 +532,7 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
         plot.setLabelLinkPaint(Color.WHITE);
         plot.setLabelLinkStroke(new BasicStroke(2.0f));
         plot.setLabelOutlineStroke(null);
-        plot.setLabelPaint(Color.WHITE);
+        plot.setLabelPaint(Color.PINK);
         plot.setLabelBackgroundPaint(null);
         plot.setIgnoreZeroValues(true);
         
@@ -611,10 +610,10 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -623,6 +622,6 @@ public class FiltroVentasEntreFechas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblCantidadFilas;
     private javax.swing.JLabel lblMonto;
     private javax.swing.JTable tablaVentas;
-    private javax.swing.JTextField txtDniCliente;
+    private javax.swing.JTextField txtDni;
     // End of variables declaration//GEN-END:variables
 }
